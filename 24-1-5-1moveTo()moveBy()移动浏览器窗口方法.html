@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-1-5-1moveTo()moveBy()移动浏览器窗口方法</title>
+    <style></style>
+  </head>
+  <body>
+    <p>
+      moveTo()和moveBy()都是Window对象的方法，用于移动当前浏览器窗口的位置(相对于屏幕)。
+      <br />它们的区别是，moveTo()方法将浏览器窗口移动到指定的绝对坐标，而moveBy()方法将浏览器窗口相对于其当前坐标移动若干像素。它们的语法是：
+      <br />.moveTo(x,y)//将浏览器窗口左上角移动到x,y坐标
+      <br />.moveBy(deltaX,deltaY)//将浏览器窗口相对于当前位置移动deltaX,deltaY像素
+    </p>
+    <p>
+      其中，x和y是必需的参数，表示水平和垂直方向上的像素值；deltaX和deltaY也是必需的参数，表示水平和垂直方向上的偏移量，可以是正数或负数。
+    </p>
+    <!-- <script>
+      myWindow = window.open("", "", "width=400, height=400");
+      myWindow.moveBy(400, 0); //弹出的新窗口(尺寸400*400)的左上角位置,是相对于显示器左上角的400,0
+      myWindow.moveTo(400, 0); //弹出的新窗口(尺寸400*400)的左上角位置,也是相对于显示器左上角的400,0
+    </script> -->
+    <script>
+      window.onload = function () {
+        setInterval(function () {
+          window.resizeTo(300, 300);
+          window.moveTo(75, 75);
+          console.log(
+            "我有点BUG,不能修改浏览器尺寸然后移动浏览器位置...,只能修改新弹出的独立窗口"
+          );
+        }, 2000);
+      };
+    </script>
+  </body>
+</html>

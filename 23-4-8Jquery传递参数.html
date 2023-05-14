@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>23-4-8Jquery传递参数</title>
+  </head>
+  <body>
+    <p>Jquery方法,经常需要传递参数对象,而非一个参数,如:</p>
+    <pre>
+      $.ajax({
+        type:"GET",
+        url:"test.js",
+        dataType:"script"
+      });
+    </pre>
+    <p>
+      使用对象直接量作为参数进行传递,可方便参数管理:
+      <li>参数个数不受限制</li>
+      <li>参数顺序可以随意</li>
+    </p>
+    <p>
+      直接把对象当作参数传入,需要涉及参数处理问题:
+      <li>如何解析并提取对象内的参数;</li>
+      <li>如何处理默认值</li>
+    </p>
+    <script>
+      var $ = (Jquery = function (selector, context) {
+        //Jquery构造函数
+        return new Jquery.fn.init(selector, context); //Jquery实例对象
+      });
+      Jquery.fn = Jquery.prototype = {
+        init: function (selector, context) {
+          //初始化构造函数
+          selector = selector || document; //初始化选择器,默认document
+          context = context || document; //初始化上下文对象,默认document
+          if (selector.nodeType) {
+            //如果是DOM对象
+            this[0] = selector; //直接把该DOM对象传递给实例对象这个伪数组的属性"0"
+            this.length = 1; //设置实例对象的length属性,表示包含一个DOM元素
+            this.context = selector; //重新设置上下文为DOM对象
+            return this; //返回当前实例
+          }
+          if (typeof selector === "string") {
+            //如果是选择符类型的字符串
+            let e = document.querySelectorAll(selector);
+            len = e.length;
+            for (let i = 0; i < len; i++) {
+              this[i] = e[i]; //把获取的所有DOM对象传递给实例对象这个伪数组
+            }
+            this.length = len; //保存实例的length属性,也就是获取到的DOM对象的个数
+            this.context = context; //保存上下文对象
+            return this; //返回当前实例
+          } else {
+            this.length = 0; //length为0,也就是输入的selector既不是现成的DOM对象,也不是字符串,因此啥都没获取到
+            this.context = context; //保存上下文对象
+            return this; //返回当前实例
+          }
+        },
+      };
+      Jquery.fn.init.prototype = Jquery.fn;
+      Jquery.each = function (object, callback, args) {
+        len = object.length;
+        for (let i = 0; i < len; i++) {
+          //因为Jquery对象中这个伪数组中,DOM元素就是数字作为属性名,而且有length属性.所以使用for循环迭代Jquery对象中每个DOM元素.
+          callback.call(object[i], args); //在每个DOM元素上执行回调 实参
+        }
+        return object; //返回Jquery对象
+      };
+      //重新定义Jquery扩展函数,有两个功能,一个是合并覆盖对象,一个是给原型上添加扩展方法
+      Jquery.extend = Jquery.fn.extend = function () {
+        let dest = arguments[0],
+          source = arguments[1]; //获得第一个实参和第二个实参
+        if (typeof dest == "object" && typeof source == "object") {
+          //如果存在两个实参,且都为对象
+          for (let property in source) {
+            dest[property] = source[property];
+          } //将第二个实参合并覆盖掉第一个实参,并返回合并后的第一个实参
+          return dest;
+        } else {
+          //如果只传入了一个实参,则改为:为Jquery扩展功能,将该功能插件复制到Jquery.fn原型对象上
+          for (let prop in dest) {
+            this[prop] = dest[prop];
+          }
+          return this;
+        }
+      };
+      //调用extend()扩展方法,加入一个fontStyle插件,并且有默认值
+      Jquery.fn.extend({
+        //传入的是一个对象,因此是功能2:给原型上添加扩展方法
+        fontStyle: function (obj) {
+          let defaults = {
+            color: "#000",
+            bgcolor: "#fff",
+            size: "14px",
+            style: "normal",
+          }; //设置默认值
+          defaults = Jquery.extend(defaults, obj || {}); //传入的是2个对象,因此是功能1:合并覆盖对象
+          Jquery.each(this, function () {
+            // 谁调用fontStyle()方法,谁就是上面这个this
+            this.style.color = defaults.color;
+            this.style.backgroundColor = defaults.bgcolor;
+            this.style.fontSize = defaults.size;
+            this.style.fontStyle = defaults.style;
+          });
+          return this; //执行完设置样式的方法后返回那个Jquery对象,以便实现链式调用
+        },
+      });
+    </script>
+    <p id="p1">你好我是P段落</p>
+    <script>
+      console.log($("#p1").fontStyle({ color: "pink" })); //该方法传入一个对象
+    </script>
+  </body>
+</html>

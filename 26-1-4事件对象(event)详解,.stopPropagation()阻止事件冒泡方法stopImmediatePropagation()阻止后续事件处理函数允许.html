@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      26-1-4事件对象(event)详解,.stopPropagation()阻止事件冒泡方法stopImmediatePropagation()阻止后续事件处理函数允许
+    </title>
+  </head>
+  <body>
+    <p>
+      Web前端中的"事件模型"是指以下几个方面：
+      <br />事件是可以被JavaScript检测到的行为或事情，是HTML和Javascript交互的驱动器(桥梁),
+      事件是文档或者浏览器窗口中发生的，
+      特定的交互瞬间.例如用户点击、键盘输入、窗口大小改变、网页加载完成等。
+      <br />事件处理器是用于响应事件触发时执行的代码块，可以使用属性或方法来注册。
+      <br />事件流(DOM事件流)是描述触发某个元素的事件时,事件按照DOM结构树在页面中接收顺序的过程，包括捕获阶段、目标阶段和冒泡阶段。
+      <li>
+        捕获阶段：该阶段是由网景公司提出的。按照DOM结构由document对象向下的顺序传播，直到目标元素为止。
+      </li>
+      <li>
+        目标阶段：该阶段是指事件到达目标元素，并执行目标元素的事件处理函数。
+      </li>
+      <li>
+        冒泡阶段：该阶段是由微软公司提出的。按照DOM结构由目标元素向上的顺序传播，直到document对象为止。
+      </li>
+      <br />事件对象(event)是在事件触发时传递给事件处理器的参数，包含了有关事件和目标元素的信息和方法。跟事件相关的一系列信息数据的集合都放到一个对象里面，这个对象就是事件对象(event)
+    </p>
+    <p>
+      鼠标触发事件的话，会得到鼠标的相关信息，如鼠标位置。
+      <br />键盘触发事件的话，会得到键盘的相关信息，如按了哪个键。
+    </p>
+    <p>
+      事件对象的使用:
+      <br />事件触发发生时就会产生事件对象，并且系统会以实参的形式传给事件处理函数。
+      所以，在事件处理函数中声明1个形参(形参名字可以自定义,但是一般我们会使用event,evt,e这三个名字)用来接收事件对象。
+      <br />主流浏览器可以使用形参接收事件对象,
+      <br />低版本IE浏览器需要使用window.event获取事件对象,因此可以使用'e=e||window.event'解决兼容性问题
+    </p>
+    <p>触发事件的对象(而非绑定事件的this),可以精确到最内层的最小一级元素</p>
+    <ul id="myUl">
+      <li>123</li>
+      <li>456</li>
+      <li><b>0</b><b>0</b><b>0</b></li>
+    </ul>
+    <script>
+      myUl.onclick = function (e) {
+        e = e || window.event; //兼容IE8及以下 事件对象(event)获取方式
+        console.log("e事件对象=>", e);
+        console.log("e.srcElement返回触发事件的对象=>", e.srcElement);
+        console.log("e.target(兼容IE)返回触发事件的对象=>", e.target);
+        console.log("this对象=>", this);
+        console.log("this===e.srcElement=>", this === e.srcElement);
+        console.log("this===e.target=>", this === e.target);
+        console.log("e.type返回的事件类型=>", e.type);
+      };
+    </script>
+    <p>
+      JavaScript中，阻止事件冒泡的方法有以下几种：
+      <li>
+        使用`.stopPropagation()`方法来阻止捕获和冒泡阶段中当前事件的进一步传播。该方法返回值undefined
+        <br />但是，它不能防止任何默认行为的发生；例如，对链接的点击仍会被处理。如果要停止这些行为，请参见`.preventDefault()`方法
+      </li>
+      <li>
+        使用`return false`语句来同时阻止事件冒泡和默认行为。
+        <br />这种方法在jQuery中常用，相当于同时使用`.preventDefault()`和`.stopPropagation()`
+      </li>
+      <li>
+        使用`stopImmediatePropagation()`方法来阻止附加到相同元素的相同事件类型的,后续事件处理函数(事件处理器)的运行
+      </li>
+    </p>
+    <style>
+      #grandfather {
+        background: orange;
+        padding: 30px;
+        margin: 30px;
+      }
+      #grandfather #father {
+        display: flex;
+        justify-content: space-around;
+        background: skyblue;
+        padding: 30px;
+      }
+      #grandfather #father [id^="son"] {
+        width: 100px;
+        height: 100px;
+      }
+      #son1 {
+        background: pink;
+      }
+      #son2 {
+        background: lightgreen;
+      }
+      #son3 {
+        background: lightcoral;
+      }
+      #son4 {
+        background: rgb(175, 37, 255);
+      }
+    </style>
+    <div id="grandfather">
+      <div id="father">
+        <div id="son1">son1</div>
+        <div id="son2">son2</div>
+        <div id="son3">son3</div>
+        <div id="son4">son4</div>
+      </div>
+    </div>
+    <script>
+      document.body.onclick = function () {
+        console.log("body的click事件处理函数");
+      };
+      document.documentElement.onclick = function () {
+        console.log("html的click事件处理函数");
+      };
+      document.onclick = function () {
+        console.log("document的click事件处理函数");
+      };
+      grandfather.onclick = function () {
+        console.log("grandfather的click事件处理函数");
+      };
+      father.onclick = function () {
+        console.log("father的click事件处理函数");
+      };
+      son1.onclick = function () {
+        console.log("son1的click事件处理函数");
+      };
+      son2.onclick = function (e) {
+        console.log("son2的click事件处理函数");
+        e.stopPropagation(); //阻止事件冒泡,该方法返回值为undefined
+      }; /* 
+      son3.click(function () {
+        alert("son3的click事件处理函数");
+        return false; //阻止事件冒泡和默认行为
+      }); */
+      son4.addEventListener("click", function fn1() {
+        console.log("son4的click事件处理函数 1");
+      });
+      son4.addEventListener("click", function fn2(e) {
+        console.log("son4的click事件处理函数 2");
+        e.stopImmediatePropagation(); //阻止后续的(写在后面的)事件处理函数运行,并且阻断冒泡,该方法返回值为undefined
+      });
+      son4.addEventListener("click", function fn3() {
+        console.log("son4的click事件处理函数 3"); //该事件处理函数被前面的stopImmediatePropagation()方法阻断了
+      });
+    </script>
+  </body>
+</html>

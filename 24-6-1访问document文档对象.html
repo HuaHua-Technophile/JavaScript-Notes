@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>27-6-1访问document文档对象</title>
+  </head>
+  <body>
+    <p>
+      在JavaScript中，document对象是一个非常重要的对象，它表示浏览器中载入的网页，并作为网页内容的入口，也就是DOM树。document对象有很多属性和方法，可以用来获取和操作网页中的元素
+    </p>
+    <img src="./24-6-1.png" alt="" />
+    <script>
+      console.log(document); //#document
+      console.log(document.images); //HTMLCollection [img]
+      console.log(document.images[0].src); //http://127.0.0.1:5500/2%E5%AD%A6%E6%9C%9F%E3%80%8AHTML5+CSS3%E7%BD%91%E7%AB%99%E8%AE%BE%E8%AE%A1%E6%95%99%E7%A8%8B%E3%80%8B/%E8%87%AA%E5%AD%A6%E8%87%AA%E7%BC%96%E6%88%90%E6%9E%9C/JS/24-6-1.png
+      console.log(document.firstChild); //<!DOCTYPE html>
+      console.log(document.lastChild); //html
+    </script>
+  </body>
+</html>

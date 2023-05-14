@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>16-7-1三元运算替代多分支switch与elseif</title>
+  </head>
+  <body>
+    <script>
+      var a =
+        a == 1
+          ? console.log("a为:=>", 1)
+          : a == 2
+          ? console.log("a为:=>", 2)
+          : a == 3
+          ? console.log("a为:=>", 3)
+          : a == 4
+          ? console.log("a为:=>", 4)
+          : console.log("a为:=>", undefined);
+
+      let b = 3;
+      b == 1
+        ? console.log("b为:=>", 1)
+        : b == 2
+        ? console.log("b为:=>", 2)
+        : b == 3
+        ? console.log("b为:=>", 3)
+        : b == 4
+        ? console.log("b为:=>", 4)
+        : console.log("b为:=>", undefined);
+
+      let type = typeof 1;
+      console.log(
+        new (type == "string"
+          ? String
+          : type == "number"
+          ? Number
+          : type == "boolean"
+          ? Boolean
+          : type == "array"
+          ? Array
+          : Object)().toString()
+      );
+      // ⬇
+      console.log(new Number().toString());
+    </script>
+  </body>
+</html>

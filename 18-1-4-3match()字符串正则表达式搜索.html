@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>18-1-4-3match()字符串正则表达式搜索</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，match方法是用于在字符串中匹配一个或多个符合正则表达式的子字符串，并返回一个包含匹配结果的数组
+    </p>
+    <p>
+      match方法的语法是：`string.match(regexp)`，其中`string`是要匹配的字符串，`regexp`是一个正则表达式对象或者任何具有
+      Symbol.match 方法的对象。
+    </p>
+    <p>match方法的返回值取决于正则表达式是否有全局标志 g。</p>
+    <p>
+      如果没有 g 标志，那么
+      match方法只会在字符串中查找第一个匹配的子字符串，并返回一个包含以下信息的数组：
+      <br />
+      数组的第一个元素是匹配的子字符串。 <br />
+      数组的其他元素是正则表达式中的捕获组，如果有的话。 <br />
+      数组还有两个属性：index，表示匹配的子字符串在原字符串中的位置；input，表示原字符串。
+      <br />
+      如果没有找到任何匹配的子字符串，match方法会返回 null。
+    </p>
+    <p>
+      如果有 g 标志，那么
+      match方法会在字符串中查找所有匹配的子字符串，并返回一个包含所有匹配结果的数组。
+      <br />
+      数组的每个元素都是一个匹配的子字符串。 <br />
+      数组不会包含捕获组，也没有 index 和 input 属性。 <br />
+      如果没有找到任何匹配的子字符串，match方法会返回 null。
+    </p>
+    <p>
+      match方法和正则表达式对象的 exec 方法类似，但是有一些区别：
+      <br />
+      match方法是 String 对象的方法，而 exec 方法是 RegExp 对象的方法。 <br />
+      match方法总是返回一个数组或者 null，而 exec 方法在没有 g
+      标志时返回一个数组或者 null，在有 g 标志时返回下一个匹配结果或者 null。
+      <br />
+      match方法不会改变正则表达式对象的 lastIndex 属性，而 exec
+      方法会根据匹配结果更新 lastIndex 属性。
+    </p>
+    <script>
+      let str = "Hello_world!"; // 定义一个字符串
+      let regex1 = /o(.)/; // 定义一个不带 g 标志的正则表达式
+      let result1 = str.match(regex1); // 调用 match 方法，传入 regex1
+      console.log(result1); // ['o_', '_', index: 4, input: 'Hello world!', groups: undefined]
+      let regex2 = /o(.)/g; // 定义一个带 g 标志的正则表达式
+      let result2 = str.match(regex2); // 调用 match 方法，传入 regex2
+      console.log(result2); // 打印 result2 的值 // ['o_', 'or']
+      str = "The_rain_in_Spain_falls_mainly_in_the_plain";
+      let regex = /ain/gi; // 定义一个带 g 标志和 i 标志（忽略大小写）的正则表达式
+      let result = str.match(regex); // 调用 match 方法，传入 regex
+      console.log(result); // ["ain", "ain", "ain", "ain"]
+    </script>
+  </body>
+</html>

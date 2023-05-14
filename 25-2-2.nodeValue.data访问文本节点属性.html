@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-2-2.nodeValue.data访问文本节点属性</title>
+  </head>
+  <body>
+    <p>
+      nodeValue或data属性是Text节点和Comment节点的属性，用于获取或设置节点的文本内容。
+      <br />例如，以下代码创建了一个新的文本节点，并使用nodeValue或data属性来修改其内容：
+    </p>
+    <div id="div1"></div>
+    <script>
+      let textNode = document.createTextNode("Hello World"); // 创建一个新的文本节点
+      textNode.nodeValue = "Hello JavaScript(by .nodeValue)"; // 使用nodeValue属性修改文本内容
+      textNode.data = "Hello JavaScript(by .data)"; // 或者使用data属性修改文本内容
+      div1.appendChild(textNode);
+    </script>
+    <p>
+      nodeValue或data属性可以用来获取或设置注释节点的注释内容。例如，以下代码创建了一个新的注释节点，并使用nodeValue或data属性来修改其内容：
+    </p>
+    <script>
+      let commentNode = document.createComment("This is a comment"); // 创建一个新的注释节点
+      commentNode.nodeValue = "This is another comment"; // 使用nodeValue属性修改注释内容
+      commentNode.data = "This is another comment"; // 或者使用data属性修改注释内容
+    </script>
+    <p>
+      nodeValue或data属性不能用来获取或设置元素节点、文档节点、文档片段节点、文档类型节点等其他类型的节点的值
+      <br />对于这些类型的节点，nodeValue或data属性总是返回null。例如，以下代码尝试使用nodeValue或data属性来获取元素节点和文档类型节点的值，但都返回null：
+    </p>
+    <script>
+      console.log(div1.nodeValue); // null // 尝试使用nodeValue属性获取元素值
+      console.log(div1.data); // null // 或者尝试使用data属性获取元素值
+      let doctypeNode = document.doctype; // 获取文档类型节点
+      console.log(doctypeNode.nodeValue); // null // 尝试使用nodeValue属性获取文档类型值
+      console.log(doctypeNode.data); // null // 或者尝试使用data属性获取文档类型值
+    </script>
+  </body>
+</html>

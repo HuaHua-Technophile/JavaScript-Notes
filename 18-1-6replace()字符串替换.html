@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>18-1-6replace()字符串替换</title>
+  </head>
+  <body>
+    <p>
+      replace方法可以用來在一個字符串中搜索一個值或一個正則表達式，並用另一個值替換它。replace方法返回一個新的字符串，不會改變原始的字符串
+    </p>
+    <script>
+      let s = "JS and js";
+      let re = /js/i; //i表示忽略大小写
+      let newS = s.replace(re, "JavaScript");
+      console.log(newS); // JavaScript and js
+      // 如果您想替換所有匹配的值，您可以使用全局標誌（g）
+      let re2 = /js/gi;
+      let newS2 = s.replace(re2, "JavaScript");
+      console.log(newS2); // JavaScript and JavaScript
+      // 如果您想使用一個函數來生成替換值，您可以將函數作為replace方法的第二個參數
+      let re3 = /js/gi;
+      let newS3 = s.replace(re3, function (match) {
+        return match.toUpperCase();
+      });
+      console.log(newS3); // JS and JS
+    </script>
+  </body>
+</html>

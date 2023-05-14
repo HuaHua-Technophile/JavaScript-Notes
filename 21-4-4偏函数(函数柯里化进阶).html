@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>21-4-4偏函数(函数柯里化进阶)</title>
+  </head>
+  <body>
+    <p>
+      偏函数是一个函数式编程的概念。偏函数接受一个函数和比正常情况下少的参数。它返回一个函数，该函数接受剩余的参数。当调用返回的函数时，它会用两组参数调用原始函数
+    </p>
+    <p>
+      例如，我们有一个乘法函数 mul (x, y)，它接受两个参数 x 和
+      y，并返回它们的乘积。我们可以用偏函数来创建一个新的函数 mul2
+      (y)，它只接受一个参数 y，并用 2 作为 x 的值来调用 mul
+      函数。这样，我们就可以用 mul2 来计算任何数与 2 的乘积，而不需要每次都传递
+      2 这个参数
+    </p>
+    <p>
+      在 JavaScript 中，我们可以用一个工具函数 partial
+      来实现偏函数的功能。partial 函数接受一个函数 fn 和一个或多个参数
+      firstArg。它返回一个新的函数，该函数接受剩余的参数 lastArgs，并用 firstArg
+      和 lastArgs 一起调用 fn 函数
+    </p>
+    <p>
+      例如，我们可以用 partial 函数来创建 listAnd 函数，它是 list
+      函数的一个特例，它用 “and” 作为最后一个连接词来列出一系列项目
+    </p>
+    <p>
+      好的，我可以给你一个偏函数的代码示例。假设我们有一个函数 greet (name,
+      greeting)，它接受两个参数 name 和 greeting，并返回一个问候语。我们可以用
+      partial 函数来创建一个新的函数 hello (name)，它只接受一个参数 name，并用
+      “Hello” 作为 greeting 的值来调用 greet 函数。这样，我们就可以用 hello
+      来向任何人说 “Hello”，而不需要每次都传递 “Hello” 这个参数。
+    </p>
+    <script>
+      const partial = (fn, firstArg) => {
+        return (...lastArgs) => {
+          return fn(firstArg, ...lastArgs);
+        };
+      };
+      const greet = (name, greeting) => {
+        return `${greeting}, ${name}!`;
+      };
+      const hello = partial(greet, "Hello"); //这样hello函数就成为了已经传入第一个参数的便函数,以后调用时,无需每次都传入参数 : greet()
+      hello("Alice"); // "Hello, Alice!"
+      hello("Bob"); // "Hello, Bob!"
+      hello("Charlie"); // "Hello, Charlie!"
+    </script>
+  </body>
+</html>

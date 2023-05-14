@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>27-2-6滚动内容至特定位置</title>
+    <style>
+      html {
+        width: 1500px;
+        height: 3000px;
+        background: linear-gradient(
+          45deg,
+          rgb(255, 83, 83),
+          rgb(136, 255, 132),
+          rgb(255, 70, 215),
+          rgb(98, 98, 255)
+        );
+      }
+      #myDIV {
+        width: 400px;
+        height: 400px;
+        background-color: lightgray;
+        background-clip: content-box; /* 背景色仅在内容区域,不延申到内边距 */
+        overflow-y: hidden;
+        overflow-x: auto;
+        border: 50px solid rgb(241, 157, 157);
+        padding: 50px;
+      }
+      #content {
+        width: 600px;
+        height: 600px;
+        border: 70px solid lightsalmon;
+        padding: 70px;
+        background-color: lightgreen;
+        background-clip: content-box; /* 背景色仅在内容区域,不延申到内边距 */
+      }
+      .btn_father {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      html中，滚动内容区域至特定位置(设置滚动条位置)的方法有以下几种：
+      <br />使用window.scrollTo(x,y)函数，可以将窗口滚动到指定的x和y坐标
+      <br />使用window.scrollBy(dx,dy)函数，可以将窗口相对于当前位置滚动指定的dx和dy像素
+      <br />使用元素的scrollTop和scrollLeft属性，可以获取或设置元素内容相对于元素边缘的垂直和水平滚动位置
+    </p>
+    <p>例如，如果你想让一个div元素的内容向右滚动100像素，你可以这样写：</p>
+    <div class="btn_father">
+      <button id="btn1">滚动到文档竖直2000px的位置,水平未设置</button>
+      <button id="btn2">滚动到文档水平500px的位置,竖直未设置</button>
+      <button id="btn3">滚动到(300,800)</button>
+      <button id="btn4">平滑滚动到(800,300)</button>
+    </div>
+    <div id="myDIV">
+      <div id="content">内容默认向右偏移了100px</div>
+    </div>
+    <script>
+      myDIV.scrollLeft += 100; //内容默认向右偏移了100px
+      btn1.onclick = function () {
+        window.scrollTo(0, 2000); //文档默认向下偏移了2000px
+      };
+      btn2.onclick = function () {
+        window.scrollTo(500, 0);
+      };
+      btn3.onclick = function () {
+        window.scroll({ left: 300, top: 800 }); //滚动到(300,800)
+      };
+      btn4.onclick = function () {
+        window.scroll({ top: 300, left: 800, behavior: "smooth" }); //平滑滚动到(800,300)
+      };
+    </script>
+  </body>
+</html>

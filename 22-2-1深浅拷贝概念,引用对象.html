@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>22-2-1深浅拷贝概念,引用对象</title>
+  </head>
+  <body>
+    <p>
+      浅拷贝是对象的逐位复制。创建一个新对象，该对象具有原始对象中值的精确副本。如果对象的任何属性是引用类型，那么新对象和原始对象将共享该属性的引用。这意味着如果修改了新对象或原始对象中的引用类型属性，那么另一个对象也会受到影响
+    </p>
+    <p>
+      深拷贝是对象的完全复制。创建一个新对象，该对象具有原始对象中值的完整副本。如果对象的任何属性是引用类型，那么新对象将创建该属性的新副本，而不是共享原始对象的引用。这意味着如果修改了新对象或原始对象中的引用类型属性，那么另一个对象不会受到影响
+    </p>
+    <h1>引用概念：</h1>
+    <p>
+      <br />变量并不实际存储"对象"。"变量存储指向对象的引用"。引用就像指针，是对象的存储地址:换句话说，变量并不存储对象本身，而是存储类似于指针的东西
+      <br />在JavaScript中，当对象赋值给变量时,变量指向相应的对象
+      <br />当我们使用属性与方法时，JavaScript将负责根据引用获取对象并访问其属性
+    </p>
+    <p>
+      值类型(基本类型)不存在引用问题,都是深拷贝：字符串（String）、数字(Number)、布尔(Boolean)、空（Null）、未定义（Undefined）、Symbol
+      <br />注：Symbol 是 ES6 引入了一种新的原始数据类型，表示独一无二的值
+    </p>
+    <p>
+      引用对象和基本类型(↑上面那些)不同，引用对象是通过引用访问的，而不是通过值访问的。这意味着当你把一个引用对象赋值给另一个变量时，你只是复制了一个指向同一个对象的引用，而不是复制了对象本身
+      <br />引用对象都是浅拷贝：对象(Object)、数组(Array)、函数(Function)，还有两个特殊的对象：正则（RegExp）和日期（Date）
+    </p>
+    <p>
+      JavaScript中有多种方法可以实现深浅拷贝，例如
+      <li>
+        浅拷贝可以使用Object.assign()，Array.prototype.slice()，Array.prototype.concat()等方法
+      </li>
+      <li>
+        深拷贝可以使用JSON.parse(JSON.stringify())，递归遍历，lodash.cloneDeep()等方法
+      </li>
+    </p>
+    <script>
+      let str1 = [1, [2, [3]]];
+      let str2 = str1.slice();
+      str1[0] = 666;
+      str1[1][0] = 777;
+      str1[1][1][0] = 888;
+      console.log(str1); // [666, [777, [888]]]
+      console.log(str2); //第一层为深拷贝,而往内都是浅拷贝,所以变为了 : [1, [777, [888]]]
+    </script>
+    <script>
+      let obj1 = { name: "Alice", age: 20 }; // 创建一个引用对象
+      let obj2 = obj1; // 把obj1赋值给obj2
+      obj2.name = "Bob"; // 修改obj2的name属性
+      console.log(obj1.name); // 输出"Bob"
+    </script>
+    <p>
+      上面的代码中，obj1和obj2都指向同一个对象，所以当obj2修改name属性时，obj1也受到影响。如果想要复制一个对象的内容而不是引用，可以使用Object.assign()方法或其他深拷贝的方法
+    </p>
+  </body>
+</html>

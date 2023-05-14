@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>16-2-3逻辑'非'运算</title>
+  </head>
+  <body>
+    <script>
+      console.log(!0); //=>true
+      console.log(!2); // !true   => false
+      console.log(!(a = 1)); //=>false
+      console.log(!Infinity); //=>false
+      console.log(!-Infinity); //=>false
+      console.log(!NaN); //=>true
+      console.log(!null); //=>true
+      console.log(!undefined); //=>true
+      console.log(!"a"); //  !true => false
+      console.log(!""); //  !false => false
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>23-2-5原型链</title>
+  </head>
+  <body>
+    <p>
+      对于使用过基于类的语言(如Java或C++)的开发者们来说，JavaScript实在是有些令人困惑
+      <br />JavaScript是动态的，本身不提供一个class的实现。即便是在ES2015/ES6中引入了class关键字，但那也只是语法糖，JavaScript仍然是基于原型的
+    </p>
+    <p>
+      当谈到继承时，JavaScript只有一种结构：对象
+      <br />每个实例对象（object）都有一个私有属性（称之为__proto__）指向它的构造函数的原型对象（prototype）
+      <br />该原型对象也有一个自己的原型对象（__proto__），层层向上直到一个对象的原型对象为null。根据定义，null没有原型，并作为这个原型链中的最后一个环节
+    </p>
+    <p>
+      原型链是JavaScript中实现继承的一种机制。每个对象都有一个指向它的原型对象的内部链接，称为__proto__。原型对象也有自己的原型对象，这样就形成了一个原型链，直到某个对象的原型对象为null为止
+      <br />原型链可以让对象共享原型对象上的属性和方法，实现代码的复用和扩展。当访问一个对象的属性或方法时，JavaScript会沿着原型链查找，直到找到匹配的属性或方法或者到达原型链的末端
+    </p>
+    <p>
+      例如，假设有一个构造函数f，它有一个原型对象f.prototype，其中定义了一个属性b和一个方法m。如果用f创建了一个对象o，那么o就会继承f.prototype上的属性和方法，并且o.__proto__指向f.prototype。如果f.prototype也有自己的原型对象，比如Object.prototype，那么o也会继承Object.prototype上的属性和方法，并且f.prototype.__proto__指向Object.prototype
+    </p>
+  </body>
+</html>

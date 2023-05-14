@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      18-1-2toString()对象转字符串,valueOf()对象的值,bytelength长度属性
+    </title>
+  </head>
+  <body>
+    <p>
+      在Javascript中，toString()和valueOf()是两个不同的方法，它们都可以用来将一个值转换为字符串
+    </p>
+    <p>
+      toString()方法是用来将一个值转换为字符串的，它会返回一个表示该值的字符串。例如：
+    </p>
+    <script>
+      let a = 10;
+      console.log(a.toString()); // 返回"10"
+    </script>
+    <script>
+      // valueOf方法是用来返回一个值的原始值的，它通常会返回该值本身。例如：
+      console.log(a.valueOf()); // 返回10
+    </script>
+    <p>JavaScript自动类型转换时,会默认调用valueOf()方法,而不是toString()</p>
+    <script>
+      let obj = {
+        value: 10,
+        toString: function () {
+          return "调用了toString()";
+        },
+        valueOf: function () {
+          return 666;
+        },
+      };
+      console.log(obj + "haha"); // 666haha
+      console.log(obj + 0); // 666
+      console.log(obj.toString() + "haha"); // 调用了toString()haha
+    </script>
+    <p>
+      如果一个值是一个数字或者一个布尔值，那么它的toString方法会返回它的字符串形式，而它的valueOf方法会返回它本身。例如：
+    </p>
+    <script>
+      let bool = true;
+      bool.toString(); // 返回"true"
+      bool.valueOf(); // 返回true
+    </script>
+    <p>
+      如果一个值是一个字符串，那么它的toString方法和valueOf方法都会返回它本身。例如：
+    </p>
+    <script>
+      let str = "Hello";
+      str.toString(); // 返回"Hello"
+      str.valueOf(); // 返回"Hello"
+    </script>
+    <p>
+      如果一个值是一个数组，那么它的toString方法会返回它的元素用逗号分隔的字符串，而它的valueOf方法会返回它本身。例如：
+    </p>
+    <script>
+      let arr = [1, 2, 3];
+      arr.toString(); // 返回"1,2,3"
+      arr.valueOf(); // 返回[1, 2, 3]
+    </script>
+    <p>
+      如果一个值是一个日期对象，那么它的toString方法会返回它的可读格式的字符串，而它的valueOf方法会返回它的毫秒数。例如：
+    </p>
+    <script>
+      let date = new Date();
+      date.toString(); // 返回"Mon Mar 13 2023 09:49:03 GMT+0800 (China Standard Time)"
+      date.valueOf(); // 返回1647248943000
+    </script>
+    <p>
+      在JavaScript中，bytelength方法可以用来获取一个值的字节长度，也就是它在内存中占用的空间大小。
+      <br />不同的值可能有不同的bytelength方法，例如：
+      <br />如果一个值是一个ArrayBuffer对象，那么它的bytelength属性会返回它的字节长度，这个值在创建数组时就确定了，不能改变。例如：
+    </p>
+    <script>
+      let buffer = new ArrayBuffer(16); // 创建一个16字节的数组
+      buffer.byteLength; // 返回16
+    </script>
+    <p>
+      如果一个值是一个字符串，那么它的字节长度取决于它的编码方式。一种方法是使用NodeJS中的Buffer.byteLength方法，它可以根据指定的编码方式返回字符串的字节长度。默认情况下，它假设字符串是UTF-8编码的。例如：
+    </p>
+    <script>
+      str = "Hello"; // 创建一个字符串
+      Buffer.byteLength(str); // 返回5
+      Buffer.byteLength(str, "utf16le"); // 返回10
+    </script>
+    <p>
+      如果一个值是其他类型的对象，那么它可能没有bytelength方法，或者有自定义的bytelength方法。你可以通过查看对象的原型或文档来确定是否有这个方法。
+    </p>
+  </body>
+</html>

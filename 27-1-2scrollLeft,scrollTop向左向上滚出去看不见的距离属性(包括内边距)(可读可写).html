@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      27-1-2scrollLeft,scrollTop向左向上滚出去看不见的距离属性(包括内边距)(可读可写)
+    </title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      #myDIV {
+        width: 400px;
+        height: 400px;
+        background-color: lightgray;
+        background-clip: content-box; /* 背景色仅在内容区域,不延申到内边距 */
+        overflow: auto;
+        border: 50px solid rgb(241, 157, 157);
+        padding: 50px;
+      }
+      #content {
+        width: 600px;
+        height: 600px;
+        border: 70px solid lightsalmon;
+        padding: 70px;
+        background-color: lightgreen;
+        background-clip: content-box; /* 背景色仅在内容区域,不延申到内边距 */
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      JavaScript中，scrollLeft和scrollTop是两个属性，用于<strong>获取或设置</strong>元素内容在水平和垂直方向上的滚动距离（向左向上滚出去看不见的距离
+      <br />元素的scrollLeft值是从元素的左边缘到最左边可见内容的距离。如果元素的direction是rtl（从右到左），那么当滚动条在最右边时，scrollLeft是0，当向左滚动时，scrollLeft变为负数
+      <br />元素的scrollTop值是从元素的上边缘到最上面可见内容的距离。如果元素没有产生滚动条，那么scrollLeft和scrollTop都是0
+    </p>
+    <p id="myP"></p>
+    <div id="myDIV">
+      <div id="content"></div>
+    </div>
+    <script>
+      myDIV.onscroll = function () {
+        myP.innerHTML =
+          "myDIV.内容(包括内边距)向左滚出去看不见的距离 => " +
+          myDIV.scrollLeft +
+          "<br/>myDIV.内容(包括内边距)向上滚出去看不见的距离 => " +
+          myDIV.scrollTop +
+          "<br/>myDIV.可见内容宽度(包括内边距+边框) => " +
+          myDIV.scrollWidth +
+          "<br/>myDIV.可见内容高度(包括内边距+边框) => " +
+          myDIV.scrollWidth;
+      };
+    </script>
+  </body>
+</html>

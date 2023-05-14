@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-2-1createTextNode()创建文本节点方法</title>
+  </head>
+  <body>
+    <p>
+      createTextNode()是Document接口的方法，用于创建一个新的文本节点。这个方法可以用来转义HTML字符。它的语法和使用案例如下：
+    </p>
+    <p>
+      createTextNode()方法接受一个参数，即要放在文本节点中的字符串。它的语法是：
+      <br />let text = document.createTextNode(data);
+    </p>
+    <p>其中，text是一个Text节点，data是一个包含数据的字符串。</p>
+    <script>
+      // 例如，以下代码创建了一个新的文本节点，并将其添加到<body>元素中：
+      let textNode = document.createTextNode("Hello World"); // 创建一个新的文本节点
+      let body = document.body; // 获取<body>元素
+      body.appendChild(textNode); // 将文本节点添加到<body>元素中
+    </script>
+    <p>
+      createTextNode()方法可以用来转义HTML字符，避免在插入HTML内容时造成安全问题或格式错误。例如，以下代码使用createTextNode()方法将用户输入的内容插入到元素中，而不会被解析为HTML标签：
+    </p>
+    <div>
+      <input type="text" id="input" />
+      <button id="btn1">添加</button>
+      <p id="output"></p>
+    </div>
+    <script>
+      let p = document.getElementById("output"); // 获取<p>元素
+      btn1.onclick = function () {
+        let input = document.getElementById("input").value; // 获取用户输入的内容
+        textNode = document.createTextNode(input); // 创建一个新的文本节点
+        p.appendChild(textNode); // 将文本节点添加到<p>元素中
+      };
+    </script>
+  </body>
+</html>

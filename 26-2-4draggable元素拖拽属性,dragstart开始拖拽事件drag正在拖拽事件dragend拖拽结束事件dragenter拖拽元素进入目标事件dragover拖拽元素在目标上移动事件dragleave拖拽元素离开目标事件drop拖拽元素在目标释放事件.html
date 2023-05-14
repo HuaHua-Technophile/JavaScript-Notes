@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      26-2-4draggable元素拖拽属性,dragstart开始拖拽事件drag正在拖拽事件dragend拖拽结束事件dragenter拖拽元素进入目标事件dragover拖拽元素在目标上移动事件dragleave拖拽元素离开目标事件drop拖拽元素在目标释放事件
+    </title>
+    <style>
+      #drag1 {
+        border: 1px solid red;
+      }
+      #div1 {
+        height: 60px;
+        padding: 10px;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <ol>
+      <li>draggable 属性是 HTML5 新增的全局属性，用于标识元素是否可以被拖动</li>
+      <li>它可以有三个值：true、false和 auto。</li>
+      <li>true 表示元素可以被拖动</li>
+      <li>false 表示元素不可以被拖动</li>
+      <li>auto表示使用浏览器的默认行为</li>
+    </ol>
+    <ol>
+      被拖拽元素有三个事件，分别是：
+      <li>
+        **dragstart**：开始拖拽时触发，可以在这个事件中设置拖拽数据、反馈图像和拖拽效果
+      </li>
+      <li>
+        **drag**：正在拖拽时持续触发，可以在这个事件中更新反馈图像或拖拽效果
+      </li>
+      <li>
+        **dragend**：拖拽结束时触发，无论是否成功放置，都会触发这个事件。可以在这个事件中清理资源或执行其他操作
+        放置目标有四个事件，分别是：
+      </li>
+      <li>
+        **dragenter**：当被拖拽元素进入放置目标时触发，可以在这个事件中检查是否允许放置，并设置相应的反馈样式
+      </li>
+      <li>
+        **dragover**：当被拖拽元素在放置目标上移动时持续触发，可以在这个事件中更新反馈样式或阻止默认行为(event.preventDefault(),用来阻止(浏览器默认不让元素放下))
+      </li>
+      <li>
+        **dragleave**：当被拖拽元素离开放置目标时触发，可以在这个事件中恢复原来的样式或执行其他操作
+      </li>
+      <li>
+        **drop**：当被拖拽元素在放置目标上释放时触发，可以在这个事件中获取拖拽数据，并将其插入到放置位置
+      </li>
+    </ol>
+    <p>
+      所有的拖拽事件都有一个 dataTransfer 属性，它是一个 DataTransfer
+      对象，用于存储和传递拖拽数据。
+    </p>
+    <p draggable="true" id="drag1">
+      这是一个可拖动的段落,可以拖拽到下方div元素内
+    </p>
+    <div id="div1"></div>
+    <script>
+      drag1.ondragstart = function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+        ev.target.style.opacity = "0.5"; //在用户开始拖动一个段落时，改变段落的透明度，并设置被拖动数据为段落的id
+      };
+      div1.ondragover = function (ev) {
+        ev.preventDefault(); // 防止元素的默认处理方法
+        ev.target.style.border = "3px dotted green"; // 改变放置目标的边框样式
+      };
+      div1.ondrop = function drop(ev) {
+        //ev.preventDefault(); // 防止元素的默认处理方法
+        let Data_Id = ev.dataTransfer.getData("text"); // 获取被拖动数据的类型和值
+        ev.target.appendChild(document.getElementById(Data_Id)); // 将被拖动元素附加到放置目标中
+      };
+    </script>
+  </body>
+</html>

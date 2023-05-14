@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>28-2-1同源概念,JSONP方法解决跨域请求</title>
+  </head>
+  <body>
+    <p>
+      同源是指协议、域名和端口都相同<br />http://协议的默认端口号是80<br />https://协议的默认端口号是443
+    </p>
+    <p>
+      JavaScript中，跨域问题是指浏览器的同源策略限制了不同源的网页之间的数据交互。。如果两个网页的源不同，那么它们之间就不能通过JavaScript进行通信，例如使用XMLHttpRequest发送或接收数据。这是为了保护用户的隐私和安全，防止恶意的网站窃取或篡改用户的数
+    </p>
+    <p>有一些方法可以解决跨域问题，例如使用JSONP、CORS、postMessage等</p>
+    <p>
+      JSONP是一种利用script标签的src属性来发送请求的方法，它可以绕过同源策略的限制，但是只能发送GET请求，并且需要服务器端配合返回一个回调函数
+    </p>
+    <p>
+      CORS是一种使用XMLHttpRequest发送跨域请求的方法，它需要服务器端在响应头中设置Access-Control-Allow-Origin等字段来允许特定的源访问资源
+    </p>
+    <p>
+      postMessage是一种使用window对象的postMessage方法和message事件来在不同源的窗口或iframe之间传递数据的方法
+    </p>
+    <script>
+      function fn(data) {
+        console.log("arguments=>", arguments);
+        console.log("data=>", data);
+      }
+    </script>
+    <script src="https://api.asilu.com/phone?phone=13123456789&callback=fn"></script>
+    <!-- -------------------------------------------------------------------------------- -->
+    <button id="btn1">手机归属地</button>
+    <button id="btn2">腾讯天气</button>
+    <button id="btn3">百度搜索建议词条</button>
+    <script>
+      //手机归属地接口: https://api.asilu.com/phone?phone=13123456789
+      // 腾讯天气接口:https://wis.qq.com/weather/common?source=pc&weather_type=forecast_1h&province=广东省&city=广州市
+      // 百度搜索推荐词条接口地址: http://suggestion.baidu.com/su?wd=淘宝
+      // 注意: 百度搜索推荐词条接口需要使用jsonp请求方式,并且需要修改回调函数名称为cb
+      function myJsonp(options) {
+        if (options.callbackName === undefined) {
+          options.callbackName = "callback";
+        }
+        let newScript = document.createElement("script"),
+          paramStr = "";
+        for (let i in options.data) {
+          paramStr = `${paramStr}${i}=${options.data[i]}&`;
+        }
+        let funName = `myFun${Math.random()
+          .toString(16)
+          .substr(2)}${Math.random().toString(16).substr(2)}`; // 随机函数名
+        window[funName] = options.success;
+        if (options.url.indexOf("?") === -1) {
+          // 判断options.url中是否已经存在?
+          newScript.src = `${options.url}?${paramStr}${options.callbackName}=${funName}`;
+        } else {
+          newScript.src = `${options.url}&${paramStr}${options.callbackName}=${funName}`;
+        }
+        document.head.appendChild(newScript);
+      }
+      btn1.onclick = function () {
+        myJsonp({
+          url: "https://api.asilu.com/phone",
+          data: {
+            phone: 13123456789,
+            id: 3,
+            age: 52,
+          },
+          success: function (data) {
+            console.log(`手机归属地数据=>`, data);
+          },
+        });
+      };
+      btn2.onclick = function () {
+        myJsonp({
+          url: "https://wis.qq.com/weather/common?source=pc&weather_type=forecast_1h",
+          data: {
+            province: "广东省",
+            city: "广州市",
+          },
+          success: function (data) {
+            console.log(`腾讯天气数据=>`, data);
+          },
+        });
+      };
+      btn3.onclick = function () {
+        myJsonp({
+          url: "http://suggestion.baidu.com/su",
+          data: {
+            wd: "淘宝",
+          },
+          success: function (data) {
+            console.log(`百度建议词条数据=>`, data);
+          },
+          callbackName: "cb",
+        });
+      };
+    </script>
+  </body>
+</html>

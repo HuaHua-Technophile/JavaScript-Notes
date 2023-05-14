@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>16-1-3乘法运算</title>
+  </head>
+  <body>
+    <script>
+      let a = 2;
+      console.log(a * NaN); // Nan与任意操作数相乘，结果都是NaN
+      console.log(a * Infinity); // Infinity与任意非0正数相乘，结果都是Infinity
+      console.log(-a * Infinity); // Infinity与与任意非0负数相乘，结果是-Infinity(负Infinity)
+      console.log(0 * Infinity); // Infinity与0相乘，结果是NaN
+      console.log(Infinity * Infinity); // 同号Infinity相乘，结果是Infinity
+      console.log(-Infinity * -Infinity); // 同号Infinity相乘，结果是Infinity
+      console.log(Infinity * -Infinity); // 异号Infinity相乘，结果是-Infinity(负Infinity)
+    </script>
+  </body>
+</html>

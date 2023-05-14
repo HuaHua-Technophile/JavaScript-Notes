@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      20-1-7splice()破坏性截取数组or添加元素,slice()非破坏性截取数组
+    </title>
+  </head>
+  <body>
+    <p>
+      splice()方法可以在指定的位置添加或删除数组元素，它会改变原数组的内容，是破坏性方法,返回所有被删除元素组成的新数组.
+      <br />因此可以只填写一个参数,表示下标.原数组从下标开始删除到最后一个数组元素,然后return这个被剔出来的数组,相当于截取
+      <br />如果填写的参数>=数组长度,则splice()啥都不能删除,因此return的是空数组.也就是截取到了空数组
+    </p>
+    <p>
+      slice()方法可以从指定的位置开始，返回一个包含原数组部分元素的新数组，***它不会改变原数组的内容***
+      <br />该方法有两个参数.表示要截取数组元素的起始下标和结束下标.如果只填写一个参数,则从该起始下标截取到最后一个元素.return的数组,和splice()方法一样.(只是该slice方法不会修改原数组)
+    </p>
+    <script>
+      let fruits = ["Banana", "Orange", "Apple", "Mango", "Kiwi"];
+      fruits = fruits.splice(2); // 使用splice()方法,从下标2开始,截取到数组最后一个
+      console.log(fruits); //['Apple', 'Mango', 'Kiwi']
+      fruits = ["Banana", "Orange", "Apple", "Mango", "Kiwi"];
+      console.log(fruits.slice(1, 3)); // 使用splice()方法,从下标1开始,截取到下标3 // ['Orange', 'Apple']
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-5-6转换为对象</title>
+  </head>
+  <body>
+    <p>在Javascript中，你可以使用以下几种方法将任何值转换为对象¹：</p>
+    <p>
+      1.使用Object()函数。这个函数接受一个值作为参数，返回一个对象。
+      <br />如果参数是原始值（如字符串、数字、布尔值、null或undefined），则返回一个对应的包装对象（如String、Number、Boolean或Object）⁴。
+      <br />如果参数是一个对象，则返回该对象本身⁴。例如：
+    </p>
+    <script>
+      // 创建一个字符串
+      let str = "hello";
+      // 使用Object()函数将其转换为对象，返回一个String对象
+      console.log(Object(str)); // String {"hello"}
+
+      // 创建一个数字
+      let num = 42;
+      // 使用Object()函数将其转换为对象，返回一个Number对象
+      console.log(Object(num)); // Number {42}
+
+      // 创建一个null值
+      let nul = null;
+      // 使用Object()函数将其转换为对象，返回一个Object对象
+      console.log(Object(nul)); // {}
+
+      // 创建一个数组
+      let arr = [1, 2, 3];
+      // 使用Object()函数将其转换为对象，返回该数组本身（因为数组也是一种对象）
+      console.log(Object(arr)); // (3) [1, 2, 3]
+    </script>
+    <p>
+      2.使用new命令，调用String、Number、Boolean类型函数。可以把字符串、数值、布尔型包装成对应类型的对象
+    </p>
+    <script>
+      //同上
+    </script>
+    <p>
+      3.使用JSON.parse()方法。这个方法接受一个JSON格式的字符串作为参数，返回一个解析后的JavaScript对象。
+      <br />JSON格式的字符串必须遵循一定的规则，例如：所有的键和字符串值必须用双引号包围，不能有注释或尾逗号等。例如：
+    </p>
+    <script>
+      // 创建一个JSON格式的字符串
+      let jsonStr =
+        '{"name":"Alice","age":25,"hobbies":["reading","writing","coding"]}';
+      // 使用JSON.parse()方法将其转换为对象，返回一个包含name、age和hobbies属性的普通对象
+      console.log(JSON.parse(jsonStr)); // {name: "Alice", age: 25, hobbies: Array(3)}
+    </script>
+    <p>
+      需要注意的是，并不是所有的字符串都能被转换为有效的JSON格式的字符串，因此使用JSON.parse()方法时可能会抛出错误。例如：
+    </p>
+
+    <script>
+      // 创建一个非法的JSON格式的字符串（键没有用双引号包围）
+      let badJsonStr = '{name:"Alice"}';
+      // 尝试使用JSON.parse()方法将其转换为对象，抛出错误：Unexpected token n in JSON at position 1
+      console.log(JSON.parse(badJsonStr)); // SyntaxError: Unexpected token n in JSON at position 1
+    </script>
+  </body>
+</html>

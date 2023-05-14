@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-11indexOf(),lastIndexOf()数组元素检索</title>
+  </head>
+  <body>
+    <p>18-1-4-2search(),indexOf(),lastIndexOf()字符串检索.html</p>
+    <p>
+      JavaScript中，数组的indexOf()和lastIndexOf()方法都是用来查找数组中某个元素的索引（位置）的，但是有一些区别。
+      <br />indexOf()方法从数组的开头（左边）向后（右边）查找，返回第一个匹配元素的索引，如果没有找到，返回-1
+      <br />lastIndexOf()方法从数组的结尾（右边）向前（左边）查找，返回最后一个匹配元素的索引，如果没有找到，返回-1
+      <br />这两个方法都可以接受一个可选的参数，表示从哪个索引开始查找，如果是负数，表示从数组的末尾开始倒数。
+    </p>
+    <script>
+      const fruits = ["Banana", "Orange", "Apple", "Mango", "Apple"];
+      // 使用indexOf()方法查找"Apple"的索引
+      console.log(fruits.indexOf("Apple")); // 2
+      // 使用indexOf()方法从第三个位置开始查找"Apple"的索引
+      console.log(fruits.indexOf("Apple", 3)); // 4
+      // 使用lastIndexOf()方法查找"Apple"的索引
+      console.log(fruits.lastIndexOf("Apple")); // 4
+      // 使用lastIndexOf()方法从倒数第二个位置开始查找"Apple"的索引
+      console.log(fruits.lastIndexOf("Apple", -2)); // 2
+    </script>
+  </body>
+</html>

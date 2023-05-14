@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>28-0-1Ajax介绍,XMLHttpRequest对象(Ajax对象),发送GET请求</title>
+  </head>
+  <body>
+    <p>
+      <li>Ajax是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术</li>
+      <li>
+        Ajax的全称是Asynchronous_JavaScript_and_XML，意思是异步的JavaScript和XML
+      </li>
+      <li>
+        Ajax的核心是XMLHttpRequest对象，它是一个内置的API，可以通过JavaScript发送和接收HTTP请求
+      </li>
+      <li>Ajax可以使网页应用实现快速动态的数据交互，提高用户体验和性能</li>
+      <li>
+        Ajax可以使用JSON或XML作为数据格式，也可以使用其他格式，如HTML或纯文本
+      </li>
+    </p>
+    <p>
+      JavaScript中，Ajax对象通常指的是XMLHttpRequest对象，它是一个内置的API，可以通过JavaScript发送和接收HTTP请求
+    </p>
+    <p>
+      使用XMLHttpRequest对象的基本步骤如下：
+      <li>创建一个XMLHttpRequest对象实例</li>
+      <li>使用open()方法设置请求的方法、URL和其他参数</li>
+      <li>使用send()方法发送请求，可以附加请求体数据</li>
+      <li>
+        使用onreadystatechange事件处理器或者onload事件处理器监听响应状态的变化
+      </li>
+      <li>
+        使用response或responseText属性获取响应数据，可以设置responseType属性来改变响应数据的类型
+      </li>
+    </p>
+    <script>
+      let xhr = new XMLHttpRequest() || createXHR(); // 创建一个 XMLHttpRequest 对象实例,IE6.0+使用new ActiveXObject("Msxml2.XMLHTTP"); IE5.5+使用new ActiveXObject("Microsoft.XMLHTTP");
+      /* creatXHR() 函数可以兼容 IE 浏览器，只要它使用了 ActiveXObject 的方式来创建 ajax 对象。不同版本的 IE 浏览器可能需要不同的 ActiveXObject 参数，所以 creatXHR() 函数一般会使用 try…catch 语句来尝试不同的参数，直到成功创建 ajax 对象或者提示不支持 ajax。creatXHR() 函数的目的就是为了解决 IE 和其他浏览器创建 ajax 对象的差异，让开发者可以使用统一的接口来获取 ajax 对象。 */
+      xhr.open(
+        "GET",
+        "https://v2.alapi.cn/api/hitokoto?token=IEc59wK92YGhJp7N"
+      ); // 设置请求的方法、URL 和其他参数
+      xhr.responseType = "json"; //设置: 接收响应数据的类型为JSON, 就可以不用再手动将返回字符串转换为字符串;
+      xhr.send(); // 发送请求
+      xhr.onreadystatechange = function () {
+        // 监听响应状态的变化
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          // 如果请求已完成(readyState=4)并且响应状态为 200（成功）
+          console.log(xhr.response); // 获取响应数据(一个 JSON 对象)
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>22-2-2for.in深拷贝对象,JSON.parse(JSON.stringify(obj)).html</title>
+  </head>
+  <body>
+    在JavaScript中，复制对象是指将一个对象的属性和方法复制到另一个对象中，以便在修改原始对象时不会影响到复制的对象
+    <br />可以使用JSON.parse(JSON.stringify())方法，它会将一个对象序列化为JSON字符串，然后再解析为一个新的对象。这种方法不能实现完全复制，不能处理循环引用或函数等特殊情况
+    <script>
+      obj = {
+        name1: "Alice",
+        age: 20,
+        hobbies: ["reading", "writing"],
+        sayHello: function () {
+          console.log("Hello, I'm " + this.name1);
+        },
+      };
+      let copy2 = JSON.parse(JSON.stringify(obj)); // 使用JSON.parse(JSON.stringify())方法复制对象
+      obj.name1 = "Bob";
+      obj.hobbies.push("singing");
+      copy2.hobbies.pop();
+      copy2.age = 21; // 修改原始对象和复制对象的属性
+      console.log(obj); // { name: 'Bob', age: 20, hobbies: [ 'reading', 'writing', 'singing' ], sayHello: [Function: sayHello] }
+      console.log(copy2); // { name: 'Alice', age: 21, hobbies: [ 'reading', 'writing' ] }
+      obj.sayHello(); // Hello, I'm Bob
+      copy2.sayHello(); // TypeError: copy.sayHello is not a function 因为不能处理循环引用或函数等特殊情况
+    </script>
+    <br />也可以用for/in来遍历对象,然后把每个对象成员赋值给另一个对象
+    <script>
+      let obj = {
+        name1: "Alice",
+        age: 20,
+        hobbies: ["reading", "writing"],
+        sayHello: function () {
+          console.log("Hello, I'm " + this.name1);
+        },
+      };
+      let copy1 = {};
+      for (let i in obj) {
+        copy1[i] = obj[i];
+      }
+      console.log(copy1); //{name1: 'Alice', age: 20, hobbies: Array(2), sayHello: ƒ}
+      copy1.sayHello(); //Hello, I'm Alice
+    </script>
+  </body>
+</html>

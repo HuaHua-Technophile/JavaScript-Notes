@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-1-3cloneNode()创建节点副本</title>
+    <style>
+      #myDiv {
+        width: 100px;
+        height: 100px;
+        background: pink;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      cloneNode()方法是一个用于复制节点的方法。它接受一个参数，表示是否要复制节点的子树。它返回一个复制的节点，但不会将其添加到文档中
+    </p>
+    <p>
+      cloneNode()方法的语法如下：
+      <br />node.cloneNode(deep)
+    </p>
+    <p>
+      其中，node是要复制的节点，deep是一个布尔值，表示是否要复制节点的子树。如果为true，则复制节点及其所有后代；如果为false，则只复制节点本身
+    </p>
+    <div id="myDiv">我是#myDiv</div>
+    <script>
+      let div = document.getElementById("myDiv"); // 获取要复制的div元素
+      let clone = div.cloneNode(true); // 复制div元素及其子树
+      document.body.appendChild(clone); // 将复制的元素添加到文档中
+    </script>
+    <p>这个例子会在文档中创建并显示一个与#myDiv元素完全相同的元素。</p>
+    <p>
+      cloneNode()方法的更高级的应用场景或示例代码有以下几种：
+      <br />使用cloneNode()方法实现拖放效果。可以使用cloneNode()方法复制被拖动的元素，然后将其添加到目标元素中。例如：
+    </p>
+    <!-- <script>
+      let dragItem = document.getElementById("drag-item"); // 获取要拖动的元素
+      let dropZone = document.getElementById("drop-zone"); // 获取要放置的元素
+      dragItem.addEventListener("dragstart", function (e) {
+        e.dataTransfer.setData("text/plain", this.id); // 添加dragstart事件监听器 设置数据传输对象的数据和类型
+      });
+      dropZone.addEventListener("dragover", function (e) {
+        // 添加dragover事件监听器
+        e.preventDefault(); // 阻止默认行为，允许放置
+      });
+      dropZone.addEventListener("drop", function (e) {
+        // 添加drop事件监听器
+        e.preventDefault(); // 阻止默认行为，防止打开链接等
+        let data = e.dataTransfer.getData("text/plain"); // 获取数据传输对象的数据和类型
+        let type = e.dataTransfer.types[0];
+        if (type === "text/plain" && document.getElementById(data)) {
+          // 如果类型是text/plain，且数据是有效的id，则复制并添加元素
+          let draggedItem = document.getElementById(data); // 获取被拖动的元素
+          let clonedItem = draggedItem.cloneNode(true); // 复制被拖动的元素及其子树
+          this.appendChild(clonedItem); // 将复制的元素添加到目标元素中
+        }
+      });
+    </script> -->
+    <p>
+      上方例子会实现一个简单的拖放效果，可以将一个div元素从一个区域拖动到另一个区域，并在目标区域创建一个副本。
+      <br />另一个高级应用场景是:
+      <br />使用cloneNode()方法实现表单重置效果。可以使用cloneNode()方法复制表单中的某些元素，然后在用户点击重置按钮时，用复制的元素替换原来的元素。例如：
+    </p>
+    <form id="myForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" value="Alice" />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="alice@example.com" />
+    </form>
+    <button id="resetBtn">Reset</button>
+    <script>
+      let form = document.getElementById("myForm"); // 获取要重置的表单和按钮
+      let resetBtn = document.getElementById("resetBtn");
+      let inputs = form.querySelectorAll("input"); // 复制表单中所有输入框及其子树，并存储在一个数组中
+      let clones = [];
+      for (let items of inputs) {
+        clones.push(items.cloneNode(true));
+      }
+      resetBtn.addEventListener("click", function () {
+        // 添加点击事件监听器
+        for (let i = 0; i < inputs.length; i++) {
+          // 遍历输入框和副本数组
+          console.log(clones[i], clones[i].value); //cloneNode()会把修改之后的也拿了.不知道为什么,所以只能替换一次
+          let input = inputs[i]; // 获取当前输入框和对应副本
+          let clone = clones[i];
+          input.parentNode.replaceChild(clone, input); // 将当前输入框替换为副本
+        }
+      });
+    </script>
+    <p>
+      上方例子会实现一个表单重置效果，当用户点击重置按钮时，会将表单中所有输入框恢复为初始值。
+    </p>
+  </body>
+</html>

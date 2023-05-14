@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>23-2-4利用原型设置对象默认值,对象备份,对象只读属性</title>
+  </head>
+  <body>
+    <p>
+      (原型/构造函数的原型)可以被所有实例对象访问,而私有属性只能被当前实例访问
+    </p>
+    <p>
+      利用原型给对象设置默认值.当原型属性与私有属性同名时输出本地的私有属性;删除私有属性后,可以访问原型属性,即:可以把原型的属性值作为初始化默认值
+    </p>
+    <script>
+      function P(x) {
+        if (x) this.x = x; //如果传入了实参,则设置属性(这条是关键)
+      }
+      P.prototype.x = "默认值"; //利用原型的属性,设置私有属性x的默认值
+      let p1 = new P(), //实例化一个没有参数的对象
+        p2 = new P("传入的实参"); //实例化一个传入了参数的对象
+      console.log(p1.x); //"默认值"
+      console.log(p2.x); //"传入的实参"
+    </script>
+    <p>
+      利用原型,间接实现本地数据备份.把本地对象的数据完全赋值给原型对象,相当于为该对象定义一个副本
+      <br />当对象属性被修改时,可以通过原型对象来访问和恢复本地对象的初始值
+    </p>
+    <script>
+      function P2(x) {
+        this.x = x;
+      }
+      P2.prototype.backup = function () {
+        for (let i in this) {
+          P2.prototype[i] = this[i];
+        }
+      };
+      let p3 = new P2("初始赋值");
+      p3.backup(); //备份本地对象的属性值
+      console.log(p3.x); //"初始赋值"
+      p3.x = "修改后值";
+      console.log(p3.x); //"修改后值"   数据被修改了
+      p3 = p3.__proto__ || Object.getPrototypeOf(p3) || P2.prototype; //恢复数据
+      console.log(p3.x); //"初始赋值"
+    </script>
+    <p>利用原型,为对象设置只读属性</p>
+    <script>
+      //使用Object.defineProperty方法(22-3-1)，给对象的原型添加一个属性，并设置其writable属性为false，这样就可以防止该属性被修改
+      function Person1(name) {
+        this.name = name;
+      }
+      Object.defineProperty(Person1.prototype, "greeting", {
+        value: "只读属性",
+        writable: false, // 给原型添加一个只读属性
+      });
+      let p4 = new Person1("Alice"); // 创建一个对象
+      p4.greeting = "尝试修改"; // 无效// 尝试修改只读属性
+      console.log(p4.greeting); // "只读属性"// 访问只读属性
+    </script>
+    <script>
+      //使用Object.freeze方法(22-4-6)，给对象的原型添加一个属性，并将其冻结，这样就可以防止该属性被修改或删除
+      function Person2(name) {
+        this.name = name;
+      }
+      Person2.prototype.greeting = "冻结属性"; // 给原型添加一个属性
+      Object.freeze(Person2.prototype); // 冻结原型
+      let p5 = new Person2("Alice"); // 创建一个对象
+      p5.greeting = "尝试修改"; // 无效 // 尝试修改冻结的属性
+      delete p5.greeting; // 无效 // 尝试删除冻结的属性
+      console.log(p5.greeting); // "冻结属性" // 访问冻结的属性
+    </script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>17-4-2try,catch,finally异常处理语句</title>
+  </head>
+  <body>
+    <p>
+      try/catch/finally语句用于测试代码块中的错误，并在发生错误时执行相应的操作。try/catch/finally语句的语法是：
+    </p>
+    <pre>
+      try {
+        // try块中的语句是你想要正常执行的代码，如果在这些语句中有任何一个抛出了异常，那么控制流就会立即转移到catch块中
+      } catch (e) {
+        // catch块中的语句是你想要处理异常的代码，你可以使用catch块的参数e来获取异常对象的信息，例如e.name或e.message
+      } finally {
+        // finally块中的语句是你想要无论如何都执行的代码，无论try块或catch块是否有异常抛出或捕获，finally块都会执行，这可以用来做一些清理工作或释放资源。
+      }
+    </pre>
+    <p>
+      你也可以使用多个catch块来处理不同类型的异常，这样你可以根据异常的具体情况做出不同的响应。你可以在catch块后面加上一个条件表达式来指定当满足某个条件时才执行该catch块。但这种条件catch块是非标准的特性，请尽量不要在生产环境中使用它
+    </p>
+    <pre>
+      try {
+        // 尝试执行的语句
+      } catch (e if e instanceof TypeError) {
+        // 处理TypeError异常
+      } catch (e if e instanceof RangeError) {
+        // 处理RangeError异常
+      } catch (e) {
+        // 处理其他类型的异常
+      }
+    </pre>
+    <script>
+      function getMonthName(month) {
+        let months = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        if (months[month] !== undefined) {
+          return months[month];
+        } else {
+          throw "错误的月份!!!";
+        } //这个getMonthName函数封装了错误抛出的模块
+      }
+
+      try {
+        let monthName = getMonthName(15);
+        console.log(monthName);
+      } catch (error) {
+        console.log(error); // Invalid month number
+      } finally {
+        console.log("---该finally代码块只要添加就一定执行,用于进行兜底---");
+      }
+    </script>
+    <p>
+      在这个例子中，getMonthName函数会抛出一个错误，如果传入的月份参数不在0到11之间。try块会尝试调用这个函数，并打印返回值。catch块会捕获错误，并打印错误信息。finally块会无论如何都执行，并打印一条消息。
+    </p>
+    <p>
+      try/catch/finally语句允许嵌套使用,层数不限,同时形成一条语法作用链域.
+      <br />在try中发现异常时,JavaScript会停止程序的正常自信.并跳转到层级最近的catch子句(异常处理器).
+      <br />如果没有找到异常处理器catch,则会沿着作用链域,检查上一级的catch子句.
+      <br />以此类推,直到找到上一个catch异常处理器为止
+    </p>
+    <script>
+      try {
+        try {
+          undefined_function();
+          // 1 = 1;
+        } catch (error) {
+          if (error.name == "ReferenceError") console.log("错误参考");
+          else throw error;
+        }
+      } catch (error) {
+        console.log("内层try/catch不能处理该错误");
+      }
+    </script>
+  </body>
+</html>

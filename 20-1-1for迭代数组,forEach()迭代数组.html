@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-1for迭代数组</title>
+  </head>
+  <body>
+    <p>
+      在Javascript中，有几种方法可以用for循环遍历数组。👇
+      <br />一种方法是使用传统的for循环，指定一个索引变量和一个终止条件。例如:
+    </p>
+    <script>
+      let myArray = [1, 2, 3, 4];
+      for (let index = 0; index < myArray.length; index++) {
+        console.log(myArray[index]); // 打印数组中的每个元素
+      }
+    </script>
+    <p>
+      另一种方法是使用for...in循环，它可以遍历数组的可枚举属性，包括索引和自定义属性。例如:
+    </p>
+    <script>
+      myArray.customProperty = "hello";
+      for (let index in myArray) {
+        console.log(index + ": " + myArray[index]); // 打印数组中的每个属性和值
+      }
+    </script>
+    <p>
+      还有一种方法是使用for...of循环，它可以遍历数组的值，而不是属性。这需要浏览器支持ES6语法。例如:
+    </p>
+    <script>
+      for (let items of myArray) {
+        console.log(items); // 只打印数组中的值，不打印自定义属性
+      }
+    </script>
+    <hr />
+    <p>
+      JavaScript中的forEach()方法是一个数组方法，它可以对数组中的每个元素执行一个函数。
+      <br />这个方法接受一个回调函数作为参数，这个回调函数可以有三个参数：当前元素的值，当前元素的索引，和整个传入数组。
+      <br />forEach()方法总是返回undefined，而且不能链式调用。它通常用于在链式调用的最后执行一些副作用。
+    </p>
+    <script>
+      myArray.forEach(function (items) {
+        console.log(items); // 打印数组中的每个元素
+      });
+    </script>
+  </body>
+</html>

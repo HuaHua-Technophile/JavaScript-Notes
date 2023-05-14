@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-1-1-2alert()confirm()prompt()交互对话框</title>
+  </head>
+  <body>
+    <p>alert()函数用来显示一个消息，并等待用户点击“确定”按钮。例如：</p>
+    <script>
+      alert("Hello"); // 弹出一个包含"Hello"的对话框
+    </script>
+    <p>
+      confirm()函数用来显示一个消息，并让用户选择“确定”或“取消”。它返回一个布尔值，表示用户的选择。例如：
+    </p>
+    <script>
+      let isBoss = confirm("Are you the boss?"); // 弹出一个包含"Are you the boss?"的对话框
+      alert(isBoss); // 如果用户点击了“确定”，则显示true，否则显示false
+    </script>
+    <p>
+      prompt()函数用来显示一个消息，并让用户输入一些文本。它返回用户输入的文本，或者如果用户点击了“取消”或按下了Esc键，则返回null。例如：
+    </p>
+    <script>
+      let name = prompt("What is your name?", "Harry"); // 弹出一个包含"What is your name?"的对话框，并在输入框中显示默认值"Harry"
+      alert(`Hello, ${name}`); // 如果用户输入了文本，则显示"Hello, 文本"，否则显示"Hello, null"
+    </script>
+    <p>
+      重写alert方法的示例代码有很多种，一般的思路是使用HTML和CSS来创建一个自定义的弹出框，然后用JavaScript来控制它的显示和隐藏，以及传递消息和回调函数。下面是一个简单的例
+    </p>
+    <style>
+      #alert_box {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 400px;
+        height: 200px;
+        display: none;
+      }
+      #alert_box dl {
+        position: absolute;
+        left: -200px;
+        top: -100px;
+        width: 400px;
+        height: 200px;
+        border: solid 1px red;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      #alert_box dt {
+        background-color: #00000056;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        font-weight: bold;
+        font-size: 15px;
+      }
+      #alert_box dd {
+        padding: 6px;
+        margin: 0;
+        font-size: 12 px;
+        text-align: center;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-1-5removeChild()删除子节点方法</title>
+  </head>
+  <body>
+    <p>
+      removeChild()是Node接口的方法，用于从一个父节点中移除一个子节点。它的语法和使用案例如下：
+    </p>
+    <p>
+      removeChild()方法接受一个参数，即要移除的子节点。如果该子节点不属于父节点，那么该方法会抛出异常。它的语法是：
+      <br />parentNode.removeChild(childNode);
+      <br />其中，parentNode是要移除子节点的父节点，childNode是要移除的子节点。该方法返回被移除的子节点。
+    </p>
+    <ui id="myList">
+      <li>li1</li>
+      <li>li2</li>
+      <li>li3</li>
+    </ui>
+    <script>
+      // 例如，以下代码从一个<ul>元素中移除最后一个<li>元素：
+      let list = document.getElementById("myList"); // 获取<ul>元素
+      let lastItem = list.lastElementChild; // 获取最后一个<li>元素
+      list.removeChild(lastItem); // 从<ul>元素中移除最后一个<li>元素
+    </script>
+    <p>
+      若使用变量或者常量容器接收 = parentNode.removeChild(childNode)
+      <br />则removeChild()方法不会销毁被移除的子节点，而是将其保留在内存中，可以在以后重新使用。如果你不想保留被移除的子节点在内存中，你可以不使用变量或者常量容器接收**返回的被移除的子节点**。
+      <br />这样，被移除的子节点会在一定时间后被JavaScript垃圾回收器销毁。
+    </p>
+    <br />如果你想从一个父节点中移除所有的子节点，你可以使用以下方法：
+    <script>
+      let parent = document.getElementById("parent"); // 获取父节点
+      while (parent.firstChild) {
+        // 循环判断是否还有子节点
+        parent.removeChild(parent.firstChild); // 移除第一个子节点
+      }
+    </script>
+    <p>或者你可以直接将父节点的innerHTML属性设置为空字符串：</p>
+    <script>
+      parent = document.getElementById("parent"); // 获取父节点
+      parent.innerHTML = ""; // 清空父节点内容
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-unshift()数组头部添加元素,shift()数组头部删除元素</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，unshift()方法可以在数组的头部添加一个或多个元素,会return添加元素后的数组长度，该方法会修改原数组,是破坏性方法
+      <br />shift()方法删除数组的第一项,return被删除的元素(第一项).若目标数组为空,返回undefined.该方法会修改原数组,是破坏性方法
+    </p>
+    <script>
+      // 创建一个空数组
+      const arr = [];
+      // 使用unshift()方法添加元素
+      arr.unshift("a");
+      arr.unshift("b");
+      arr.unshift("c");
+      console.log(arr); // ["c", "b", "a"]
+      // 使用shift()方法删除元素
+      arr.shift();
+      console.log(arr); // ["b", "a"]
+      arr.shift();
+      console.log(arr); // ["a"]
+      arr.shift();
+      console.log(arr); // []
+    </script>
+  </body>
+</html>

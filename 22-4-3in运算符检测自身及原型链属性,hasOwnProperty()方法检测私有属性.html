@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      22-4-3in运算符检测自身及原型链属性,hasOwnProperty()方法检测私有属性
+    </title>
+  </head>
+  <body>
+    <p>
+      hasOwnProperty()方法是Object.prototype的一个方法，它返回一个布尔值，表示对象是否具有指定的属性作为自身的属性（而不是继承的属性）
+      <br />你可以使用这个方法来判断一个对象是否拥有特定的直接属性，而不受原型链的影响
+    </p>
+    <script>
+      let person1 = {
+        name: "Alice",
+        sayhallo: function () {
+          return "hallo";
+        },
+      }; // 定义一个对象，有name和age两个属性
+      console.log(person1.hasOwnProperty("name")); // true // 使用hasOwnProperty()方法检查对象是否有name属性
+      console.log(person1.hasOwnProperty("sayhallo")); // false // 使用hasOwnProperty()方法检查对象是否有sayhallo属性
+      console.log(person1.hasOwnProperty("abcd")); // false
+      console.log(person1.hasOwnProperty("__proto__")); // false //因为__proto__属性处于原型链上,所以false
+      console.log(person1.hasOwnProperty("toString")); // false //因为toString方法处于原型链上,所以false
+    </script>
+    <p>
+      而in运算符会同时检查对象自身和原型链上的属性
+      <br />如果你想要检查一个属性是否存在于对象或其原型链上，你可以使用in运算符或者typeof运算符
+    </p>
+    <script>
+      let person2 = {
+        name: "Alice",
+        sayhallo: function () {
+          return "hallo";
+        },
+      };
+      console.log("name" in person2); // true
+      console.log("sayhallo" in person2); // true
+      console.log("__proto__" in person2); // true //__proto__属性在原型链上,因此为true
+      console.log("toString" in person2); // true //tostring()方法在Object.prototype上,也就是原型链上,因此为true
+    </script>
+  </body>
+</html>

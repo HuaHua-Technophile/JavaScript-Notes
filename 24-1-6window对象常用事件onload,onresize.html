@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-1-6window对象常用事件onload,onresize</title>
+  </head>
+  <body>
+    <p>
+      window对象的load事件是在整个页面及所有依赖资源如样式表和图片都已完成加载时触发的事件
+      <br />它与DOMContentLoaded事件不同，DOMContentLoaded只要页面DOM加载完成就触发，不需要等待样式表，图像和子框架页面加载
+      <br />可以使用addEventListener()方法或者onload属性来为window对象添加load事件处理程序，例如：
+    </p>
+    <script>
+      window.addEventListener("load", function () {
+        console.log('window.addEventListener("load",fn(){})');
+      });
+      window.onload = function () {
+        console.log("window.onload = fn(){}");
+      };
+    </script>
+    <p>
+      你想让你的页面更快地响应用户，你可以使用DOMContentLoaded事件，它在页面DOM加载完成就触发，无需等待依赖资源的加载。你可以使用addEventListener()方法或者ondomcontentloaded属性来为window对象添加DOMContentLoaded事件处理程序，例如：
+    </p>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        console.log('window.addEventListener("DOMContentLoaded",fn(){})'); //使用addEventListener()方法
+      });
+      window.onDOMContentLoaded = () => {
+        console.log(
+          "onDOMContentLoaded事件只在页面打开时执行一次,刷新页面不会再执行"
+        ); //只在页面打开时执行一次,刷新页面不会再执行
+      };
+    </script>
+    <p>
+      onresize事件是当浏览器窗口被调整大小时发生的事件。
+      <br />你可以使用clientWidth, clientHeight, innerWidth, innerHeight,
+      outerWidth, outerHeight,
+      offsetWidth和/或offsetHeight属性来获取window对象的大小
+    </p>
+    <p>
+      注意，现在的浏览器只会在window对象上触发onresize事件，所以只有在window对象上注册的处理函数才会收到onresize事件。如果你想要监听其他元素的大小变化，你可以使用ResizeObserver
+    </p>
+    <script>
+      window.onresize = function () {
+        console.log("window.onresize = function (){}");
+      };
+      window.addEventListener("resize", function () {
+        "window.addEventListener('resize', function(){})";
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>18-1-7replace()字符串高级替换</title>
+  </head>
+  <body>
+    <p>JavaScript中replace方法的高級用法主要涉及到正則表達式和替換函數。</p>
+    <p>
+      正則表達式是一種用來描述字符串模式的語法，可以用來在字符串中搜索、匹配或替換特定的字符或組合²。您可以使用正則表達式來指定您想要替換的字符串的條件，例如大小寫、位置、重複次數等。您還可以使用一些特殊的字符來捕獲匹配的子字符串，並在替換值中引用它們¹。
+    </p>
+    <p>
+      例如，下面的代碼使用正則表達式將字符串中以大寫字母開頭的單詞替換為相同的單詞，但是加上括號：
+    </p>
+    <script>
+      const s = "Hello World";
+      const re = /\b([A-Z]\w*)\b/g;
+      const newS = s.replace(re, "($1)");
+      console.log(newS); // (Hello) (World)
+    </script>
+    <p>
+      這裡，`\b`表示單詞邊界，`[A-Z]`表示大寫字母，`\w*`表示任意數量的字母或數字，`g`表示全局匹配。`($1)`表示替換值中引用第一個括號([A-Z]\w*)捕獲的子字符串。
+      <br />替換函數是一個自定義的函數，可以用來根據匹配的值動態生成替換值¹。您可以在函數中使用參數來獲取匹配的值、子字符串、位置和原始字符串。您還可以在函數中使用其他邏輯或操作來處理替換值。
+      <br />例如，下面的代碼使用替換函數將字符串中的每個單詞首字母轉換為大寫：
+    </p>
+    <script>
+      const s2 = "hello world";
+      const re2 = /\b\w+\b/g;
+      const newS2 = s2.replace(re2, function (word) {
+        return word[0].toUpperCase() + word.slice(1);
+      });
+      console.log(newS2); // Hello World
+    </script>
+    <p>
+      這裡，`\b\w+\b`表示一個或多個字母或數字組成的單詞，`g`表示全局匹配。函數中的word參數表示匹配的單詞，然後將其首字母轉換為大寫並返回。
+    </p>
+    <script>
+      let f = function () {
+        for (i in arguments) {
+          console.log("第", i, "个参数的值 : ", arguments[i]);
+        }
+        console.log("----------------------------------------");
+      };
+      let runfunction = s.replace(/\b(\w)(\w*)\b/g, f); //会跑两次f()函数,因为/g表示匹配全部的2个
+    </script>
+  </body>
+</html>

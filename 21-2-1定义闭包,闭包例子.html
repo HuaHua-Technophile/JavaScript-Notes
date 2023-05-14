@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>21-2-1定义闭包,闭包例子</title>
+  </head>
+  <body>
+    <p>
+      闭包的定义：闭包是指有权访问另一个函数作用域中的变量的函数，或者说是在<strong
+        >一个函数中包含另一个函数。</strong
+      >
+      <br /><br />闭包的原理：闭包是由于函数创建和执行时的词法环境（lexical
+      environment）的引用而形成的。词法环境是指函数在定义时所处的作用域，它包含了函数内部和外部的变量和参数。当函数执行时，它会创建一个新的执行环境（execution
+      context），并且继承词法环境中的变量和参数。这样，即使函数执行完毕，它仍然可以访问词法环境中的变量和参数，这就形成了闭包
+      <br /><br />闭包的作用：闭包可以实现以下功能：
+      <br /><br />保护私有变量：闭包可以防止外界修改或访问函数内部的私有变量，只能通过特定的方法来操作。
+      <br /><br />保存状态：闭包可以保存函数执行时的状态，例如计数器，事件监听器等。
+      <br /><br />实现柯里化（currying）：闭包可以实现柯里化，即将一个多参数的函数转换为一系列单参数的函数。
+    </p>
+    <p>
+      典型的闭包体是一个嵌套结构的函数.内部函数引用外部函数的私有成员,同时内部函数又被外界引用,当外部函数被调用后,就形成了闭包
+    </p>
+    <script>
+      function f1(a) {
+        return function (b) {
+          return a + b;
+        };
+      }
+      let myf1 = f1(5);
+      console.log(myf1); //ƒ (b) {return a + b;}
+      console.log(myf1.a); //undefined
+      console.log(myf1.b); //undefined
+      console.log(myf1(6)); //11
+    </script>
+    <p>
+      第一步:JS脚本预编译期,声明函数f1,以及<strong>变量</strong>myf1,先被语法预解析
+      <br />第二步:JS执行期,调用函数f1,传入值5
+      <br />第三步:解析函数f1时,创建执行环境(函数作用域/词法环境),创建活动对象myf1,把参数,私有变量,内部函数都映射为活动对象myf1的属性
+      <br />第四步:参数a的值是5,映射到活动对象的a属性
+      <br />第五步:内部函数,通过作用域链,引用参数a,但暂时未被执行
+      <br />第六步:外部函数调用后,返回内部函数,导致内部函数被外界变量myf1引用
+      <br />第七步:JS解析器检测到外部函数活动对象的属性被外界引用,无法注销该活动对象,于是在内存中继续维持该对象的存在
+      <br />第八步:当调用myf1,即:调用内部函数时,可以看到外部函数的参数a存储的值继续存在,于是也就可以实现后续运算操作,返回a+b=5+6=11
+    </p>
+    <script>
+      // 还有创建方法即:通过全局变量引用内部函数,实现内部函数对外开放
+      let myf2;
+      function f2(c) {
+        myf2 = function (d) {
+          return c + d;
+        };
+      }
+      console.log(f2(5)); //undefined
+      console.log(myf2); //ƒ (d) {return c + d;}
+      console.log(myf2.c); //undefined
+      console.log(myf2.d); //undefined
+      console.log(myf2(6)); //1
+    </script>
+    <hr />
+    <p>
+      保护私有变量的例子：我们可以用闭包来实现一个计数器，它有一个私有的变量count，只能通过特定的方法来增加或获取。
+    </p>
+    <script>
+      function makeCounter() {
+        let count = 0; // 声明一个私有变量 count
+        return {
+          // 返回一个 ***对象*** ，包含两个闭包函数
+          increment: function () {
+            count++; // 增加 count 的值
+          },
+          get: function () {
+            return count; // 获取 count 的值
+          },
+        };
+      }
+      let counter = makeCounter(); // 创建一个计数器
+      counter.increment(); // 调用 increment 方法，增加 count 的值
+      counter.increment();
+      console.log(counter.get()); // 输出 2 // 调用 get 方法，获取 count 的值
+      console.log(counter.count); // 输出 undefined // 无法直接访问或修改 count 的值
+      counter.count = 10; // 无效操作 // 无法直接访问或修改 count 的值
+      console.log(counter.get()); // 输出 2
+    </script>
+    <hr />
+    <p>
+      保存状态的例子：我们可以用闭包来实现一个事件监听器，它可以保存事件触发时的状态，例如点击次数。<button
+        id="button1">
+        点击了0次
+      </button>
+    </p>
+    <script>
+      let button = document.getElementById("button1"); // 获取按钮元素
+      let clickCount = 0; // 声明一个变量 clickCount，用于保存点击次数
+      button.addEventListener("click", function () {
+        // 给按钮添加点击事件监听器,每次点击时，增加 clickCount 的值
+        clickCount++;
+        button.innerHTML = "点击了" + clickCount + "次"; // 输出点击次数
+      });
+    </script>
+    <p>
+      实现柯里化的例子：我们可以用闭包来实现柯里化，即将一个多参数的函数转换为一系列单参数的函数。例如，我们可以将一个求和的函数转换为柯里化的函数。
+    </p>
+    <script>
+      function sum(a, b) {
+        return a + b; // 定义一个求和的函数，接受两个参数 a 和 b
+      }
+      function curriedSum(a) {
+        return function (b) {
+          // 定义一个柯里化的求和函数，接受一个参数 a，并返回一个闭包函数，接受另一个参数 b，并返回 a 和 b 的和
+          return a + b;
+        };
+      }
+      console.log(sum(1, 2)); // 输出 3 //调用原始的求和函数，传入两个参数
+      console.log(curriedSum(1)(2)); // 输出 3 // 调用柯里化的求和函数，传入两个参数，分别作为两个函数的参数
+      let add15 = curriedSum(15); // 可以先传入一个参数，得到一个闭包函数，并保存在变量中
+      console.log(add15(2)); // 输出 17 // 然后再传入另一个参数，调用闭包函数，得到结果
+      console.log(add15(3)); // 输出 18 // 然后再传入另一个参数，调用闭包函数，得到结果
+    </script>
+    <hr />
+    <p>
+      闭包的高级和复杂的应用例子:
+      <br />模拟模块化的例子：我们可以用闭包来实现一个模块化的模式，它可以将一些相关的变量和函数封装在一个立即执行函数表达式（IIFE）中，并返回一个对象，作为模块的接口。这样，我们可以保护模块内部的私有变量和函数，只暴露出需要的公共方法。
+    </p>
+    <script>
+      let userModule = (function () {
+        // 定义一个模块，用于操作用户信息
+        let userInfo = {
+          // 声明一个私有 ***变量*** ，用于保存用户信息
+          name: "Alice",
+          age: 18,
+          email: "alice@example.com",
+        };
+        return {
+          // 返回一个 ***对象***，作为模块的接口
+          getUserInfo: function () {
+            return userInfo; // 获取用户信息的方法
+          },
+          setUserInfo: function (newInfo) {
+            // 修改用户信息的方法
+            if (typeof newInfo === "object") {
+              // 检查 newInfo 是否是一个对象
+              for (let key in newInfo) {
+                userInfo[key] = newInfo[key]; // 遍历 newInfo 的属性，更新 userInfo 的值
+              }
+            }
+          },
+        };
+      })();
+      console.log(userModule.getUserInfo()); // 调用模块的方法，获取用户信息// 输出 { name: 'Alice', age: 18, email: 'alice@example.com' }
+      userModule.setUserInfo({ name: "Bob", age: 20 }); // 调用模块的方法，修改用户信息
+      console.log(userModule.getUserInfo()); // 再次调用模块的方法，获取用户信息// 输出 { name: 'Bob', age: 20, email: 'alice@example.com' }
+
+      console.log(userModule.userInfo); // 输出 undefined// 无法直接访问或修改模块内部的私有变量
+      userModule.userInfo = null; // 无效操作// 无法直接访问或修改模块内部的私有变量
+      console.log(userModule.getUserInfo()); // 输出 { name: 'Bob', age: 20, email: 'alice@example.com' }
+    </script>
+    <p>
+      实现惰性加载的例子：我们可以用闭包来实现一个惰性加载的功能，它可以根据不同的条件，在第一次执行时选择合适的函数，并将其保存在闭包中，以后每次执行时都直接调用该函数，避免重复判断。
+    </p>
+    <script>
+      // 定义一个函数，用于添加事件监听器
+      let addEvent = function (element, type, handler) {
+        // 判断浏览器是否支持 addEventListener 方法
+        if (window.addEventListener) {
+          addEvent = function (element, type, handler) {
+            element.addEventListener(type, handler, false); // 如果支持，则使用 addEventListener 方法，并将其保存在闭包中
+          };
+        } else if (window.attachEvent) {
+          addEvent = function (element, type, handler) {
+            element.attachEvent("on" + type, handler);
+          }; // 如果不支持 addEventListener，但支持 attachEvent 方法，则使用 attachEvent 方法，并将其保存在闭包中
+        } else {
+          addEvent = function (element, type, handler) {
+            element["on" + type] = handler;
+          }; // 如果都不支持，则使用 DOM0 级别的方法，并将其保存在闭包中
+        }
+        addEvent(element, type, handler); // 执行选择好的函数
+      };
+      addEvent(document.getElementById("button"), "click", function () {
+        console.log("You clicked the button."); // 调用函数，添加事件监听器
+      });
+    </script>
+  </body>
+</html>

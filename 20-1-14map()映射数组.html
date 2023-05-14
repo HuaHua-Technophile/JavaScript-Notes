@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-13every()遍历数组进行检测</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中的map方法有两种含义，一种是数组的map方法，另一种是Map对象。
+      <br />数组的map方法是一个迭代方法，它会创建(会return)一个新的数组，该新数组的每个元素都是对原数组的每个元素调用回调函数的结果
+    </p>
+    <script>
+      let numbers = [1, 4, 9]; // 创建一个新数组，新数组的每个元素都是原数组的每个元素的平方根
+      let roots = numbers.map((num) => Math.sqrt(num));
+      console.log(numbers);
+      console.log(roots);
+    </script>
+    <p>
+      JavaScript中的数组map()方法的更复杂的应用场景或高阶示例代码可能包括以下几种：
+      <br />使用map()方法来处理嵌套数组，即数组中的元素也是数组
+    </p>
+    <script>
+      let points = [
+        [1, 2],
+        [3, 4],
+        [5, 6],
+      ]; // 创建一个嵌套数组，每个子数组都是一个坐标点
+      let distances = points.map(([x, y]) => Math.sqrt(x ** 2 + y ** 2)); // 使用map()方法来创建一个新的嵌套数组，每个子数组都是一个距离原点的距离
+      console.log(distances); // [2.23606797749979, 5, 7.810249675906654]
+    </script>
+    <p>使用map()方法来转换对象数组，即数组中的元素是对象</p>
+    <script>
+      let people = [
+        { name: "Alice", age: 23 },
+        { name: "Bob", age: 27 },
+        { name: "Charlie", age: 18 },
+      ]; // 创建一个对象数组，每个对象都是一个人的信息
+      let introductions = people.map(
+        (person) => `Hi, I'm ${person.name} and I'm ${person.age} years old.`
+      ); // 使用map()方法来创建一个新的对象数组，每个对象都是一个人的简介
+      console.log(introductions); // ["Hi, I'm Alice and I'm 23 years old.", "Hi, I'm Bob and I'm 27 years old.", "Hi, I'm Charlie and I'm 18 years old."]
+    </script>
+    <p>
+      使用map()方法来实现链式调用，即在map()方法的结果上再调用其他的数组方法。
+    </p>
+    <script>
+      numbers = [1, 2, 3, 4, 5];
+      // 使用map()方法来创建一个新的数字数组，每个元素都是原数组的元素的平方
+      // 然后使用filter()方法来过滤出偶数元素
+      // 然后使用reduce()方法来求和
+      let sumOfEvenSquares = numbers
+        .map((num) => num ** 2)
+        .filter((num) => num % 2 === 0)
+        .reduce((sum, num) => sum + num, 0);
+      console.log(sumOfEvenSquares); // 20
+    </script>
+  </body>
+</html>

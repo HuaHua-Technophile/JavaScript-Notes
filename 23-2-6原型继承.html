@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>23-2-6原型继承</title>
+  </head>
+  <body>
+    <p>
+      原型继承是JavaScript中基于原型链实现继承的一种方式。原型继承的思想是，通过让一个对象的原型对象指向另一个对象，使得前者可以继承后者的属性和方法
+    </p>
+    <p>原型继承有多种实现方式，比如：</p>
+    <li>
+      原型链继承：通过修改子类构造函数的prototype属性，让它指向父类的实例对象，从而实现继承。这种方式的缺点是，子类的实例会共享父类实例的引用属性，而且无法向父类构造函数传递参数
+    </li>
+    <li>
+      构造函数继承（对象冒充继承）：通过在子类构造函数中使用call或apply方法，调用父类构造函数，并将this绑定到子类实例上，从而实现继承。这种方式的缺点是，只能继承父类构造函数中定义的属性和方法，而不能继承父类原型上的属性和方法
+    </li>
+    <li>
+      组合继承（原型链继承+构造函数继承）：通过结合原型链继承和构造函数继承的方式，既能继承父类构造函数中定义的属性和方法，又能继承父类原型上的属性和方法。这种方式的缺点是，会调用两次父类构造函数，造成一些不必要的开销
+    </li>
+    <li>
+      原型式继承：通过使用Object.create()方法，创建一个以指定对象为原型的新对象，从而实现继承。这种方式的缺点是，无法向父类构造函数传递参数，而且不能复用构造函数
+    </li>
+    <li>
+      寄生式继承：通过在原型式继承的基础上，在新创建的对象上添加一些属性或方法，从而实现继承。这种方式的缺点是，不能复用构造函数，而且每次创建新对象都会创建新的方法
+    </li>
+    <li>
+      寄生组合式继承：通过在寄生式继承的基础上，将子类构造函数的prototype属性指向一个以父类原型为原型的新对象，从而实现继承。这种方式可以避免调用两次父类构造函数，并且可以复用构造函数和原型方法
+    </li>
+    <p>
+      原型继承优点是结构简单,使用简便,缺点是:
+      <li>每个类型只有一个原型,不支持多重继承</li>
+      <li>不能友好的支持带参数的父类</li>
+      <li>
+        使用不灵活,在原型声明阶段实例化父类,并把它作为当前类型的原型,这限制了父类实例化的灵活性,无法确定父类实例化的时机和场合
+      </li>
+      <li>prototype属性也有一些固有的副作用</li>
+    </p>
+  </body>
+</html>

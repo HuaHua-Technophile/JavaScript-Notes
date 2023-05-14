@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-5-3-2数值toExponential转换为科学计数法(指定有效小数位数)</title>
+  </head>
+  <body>
+    <p>
+      toExponential()是一个方法，它用于将一个数字转换为科学计数法的字符串²³。toExponential()方法可以接受一个参数，表示小数点后的位数¹²。如果省略该参数，小数点后的位数默认为能够唯一表示该值所需的位数³。
+    </p>
+    <script>
+      // 创建一个数字
+      let num = 123.456;
+      // 使用toExponential()方法并不传入参数，返回科学计数法表示
+      console.log(num.toExponential()); // 1.23456e+2
+      // 使用toExponential()方法并传入参数0，返回科学计数法表示，并不保留小数部分
+      console.log(num.toExponential(0)); // 1e+2
+      // 使用toExponential()方法并传入参数2，返回科学计数法表示，并保留两位小数
+      console.log(num.toExponential(2)); // 1.23e+2
+
+      // 创建另一个数字
+      let num2 = 0.0000123;
+      // 使用toExponential()方法并不传入参数，返回科学计数法表示
+      console.log(num2.toExponential()); // 1.23e-5
+      // 使用toExponential()方法并传入参数4，返回科学计数法表示，并保留四位小数
+      console.log(num2.toExponential(4)); // 1.2300e-5
+
+      // 创建一个非有限数字
+      let num3 = Infinity;
+      console.log(num3.toExponential(1)); // Infinity
+
+      // 创建一个非数字值
+      let num4 = NaN;
+      console.log(num4.toExponential(1)); // NaN
+    </script>
+  </body>
+</html>

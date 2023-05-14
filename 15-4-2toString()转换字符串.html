@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-4-2toString()转换字符串</title>
+  </head>
+  <body>
+    <p>
+      Javascript中toString()是一个方法，它用于将一个对象或值转换为字符串
+      <br />所有对象都有一个toString()方法，它可以被重写或继承。对于字符串值，toString()方法返回字符串本身（如果是原始值）或者包装的字符串对象
+      <br />使用加号运算符"+",会自动转化为对象，然后自动调用toString()
+    </p>
+    <script>
+      let str = new String("Hello World!");
+      console.log("str.toString()=>", str.toString()); // Hello World! // 使用toString()方法返回字符串本身
+      let num = new Number(56413256);
+      console.log("num.toString()=>", num.toString()); // 56413256 // 使用toString()方法返回数字，默认输出十进制(不管对象是啥进制，输出默认都是10进制)
+      // 使用toString()方法并传入参数返回数字的其他进制表示
+      console.log("num.toString(2)=>", num.toString(2)); // 11010111001100110001001000
+      console.log("num.toString(16)=>", num.toString(16)); // 35ccc48
+      let arr = [1, 2, 3];
+      console.log("arr.toString()=>", arr.toString()); //字符串"1,2,3" // 使用toString()方法返回数组元素组成的字符串，只能以逗号分隔
+      let obj = {
+        name: "Alice",
+        age: 25,
+      };
+      console.log("obj=>", obj);
+      console.log("obj.toString()=>", obj.toString()); // [object Object] // 使用默认的Object.prototype.toString()方法返回对象 ***类型信息***
+      obj.toString = function () {
+        return this.name + " is " + this.age + " years old.";
+      }; // 重写obj上的toString()方法，返回自定义的字符串表示
+      console.log("重写方法后=>", obj.toString()); // Alice is 25 years old.
+    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-5-3-1数值toFixed转换并显示小数</title>
+  </head>
+  <body>
+    <p>
+      toFixed()是一个方法，它用于将一个数字转换为一个字符串，并保留指定的小数位数
+      <br />toFixed()方法会对数字进行四舍五入，如果小数位数不足，会在末尾补零
+    </p>
+    <script>
+      // 创建一个数字
+      let num = 3.14159;
+      // 使用toFixed()方法并传入参数0，返回整数部分
+      console.log(num.toFixed(0)); // 3
+      // 使用toFixed()方法并传入参数2，返回两位小数
+      console.log(num.toFixed(2)); // 3.14
+      // 使用toFixed()方法并传入参数4，返回四位小数
+      console.log(num.toFixed(4)); // 3.1416
+
+      // 创建另一个数字
+      let num2 = 123.456;
+      // 使用toFixed()方法并传入参数5，返回五位小数，并在末尾补零
+      console.log(num2.toFixed(5)); // 123.45600
+
+      // 创建一个非有限数字
+      let num3 = Infinity;
+      console.log(num3.toFixed(1)); // Infinity
+
+      // 创建一个非数字值
+      let num4 = NaN;
+      console.log(num4.toFixed(1)); // NaN
+
+      let str = "1";
+      console.log(str.toFixed(1)); //报错.因为str不是数值,没有这个API方法
+    </script>
+  </body>
+</html>

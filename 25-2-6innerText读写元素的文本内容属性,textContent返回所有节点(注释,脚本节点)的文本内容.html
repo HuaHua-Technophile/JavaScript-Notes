@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      25-2-6innerText读写元素的文本内容属性,textContent返回所有节点(注释,脚本节点)的文本内容
+    </title>
+  </head>
+  <body>
+    <p>innerText属性是HTMLElement接口的属性，用于获取或设置元素的文本内容。</p>
+    <p>例如，以下代码获取了div元素的文本内容，并将其设置为一个新的字符串：</p>
+    <div id="myDiv">Hello World</div>
+    <script>
+      console.log(myDiv.innerText); // Hello World // 获取<div>元素的文本内容
+      myDiv.innerText = "Welcome"; // 设置<div>元素的文本内容为一个新的字符串
+    </script>
+    <p>
+      innerText属性可以用来动态地创建或修改元素的子节点。例如，以下代码使用innerText属性向ul元素中添加了一个新的li元素：
+    </p>
+    <ul id="myList">
+      Old Item
+    </ul>
+    <script>
+      myList.innerText += "\nNew Item"; // 使用innerText属性向<ul>元素中添加了一个新的<li>元素
+    </script>
+    <p>
+      innerText属性可以用来插入包含换行符、制表符等特殊字符或实体引用等复杂内容的字符串。例如，以下代码使用innerText属性向p元素中插入了一段带有换行符和表情符号等内容的字符串：
+    </p>
+    <p id="myP">nothing</p>
+    <script>
+      myP.innerText = "This is a \nmultiline text with a \u{1F600}."; // 使用innerText属性向<p>元素中插入了一段带有换行符和表情符号等内容的字符串
+    </script>
+    <hr />
+    <p>
+      innerText属性与textContent和innerHTML有一些区别。textContent返回所有节点（包括注释节点和脚本节点）的文本内容，而不考虑样式或布局；innerHTML返回所有节点（包括标签节点）的HTML内容，而不考虑样式或布局；而innerText返回可见节点（不包括注释节点和脚本节点）经过样式和布局处理后呈现给用户看到的文本内容。例如，以下代码比较了三个属性在不同情况下返回值得差异：
+    </p>
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
+    <div id="test">
+      <!-- This is a comment -->
+      <p class="hidden">This is hidden</p>
+      <p>This is <strong>bold</strong></p>
+    </div>
+    <script>
+      let test = document.getElementById("test");
+      console.log(test.textContent);
+      /* 
+      
+      This is hidden
+      This is bold
+     */
+      console.log(test.innerHTML);
+      /* 
+      <!-- This is a comment -->
+      <p class="hidden">This is hidden</p>
+      <p>This is <strong>bold</strong></p>
+    
+*/
+      console.log(test.innerText); // "This is bold"
+    </script>
+  </body>
+</html>

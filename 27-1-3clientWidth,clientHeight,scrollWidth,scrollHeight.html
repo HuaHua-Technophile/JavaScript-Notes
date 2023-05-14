@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>27-1-3clientWidth,clientHeight,scrollWidth,scrollHeight</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      #myDIV {
+        width: 400px;
+        height: 400px;
+        background-color: lightgray;
+        background-clip: content-box; /* 背景色仅在内容区域,不延申到内边距 */
+        overflow-y: auto;
+        overflow-x: hidden;
+        border: 50px solid rgb(241, 157, 157);
+        padding: 50px;
+      }
+      #content {
+        width: 600px;
+        height: 600px;
+        border: 70px solid lightsalmon;
+        padding: 70px;
+        background-color: lightgreen;
+        background-clip: content-box; /* 背景色仅在内容区域,不延申到内边距 */
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      clientHeight,clientWidth属性(只读不可写)只对块级元素生效.
+      <br />属性返回一个整数值(单位px)（小数会四舍五入）,只包含内容,内边距,不包含滚动条宽度(17px),边框,外边距
+    </p>
+    <p>
+      document.documentElement的clientHeight属性，返回当前视口的高度（即浏览器窗口的高度），等同于window.innerHeight属性减去水平滚动条的高度（如果有的话）
+      <br />document.body的高度则是网页的实际高度。一般来说，document.body.clientHeight大于document.documentElement.clientHeight。
+    </p>
+    <script>
+      console.log(
+        "网页的宽高=> " +
+          document.body.clientHeight +
+          "," +
+          document.body.clientWidth //网页的宽度小于视窗宽度可能是没有清除body的外边距
+      );
+      console.log(
+        "视口宽高=> " +
+          document.documentElement.clientHeight +
+          "," +
+          document.documentElement.clientWidth
+      ); //拉动控制台后刷新页面可以发现该值变化
+    </script>
+    <p>
+      scrollHeight,scrollWidth属性(只读不可写)
+      <br />属性返回一个整数值(单位px)（小数会四舍五入）
+      <br />包括<strong>溢出容器、当前不可见的部分</strong>与padding，不包括border、margin以及滚动条的宽度，还包括伪元素（::before或::after）的高度
+    </p>
+    <p id="myP"></p>
+    <div id="myDIV">
+      <div id="content"></div>
+    </div>
+    <script>
+      myDIV.onscroll = function () {
+        myP.innerHTML =
+          "myDIV.内容(包括内边距)向左滚出去看不见的距离 => " +
+          myDIV.scrollLeft +
+          "<br/>myDIV.内容(包括内边距)向上滚出去看不见的距离 => " +
+          myDIV.scrollTop +
+          "<br/>myDIV.可见内容宽度(包括内边距+边框) => " +
+          myDIV.scrollWidth +
+          "<br/>myDIV.可见内容高度(包括内边距+边框) => " +
+          myDIV.scrollHeight +
+          "<br/>myDIV.内容宽度+内边距后-滚动条 => " +
+          myDIV.clientWidth +
+          "<br/>myDIV.内容高度+内边距后 => " +
+          myDIV.clientHeight;
+      };
+    </script>
+  </body>
+</html>

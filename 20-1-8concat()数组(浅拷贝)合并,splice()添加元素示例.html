@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-8concat()数组(浅拷贝)合并,splice()添加元素示例</title>
+  </head>
+  <body>
+    <p>
+      concat方法可以用于合并两个或多个字符串或数组，返回一个新的字符串或数组，不改变原来的字符串或数组。
+      <br />对字符串的操作已经在18-1-3.html中演示
+    </p>
+    <script>
+      // 创建两个数组
+      let arr1 = [1, 2, 3];
+      // 使用concat方法合并数组
+      let arr2 = arr1.concat(4, 5, 6);
+      console.log(arr2); // [1, 2, 3, 4, 5, 6]
+      console.log(arr1); // [1, 2, 3]
+    </script>
+    <p>
+      需要注意的是，concat方法只会浅拷贝原来的字符串或数组，如果原来的数组中包含引用类型的元素，那么合并后的数组中的元素仍然会指向同一个引用。
+    </p>
+    <script>
+      // 创建一个包含对象的数组
+      arr1 = [{ name: "Alice" }, { name: "Bob" }];
+      // 使用concat方法合并数组
+      arr2 = arr1.concat([{ name: "Charlie" }]);
+      console.log(arr2); // [{ name: "Alice" }, { name: "Bob" }, { name: "Charlie" }]
+      // 修改原来的数组中的对象
+      arr1[0].name = "Ann";
+      // 合并后的数组中的对象也被修改了
+      console.log(arr2); // [{ name: "Ann" }, { name: "Bob" }, { name: "Charlie" }]
+    </script>
+    <p>
+      JavaScript中，splice方法可以用于在数组中指定的位置添加或删除元素，返回被删除的元素组成的新数组，改变原来的数组
+      <br />如果你想使用splice方法在数组中添加元素，你可以使用以下语法：
+      <br />array.splice(index, 0, item1, item2, ..., itemN);
+    </p>
+    <p>
+      其中，array是要操作的数组，index是要添加元素的位置，0表示不删除任何元素，item1,item2,...,itemN是要添加的元素
+    </p>
+    <script>
+      let arr = ["a", "b", "c", "d", "e"]; // 创建一个数组
+      let removed = arr.splice(1, 0, "x", "y"); // 使用splice方法在第二个位置添加两个元素
+      console.log(arr); // ["a", "x", "y", "b", "c", "d", "e"]
+      console.log(removed); // [] 没有删除任何元素
+    </script>
+  </body>
+</html>

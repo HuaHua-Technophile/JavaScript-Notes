@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      26-2-9touchstart触屏开始事件,touchmove触摸滑动事件,touchend触屏结束事件
+    </title>
+    <style>
+      #div1 {
+        width: 300px;
+        height: 300px;
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      JavaScript中，移动端触屏的相关事件有**触摸事件**（Touch
+      events）和**指针事件**（Pointer
+      events）。触摸事件是一种较为底层的API，可以在触摸屏或触控板上解释手指或触控笔的活动。指针事件是一种统一的API，可以同时处理鼠标、触摸和笔的输入
+    </p>
+    <p>
+      触摸事件有三个阶段：开始、移动和结束。每个阶段都有对应的事件类型，分别是**touchstart**、**touchmove**和**touchend**。每个事件对象都包含了当前所有活动的触摸点的信息，以及与之关联的元素、坐标、压力等属性
+    </p>
+    <ol>
+      触摸事件对象(TouchEvent)有三个常用
+      <li>touches(屏幕触摸列表)：正在触摸屏幕的所有手指的一个列表</li>
+      <li>targetTouches(元素触摸列表):正在触摸当前DOM元素上的手指的一个列表</li>
+      <li>changedTouches:手指状态发生了改变的列表,从无到有,从有到无的变化</li>
+      <li>
+        注意:当我们手指离开屏幕(ontouchend事件)的时候，就没有了touches和targetTouches列表,但是会有changedTouches
+      </li>
+    </ol>
+    <div id="div1"></div>
+    <script>
+      function throttle(func, delay) {
+        let previous = 0; // 定义记录上一次执行时间的变量,初始值为0
+        return function () {
+          let now = Date.now(), // 获取当前时间
+            context = this, // 保存函数调用上下文环境
+            args = arguments; // 保存函数调用参数对象
+          if (now - previous > delay) {
+            // 如果当前时间和上一次执行时间的差值大于设定的时间间隔
+            func.apply(context, args); // 执行函数
+            previous = now; // 更新上一次执行时间
+          }
+        };
+      }
+      div1.ontouchstart = throttle(function (e) {
+        console.log("我是touchstart事件", e); //移动端设备下, 虽然都可以触发click,以及touchstart事件, 但是click时间触发有延迟
+        console.log(e.targetTouches[0]);
+      }, 1000);
+      div1.ontouchmove = throttle(function (e) {
+        console.log("我是touchmove事件", e);
+        console.log(e.targetTouches[0]);
+      }, 1000);
+      div1.ontouchend = throttle(function (e) {
+        console.log("我是touchend事件", e);
+        console.log(e.changedTouches[0]);
+      }, 1000);
+    </script>
+  </body>
+</html>

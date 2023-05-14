@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      22-5-4Data对象案例-已过时间,倒计时,当年第几天,数组首位替换,随机点名
+    </title>
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border-radius: 9999px !important;
+        text-align: center;
+        box-sizing: border-box !important;
+      }
+      body {
+        background: #181a1b !important;
+        color: #c8c8c8 !important;
+      }
+      input {
+        display: inline-block;
+        outline: none;
+        border-radius: 20px;
+        border: 1px solid pink;
+        color: #c8c8c8;
+        background-color: #181a1b;
+        height: 1.5rem;
+      }
+      button {
+        border: 1px solid pink;
+        color: #c8c8c8;
+        background-color: #7a7a7a;
+        padding: 0 5px;
+      }
+      .input-box {
+        display: inline-flex;
+        position: relative;
+        height: 1.5rem;
+      }
+      .input-box_label {
+        visibility: hidden;
+        padding: 0 10px;
+      }
+      .input-box_input {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+      p[id^="Q"] {
+        background: rgb(228, 105, 123);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="d-flex align-items-center justify-content-center">
+      距离生日<input type="date" id="Q1" value="2002-06-19" />已经过去了<span
+        id="Q1ans"
+        >X</span
+      >天啦！
+    </div>
+    <script>
+      setInterval(function () {
+        let passday,
+          diff = new Date().getTime() - new Date(Q1.value).getTime(); // 获取两个Date对象的时间戳（毫秒数），并相减得到毫秒差值
+        passday = diff / (1000 * 60 * 60 * 24); // 将毫秒差值除以一天的毫秒数（1000*60*60*24），得到天数差值
+        Q1ans.innerHTML = passday.toString();
+      }, 1000);
+    </script>
+    <div class="d-flex align-items-center justify-content-center">
+      <button id="btn2">推算</button
+      ><input type="date" id="Q2" />是当年的第<span id="Q2ans">N</span>天
+    </div>
+    <script>
+      let nowdate_str =
+        new Date().getFullYear() +
+        "-" +
+        (new Date().getMonth() + 1).toString().padStart(2, "0") +
+        "-" +
+        new Date().getDate().toString().padStart(2, "0");
+      Q2.value = nowdate_str;
+      btn2.onclick = function () {
+        let New_Years_Day = new Date(new Date().getFullYear() + "-01-01");
+        diff = new Date(Q2.value).getTime() - New_Years_Day.getTime();
+        passday = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1; // 将毫秒差值除以一天的毫秒数（1000*60*60*24），得到天数差值
+        Q2ans.innerHTML = passday;
+      };
+    </script>
+    <div class="d-flex align-items-center justify-content-center">
+      将数组
+      <div class="input-box" style="min-width: 500px">
+        <label id="label" class="input-box_label"></label
+        ><input
+          type="text"
+          value="蔡徐坤,鸽鸽,giegie,吴亦凡,吴签,芙蓉王源,尼古丁真"
+          id="Q3"
+          class="input-box_input" />
+      </div>
+      的<button id="btn3">首尾互换</button>
+    </div>
+    <p id="Q3ans"></p>
+    <script>
+      let arr = Q3.value.split(","),
+        arr_first = arr.shift(),
+        arr_last = arr.pop();
+      arr.push(arr_first);
+      arr.unshift(arr_last);
+      btn3.onclick = function () {
+        Q3ans.innerHTML = arr;
+      };
+    </script>
+    <div class="d-flex align-content-center justify-content-center">
+      将上方数组进行<button id="btn4">随机抽取</button>
+      <div class="input-box" style="min-width: 50px">
+        <label id="label" class="input-box_label"></label
+        ><input type="numbr" value="4" id="Q4" class="input-box_input" />
+      </div>
+      个不重复的元素
+    </div>
+    <p id="Q4ans"></p>
+    <script>
+      function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+      btn4.onclick = function () {
+        str = [];
+        n = Q4.value;
+        for (let i = 0; i < n; ) {
+          let newstr = arr[getRandom(0, arr[i].length - 1)];
+          if (str.indexOf(newstr) == -1) {
+            str.push(newstr);
+            i++;
+          }
+        }
+        Q4ans.innerHTML = str;
+      };
+    </script>
+    <script>
+      // 输入框自适应宽度的核心：将input输入框的内容放在相邻的lable中，让lable撑开父元素，但是不显示。input则充满父元素
+      let auto_input = document.getElementsByClassName("input-box_input");
+      for (let i in auto_input) {
+        auto_input[i].oninput = function () {
+          this.previousElementSibling.innerHTML = this.value;
+        };
+      }
+    </script>
+    <h1 style="text-align: center" id="h1"></h1>
+    <script>
+      // 倒计时
+      function countdownTime(time_str) {
+        let nowtime = new Date(),
+          endtime = new Date(time_str),
+          leftTime = endtime.getTime() - nowtime.getTime(),
+          leftDay = Math.floor(leftTime / (1000 * 60 * 60 * 24)),
+          leftHour = Math.floor((leftTime / (1000 * 60 * 60)) % 24)
+            .toString()
+            .padStart(2, "0"),
+          leftMinute = Math.floor((leftTime / (1000 * 60)) % 60)
+            .toString()
+            .padStart(2, "0"),
+          leftSecond = Math.floor((leftTime / 1000) % 60)
+            .toString()
+            .padStart(2, "0");
+        return `${leftDay}天${leftHour}小时${leftMinute}分${leftSecond}秒`;
+      }
+      h1.innerHTML = countdownTime("2043/4/1");
+    </script>
+  </body>
+</html>

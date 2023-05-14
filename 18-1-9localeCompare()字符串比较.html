@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>18-1-9localeCompare()字符串比较</title>
+  </head>
+  <body>
+    <p>
+      localeCompare方法用於比較兩個字符串在當前語言環境下的排序順序。這個方法返回一個數字，表示參考字符串與比較字符串的關係¹。如果參考字符串在比較字符串之前，返回-1；如果參考字符串在比較字符串之後，返回1；如果兩個字符串相等，返回0。
+    </p>
+    <p>
+      您可以傳遞一個或多個語言標籤來指定語言環境，也可以傳遞一個選項對象來指定比較的規則，例如大小寫敏感、數字敏感等¹。
+    </p>
+    <script>
+      const arr = ["apple", "Orange", "banana", "10", "20"];
+      const sortedArr = arr.sort(function (a, b) {
+        return a.localeCompare(b, "en-US", {
+          sensitivity: "base",
+          numeric: true,
+        });
+      });
+      console.log(sortedArr); // ["10", "20", "apple", "banana", "Orange"]
+    </script>
+    <p>
+      這裡，'en-US'表示使用美式英語的語言環境，{sensitivity: 'base', numeric:
+      true}表示忽略大小寫和變音符號，並將數字作為數值而不是字符串來比較¹。
+    </p>
+  </body>
+</html>

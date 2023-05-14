@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-3-3setAttribute()设置元素属性值方法</title>
+  </head>
+  <body>
+    <p>
+      setAttribute()是一个JavaScript方法，用于在指定的元素上设置一个属性的值。如果属性已经存在，那么值会被更新；如果属性不存在，那么会添加一个新的属性，并赋予指定的名称和值。
+    </p>
+    <p>
+      setAttribute()方法的语法是：
+      <br />element.setAttribute(name, value)
+    </p>
+    <p>
+      其中，name是一个字符串，表示要设置或添加的属性的名称；value也是一个字符串，表示要赋予属性的值。
+      <br />注意，任何非字符串类型的值都会被自动转换成字符串。布尔类型的属性只要存在于元素上，无论其实际值是什么，都被认为是真（true）。如果要移除一个属性，可以调用removeAttribute()方法。
+    </p>
+    <p>
+      setAttribute()方法有一些高级和复杂的使用案例，例如：
+      <br />为元素添加类名（class）或样式（style）属性
+      <br />为a元素添加超链接（href）或目标窗口（target）属性
+      <br />为input元素改变输入类型（type）或占位符（placeholder）属性
+      <br />为自定义元素创建自定义属性
+    </p>
+    <div id="myDiv">Hello World</div>
+    <script>
+      // 为元素添加类名（class）或样式（style）属性
+      myDiv.setAttribute("class", "democlass"); // 添加类名属性
+      myDiv.setAttribute("style", "color: pink; font-size: 60px;"); // 添加样式属性
+    </script>
+    <a id="myAnchor">https://www.example.com</a>
+    <script>
+      // 为a元素添加超链接（href）或目标窗口（target）属性
+      myAnchor.setAttribute("href", "https://www.example.com"); // 添加超链接属性
+      myAnchor.setAttribute("target", "_blank"); // 添加目标窗口属性，表示在新窗口打开链接
+    </script>
+    <input id="myInput" type="text" value="Enter your name" />
+    <script>
+      // 为input元素改变输入类型（type）或占位符（placeholder）属性
+      myInput.setAttribute("type", "button"); // 改变输入类型属性，表示将输入框变成按钮
+      myInput.setAttribute("title", "Click me"); // 添加占位符属性，表示在鼠标悬浮时显示提示文字
+    </script>
+    <custom-element id="myCustomElement"
+      >自定义元素custom-element</custom-element
+    >
+    <script>
+      //  为自定义元素创建自定义属性
+      myCustomElement.setAttribute("data-name", "John Doe"); // 创建一个以data-开头的自定义属性，并赋予一个值，可以用于存储额外的信息或数据。
+    </script>
+    <p>
+      setAttribute 方法是 DOM元素的一个方法，它可以用来设置元素的属性。
+      <br />而点语法直接赋值是
+      JavaScript的一种语法，它可以用来设置对象的属性。并且优先级高于setAttribute方法
+      <br />使用点语法时注意替换关键词,class => className <br />for => htmlFor
+    </p>
+    <p>
+      使用点语法 .className
+      添加类名,会覆盖掉原本的类名.这时可以采用店家的方式添加类
+    </p>
+    <script>
+      myDiv.className = "myDiv ";
+      myDiv.className = "myDiv2 ";
+      myDiv.className += "myDiv3"; //没空格
+      myDiv.className += "myDiv4 myDiv5 ";
+      document.write("#myDiv.className => ", myDiv.className); // "myDiv2 myDiv3myDiv4 myDiv5"
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>28-1-11Ajax读取本地文件(txt,json)</title>
+  </head>
+  <body>
+    <script>
+      let xhr = new XMLHttpRequest() || createXHR();
+      xhr.open("GET", "./28-1-11.txt"); // 设置请求的方法、URL
+      xhr.send(); // 发送请求
+      xhr.onreadystatechange = function () {
+        // 监听响应状态的变化
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          // 如果请求已完成(readyState=4)并且响应状态为 200（成功）
+          console.log(xhr.response || xhr.responseText); // 获取响应数据,没有指定返回的responseType是"json"的话,默认是字符串
+        }
+      };
+    </script>
+    <script>
+      let xhr2 = new XMLHttpRequest() || createXHR();
+      xhr2.open("GET", "./28-1-11herolist.json"); // 设置请求的方法、URL
+      xhr2.send(); // 发送请求
+      xhr2.onreadystatechange = function () {
+        // 监听响应状态的变化
+        if (xhr2.readyState === 4 && xhr2.status === 200) {
+          //如果请求已完成(readyState=4)并且响应状态为200(成功)
+          console.log(JSON.parse(xhr2.response || xhr2.responseText)); //获取响应数据(一个字符串),然后用JSON原型对象的parse方法将字符串转换为对象 15-5-6转换为对象.第三个方法
+        }
+      };
+    </script>
+  </body>
+</html>

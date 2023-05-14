@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-1-4frameset,frame,iframe框架集</title>
+  </head>
+  <!-- 使用frameset框架时，不在定义body标签
+  子frameset分框架时候，不要和父级【即第一次分框架时候的cols/（rows）重复】
+  子标签没有结束标签 -->
+  <frameset rows="300,*" border="20" bordercolor="skyblue">
+    <frame url="/www.example.com" />
+    <frameset cols="40%,*" border="10" bordercolor="pink">
+      <frame url="/www.example.com" /><frame url="/www.example.com" />
+    </frameset>
+  </frameset>
+  <noframes>
+    <body>
+      你的浏览器不支持显示框架
+    </body>
+  </noframes>
+  <script>
+    /* 每个框架都有一个window对象, 使用frames可以访问每个window对象;
+    frames是一个数据集合,存储客户端中所有window对象.下标从0开始
+    访问顺序从左到右,从上到下  */
+    console.log(parent);
+    console.log(praent.frames[2]);
+    praent.frames[2].document.body.style.backgroundColor = "red";
+  </script>
+</html>

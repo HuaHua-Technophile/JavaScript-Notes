@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-3-2getAttribute()读取属性值方法</title>
+  </head>
+  <body>
+    <p>
+      getAttribute()是Element接口的方法，用于获取元素节点上指定的属性值。它的语法及其高阶的，复杂的使用场景或示例代码如下：
+    </p>
+    <p>
+      getAttribute()方法接受一个参数，即要获取的属性名。它返回一个字符串，表示属性值。如果元素节点上不存在该属性，则返回null或空字符串（不同浏览器可能有不同表现）。例如，以下代码获取了a元素上href和target属性的值：
+    </p>
+    <a href="https://www.example.com" id="myLink">#myLink</a>
+    <script>
+      document.write(
+        '<br/>myLink.getAttribute("href") => ',
+        myLink.getAttribute("href"),
+        "<br/>"
+      ); // "https://www.example.com"
+      document.write(
+        'myLink.getAttribute("target") => ',
+        myLink.getAttribute("target"),
+        "<br/>"
+      ); // "null" (因为没有指定)
+    </script>
+    <p>
+      getAttribute()方法可以用来获取自定义的数据集属性（以data-开头的属性），这些属性可以用来存储一些额外的信息，而不会影响页面的显示和行为。例如，以下代码获取了p元素上data-info属性的值：
+    </p>
+    <p id="myP" data-info="This is a paragraph">
+      #myP,并且有自定义的数据集属性(data系列属性)
+    </p>
+    <script>
+      document.write(
+        'myP.getAttribute("data-info") => ',
+        myP.getAttribute("data-info")
+      ); // "This is a paragraph"
+    </script>
+    <p>
+      getAttribute()方法也可以用来获取命名空间相关的属性（以xmlns:开头或带有冒号分隔符号），这些属性可以用来指定XML文档中不同部分所属的命名空间。例如，以下代码获取了svg元素上xmlns:xlink属性的值：
+    </p>
+    <svg id="mySvg" xmlns:xlink="http://www.w3.org/1999/xlink"></svg>
+    <script>
+      document.write(
+        '<br/>mySvg.getAttribute("xmlns:xlink") => ',
+        mySvg.getAttribute("xmlns:xlink")
+      ); // "http://www.w3.org/1999/xlink"
+    </script>
+    <p>
+      getAttribute()方法与直接访问元素对象上对应名称的特性有一些区别。直接访问特性通常会返回经过规范化或转换后的值，而getAttribute()方法则会返回原始字符串。例如，以下代码比较了两种方式在不同情况下返回值得差异：
+    </p>
+    <input id="myInput" type="text" value="Hello" class="inputclass" />
+    <script>
+      console.log(myInput.value); // "Hello"
+      console.log(myInput.getAttribute("value")); // "Hello"
+      myInput.value = "World";
+      console.log(myInput.value); // "World"
+      console.log(myInput.getAttribute("value")); // "Hello"
+      myInput.setAttribute(
+        "value",
+        "setAttribute后不生效,被.value='World'覆盖"
+      );
+      console.log(myInput.value); // "World"
+      console.log(myInput.getAttribute("value")); // "setAttribute后不生效,被.value='World'覆盖"
+    </script>
+    <p>
+      setAttribute 方法是 DOM元素的一个方法，它可以用来设置元素的属性。
+      <br />而点语法直接赋值是 JavaScript的一种语法，它可以用来设置对象的属性。
+      <br />使用点语法时注意替换关键词,class => className <br />for => htmlFor
+    </p>
+  </body>
+</html>

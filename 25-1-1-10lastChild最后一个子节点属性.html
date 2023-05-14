@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-1-1-10lastChild最后一个子节点属性</title>
+  </head>
+  <body>
+    <p id="p1">
+      JavaScript中，lastChild属性的用法是使用该属性获取一个元素或节点的最后一个子节点。例如，下面的代码可以获取id为"myList"的元素的最后一个子节点的HTML内容
+    </p>
+    <script>
+      console.log(document.getElementById("p1").lastChild); //" JavaScript中，lastChild属性的用法是使用该属性获取一个元素或节点的最后一个子节点。例如，下面的代码可以获取id为"myList"的元素的最后一个子节点的HTML内容 "
+      let content = document.getElementById("p1").lastChild.innerHTML;
+      console.log(content); //因为text文本节点没有.innerHTML属性,所以返回undefined
+    </script>
+    <p>
+      或者，可以使用该属性获取一个文档的最后一个子节点，通常是&lt;script&gt;元素。例如，下面的代码可以获取文档的最后一个子节点的节点名：
+    </p>
+    <script id="script_id">
+      console.log(document.lastChild); //html
+      console.log(document.lastChild.nodeName); // "HTML"
+      console.log(document.lastChild.lastChild); // body
+      console.log(document.lastChild.lastChild.lastChild); // script#script_id
+    </script>
+  </body>
+</html>

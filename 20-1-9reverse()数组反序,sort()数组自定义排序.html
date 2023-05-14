@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-9reverse()数组反序,sort()数组自定义排序</title>
+  </head>
+  <body>
+    <ol>
+      <li>
+        reverse()和sort()是两个常用的数组方法，它们都可以对数组进行排序，但是有一些区别。
+      </li>
+      <li>
+        reverse()方法可以将数组中的元素顺序反转，它会改变原数组的内容，是破坏性方法,返回原数组
+      </li>
+      <li>
+        sort()方法可以根据指定的规则对数组中的元素进行排序，它也会改变原数组的内容，是破坏性方法.返回原数组
+      </li>
+      <li>
+        如果不指定规则，sort()方法默认按照ASCⅡ的字典顺序进行排序，这可能导致一些意想不到的结果，比如数字的大小顺序被打乱。
+      </li>
+      <li>
+        如果要按照自定义的规则进行排序，可以在sort()方法中传入一个比较函数，该函数接收两个参数，表示要比较的两个元素，返回一个数字表示它们的大小关系。
+      </li>
+    </ol>
+    <script>
+      let numbers = [1, 12, 112, 121, 212, 221, 1222];
+      console.log(numbers.reverse()); // 使用reverse()方法将数组反转 //[1222, 221, 212, 121, 112, 12, 1]
+      console.log(numbers); //会修改原数组 [1222, 221, 212, 121, 112, 12, 1]
+      console.log(numbers.sort()); // 使用sort()方法将数组按照ASCⅡ默认规则排序 //[1, 112, 12, 121, 1222, 212, 221]
+      console.log(numbers); //会修改原数组 [1, 112, 12, 121, 1222, 212, 221]
+      console.log(
+        numbers.sort(function (a, b) {
+          return b - a; // 使用sort()方法将数组按照降序规则排序
+        })
+      ); //[1222, 221, 212, 121, 112, 12, 1]
+      console.log(numbers); //会修改原数组 [1222, 221, 212, 121, 112, 12, 1]
+      console.log(
+        numbers.sort(function (a, b) {
+          return (a % 2) - (b % 2); // 使用sort()方法将数组按照奇偶性规则排序
+        })
+      ); //[1222, 212, 112, 12, 221, 121, 1]
+      console.log(numbers); //会修改原数组 [1222, 212, 112, 12, 221, 121, 1]
+      numbers = [1, 1.2, 1.12, 121];
+      console.log(
+        numbers.sort(function (a, b) {
+          // 使用sort()方法将数组整数与浮点数分开展示
+          if (a > Math.floor(a)) return 1; //如果a是浮点数,则调换位置(return会终止下面的判断)
+          if (b > Math.floor(b)) return -1; //如果b是浮点数,则调换位置
+        })
+      ); //[1, 121, 1.2, 1.12]
+    </script>
+  </body>
+</html>

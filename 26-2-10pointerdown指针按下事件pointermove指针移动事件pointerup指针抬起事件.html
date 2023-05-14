@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      26-2-10pointerdown指针按下事件pointermove指针移动事件pointerup指针抬起事件
+    </title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，移动端触屏的相关事件有**触摸事件**（Touch
+      events）和**指针事件**（Pointer
+      events）。触摸事件是一种较为底层的API，可以在触摸屏或触控板上解释手指或触控笔的活动。指针事件是一种统一的API，可以同时处理鼠标、触摸和笔的输入
+    </p>
+    <p>
+      指针事件有三个阶段：按下、移动和抬起。每个阶段都有对应的事件类型，分别是**pointerdown**、**pointermove**和**pointerup**。每个事件对象都包含了当前指针的信息，以及与之关联的元素、坐标、压力、类型等属性
+    </p>
+    <style>
+      #div1 {
+        width: 300px;
+        height: 300px;
+        background: red;
+      }
+    </style>
+    <div id="div1"></div>
+    <script>
+      function throttle(func, delay) {
+        let previous = 0; // 定义记录上一次执行时间的变量,初始值为0
+        return function () {
+          let now = Date.now(), // 获取当前时间
+            context = this, // 保存函数调用上下文环境
+            args = arguments; // 保存函数调用参数对象
+          if (now - previous > delay) {
+            // 如果当前时间和上一次执行时间的差值大于设定的时间间隔
+            func.apply(context, args); // 执行函数
+            previous = now; // 更新上一次执行时间
+          }
+        };
+      }
+      div1.onpointerdown = throttle(function (e) {
+        console.log("我是pointerdown事件", e);
+      }, 1000);
+      div1.onpointermove = throttle(function (e) {
+        console.log("我是pointermove事件", e);
+      }, 1000);
+      div1.onpointerup = throttle(function (e) {
+        console.log("我是pointerup事件", e);
+      }, 1000);
+    </script>
+  </body>
+</html>

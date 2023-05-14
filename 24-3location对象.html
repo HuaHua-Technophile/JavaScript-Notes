@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-3location对象</title>
+  </head>
+  <body>
+    <p>
+      location对象是window对象的一个属性，表示当前窗口或框架的URL信息
+      <br />它的href属性包含整个URL，其他属性则分别描述了URL的各个部分，如protocol（协议）、host（主机名和端口号）、pathname（路径）、search（查询字符串）、hash（锚点）等
+    </p>
+    <p>
+      URL一般指统一资源定位系统
+      <br />URL可以认为由4部分组成：协议、主机、端口、路径
+      <br />URL的一般语法格式为：protocol://hostname[:port]/path/[:parameters][?query]#fragment
+    </p>
+    <p>
+      location对象不仅可以获取当前URL的信息，还可以控制浏览器显示的文档的位置。
+      <br />你可以通过给location对象或它的href属性赋值一个新的URL，来导航到新的页面
+      <br />你也可以通过修改location对象的其他属性，来改变URL的部分内容，并重新加载页面
+    </p>
+    <button id="btn1">window.location.href = "//www.example.com"</button>
+    <button id="btn2">location.assign("//www.example.com");</button>
+    <button id="btn3">location.replace("//www.example.com");</button>
+    <button id="btn4">location.reload();</button>
+    <script>
+      btn1.onclick = function () {
+        window.location.href = "//www.example.com"; // 设置location对象的href属性
+      };
+    </script>
+    <p>
+      location对象的属性有以下几种
+      <li>hash：返回URL的锚部分（从#开始的部分,如#header）</li>
+      <li>host：返回URL的主机名和端口号</li>
+      <li>hostname：返回URL的主机名</li>
+      <li>href：返回完整的URL</li>
+      <li>pathname：返回URL的路径部分</li>
+      <li>port：返回URL的端口号</li>
+      <li>protocol：返回URL的协议（如http:或https:）</li>
+      <li>search：返回URL的查询部分（从?开始的部分,如"?id=123&name=abc"</li>
+    </p>
+    <script>
+      console.log(window.location);
+      /* {
+  "ancestorOrigins": {},
+  "href": "http://127.0.0.1:5500/2%E5%AD%A6%E6%9C%9F%E3%80%8AHTML5+CSS3%E7%BD%91%E7%AB%99%E8%AE%BE%E8%AE%A1%E6%95%99%E7%A8%8B%E3%80%8B/%E8%87%AA%E5%AD%A6%E8%87%AA%E7%BC%96%E6%88%90%E6%9E%9C/JS/24-3location%E5%AF%B9%E8%B1%A1.html",
+  "origin": "http://127.0.0.1:5500",
+  "protocol": "http:",
+  "host": "127.0.0.1:5500",
+  "hostname": "127.0.0.1",
+  "port": "5500",
+  "pathname": "/2%E5%AD%A6%E6%9C%9F%E3%80%8AHTML5+CSS3%E7%BD%91%E7%AB%99%E8%AE%BE%E8%AE%A1%E6%95%99%E7%A8%8B%E3%80%8B/%E8%87%AA%E5%AD%A6%E8%87%AA%E7%BC%96%E6%88%90%E6%9E%9C/JS/24-3location%E5%AF%B9%E8%B1%A1.html",
+  "search": "",
+  "hash": ""
+} */ console.log(window.location.href); //http://127.0.0.1:5500/2%E5%AD%A6%E6%9C%9F%E3%80%8AHTML5+CSS3%E7%BD%91%E7%AB%99%E8%AE%BE%E8%AE%A1%E6%95%99%E7%A8%8B%E3%80%8B/%E8%87%AA%E5%AD%A6%E8%87%AA%E7%BC%96%E6%88%90%E6%9E%9C/JS/24-3location%E5%AF%B9%E8%B1%A1.html
+      console.log(window.location.protocol); //http:
+      console.log(window.location.host); //127.0.0.1:5500
+      console.log(window.location.hostname); //127.0.0.1
+      console.log(window.location.port); //5500
+      console.log(window.location.pathname); ///2%E5%AD%A6%E6%9C%9F%E3%80%8AHTML5+CSS3%E7%BD%91%E7%AB%99%E8%AE%BE%E8%AE%A1%E6%95%99%E7%A8%8B%E3%80%8B/%E8%87%AA%E5%AD%A6%E8%87%AA%E7%BC%96%E6%88%90%E6%9E%9C/JS/24-3location%E5%AF%B9%E8%B1%A1.html
+      console.log(window.location.search); //没有
+      console.log(window.location.hash); //没有
+    </script>
+    <p>
+      location对象还有以下几种方法
+      <li>
+        assign(url)：加载一个新的文档，相当于点击一个链接，可以后退到上一个页面
+      </li>
+      <li>reload()：重新加载当前文档，相当于刷新页面</li>
+      <li>
+        replace(url)：用一个新的文档替换当前文档，相当于重定向，不能后退到上一个页面
+      </li>
+    </p>
+    <script>
+      btn2.onclick = function () {
+        location.assign("//www.example.com"); //跟location.href一样,可以跳转页面.记录在历史中,可以实现后退功能
+      };
+      btn3.onclick = function () {
+        location.replace("//www.example.com"); //替换当前页面,不记录浏览历史，所以不可以实现后退功能
+      };
+      btn4.onclick = function () {
+        location.reload(); //重新加载页面,相当于点了刷新,或者按了f5
+      };
+    </script>
+  </body>
+</html>

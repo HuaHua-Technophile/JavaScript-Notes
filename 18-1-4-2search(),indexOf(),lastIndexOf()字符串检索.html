@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>18-1-4-2search(),indexOf(),lastIndexOf()字符串检索</title>
+  </head>
+  <body>
+    <p>
+      search()方法只有一个参数,用于在字符串对象和正则表达式之间执行或进行匹配。search()方法搜索特定值的字符串，并返回匹配字符串的位置。search_value是必需的正则表达式。字符串会自动转换为正则表达式
+      <br /><br />indexOf()方法可以有两个参数,用于在数组中搜索指定的项目，并返回其位置。搜索将从指定的位置开始，或者如果没有指定开始位置，则从开始处开始，并在数组的末尾结束搜索。如果没有找到项目，则返回-1。indexOf()方法区分大小写，意味着它会区分大写和小写字符
+      <br /><br />lastIndexOf()方法用于在字符串中搜索指定值的最后一次出现，并返回其位置。lastIndexOf()方法从字符串的末尾向前搜索。lastIndexOf()方法返回从开始（位置0）的索引。lastIndexOf()方法返回-1，如果没有找到值。lastIndexOf()方法是区分大小写的
+    </p>
+    <script>
+      let str = "abBcCabBcCabBcC";
+      console.log("search===>", str.search("b")); // 1
+      console.log("search===>", str.search("A")); // 不存在 -1
+      console.log("search===>", str.search(1)); // 不存在 -1
+      console.log("search===>", str.search()); // 不填写 ,默认返回0
+      console.log("search===>", str.search(/b.*d/)); // 1 正则表达式,返回匹配到的片段的第一个字符的位置
+    </script>
+    <script>
+      console.log("indexOf===>", str.indexOf("b")); // 1
+      console.log("indexOf===>", str.indexOf("b", 0)); // 1   从0开始检索
+      console.log("indexOf===>", str.indexOf("b", 2)); // 6   从2开始检索
+      console.log("indexOf===>", str.indexOf("b", 7)); // 11   从7开始检索
+      console.log("indexOf===>", str.indexOf("A")); // 不存在 -1
+      console.log("indexOf===>", str.indexOf(1)); // 不存在 -1
+      console.log("indexOf===>", str.indexOf()); // 不填写 ,默认没找到就返回-1
+      console.log("indexOf===>", str.indexOf(/b.*d/)); // 不支持正则表达式,默认没找到就返回-1
+    </script>
+    <script>
+      console.log("lastIndexOf", str.lastIndexOf("b")); // 11 最后一个
+      console.log("lastIndexOf", str.lastIndexOf("b", 0)); // -1   从0开始往前检索
+      console.log("lastIndexOf", str.lastIndexOf("b", 2)); // 1   从2开始往前检索
+      console.log("lastIndexOf", str.lastIndexOf("b", 7)); // 6   从7开始检索
+      console.log("lastIndexOf", str.lastIndexOf("A")); // 不存在 -1
+      console.log("lastIndexOf", str.lastIndexOf(1)); // 不存在 -1
+      console.log("lastIndexOf", str.lastIndexOf()); // 不填写 ,默认没找到就返回-1
+      console.log("lastIndexOf", str.lastIndexOf(/b.*d/)); // 不支持正则表达式,默认没找到就返回-1
+    </script>
+  </body>
+</html>

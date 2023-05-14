@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-6-2document.write(),document.writeln()动态生成文档内容</title>
+  </head>
+  <body>
+    write()方法和writeln()方法是document对象的方法，用于向文档中写入内容。
+    <br />write()方法把文档附加到当前打开的文档，而writeln()方法把文档附加到当前打开的文档，并输出一个换行符
+    <br />但是，这个换行符在网页中不会显示出换行的效果，而是显示的一个空格。如果想在网页中看到换行的效果，可以使用预格式标签pre
+    <h1>
+      这两个方法都会覆盖掉当前文档,包括它的事件处理函数,而不是单纯的将文本添加其中
+    </h1>
+  </body>
+</html>

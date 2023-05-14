@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>26-1-1事件绑定3种方法介绍,onXXX=function(){}赋值事件处理函数</title>
+  </head>
+  <body>
+    <p>
+      在DOM元素中直接绑定：在HTML标签中使用onXXX属性指定事件处理函数，例如onclick="alert('Hello')"。这种方式简单易用，但是不利于代码的复用和维护，也不方便设置事件流的顺序
+    </p>
+    <p>
+      在JavaScript代码中绑定：在JavaScript代码中使用DOM元素的onXXX属性赋值事件处理函数，例如document.getElementById("btn").onclick
+      = function()
+      {alert('Hello')}。这种方式可以实现代码和HTML的分离，但是也有一些缺点，比如不能传递参数，不能为同一个事件绑定多个处理函数，不能设置事件流的顺序。
+    </p>
+    <p>
+      绑定事件监听函数：在JavaScript代码中使用addEventListener或attachEvent方法(IE8及之前兼容)为DOM元素添加事件监听函数，例如document.getElementById("btn").addEventListener("click",
+      function() {alert('Hello')},
+      false)。这种方式是符合DOM2级标准的事件绑定方式，可以解决前两种方式的缺点，比如可以传递参数，可以为同一个事件绑定多个处理函数，并且可以设置事件流的顺序（冒泡或捕获）
+    </p>
+    <button id="btn">绑定了事件的按钮</button>
+    <script>
+      // 为元素的onclick属性赋值一个函数
+      btn.onclick = function (event) {
+        let event = event || window.event; //兼容DOM事件模型和IE模型的event获取方式
+        // 在函数中编写事件处理逻辑
+        console.log(
+          "你点击了按钮, 事件目标是:",
+          event.srcElement ? event.srcElement : event.target
+        );
+        console.log("this=>", this);
+        console.log("event=>", event);
+      };
+    </script>
+  </body>
+</html>

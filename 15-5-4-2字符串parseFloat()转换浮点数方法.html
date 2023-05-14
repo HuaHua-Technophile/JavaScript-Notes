@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-5-4-2字符串parseFloat()转换浮点数方法</title>
+  </head>
+  <body>
+    <p>
+      parseFloat()是一个函数，它用于将一个字符串转换为一个浮点数。
+      <br />parseFloat()函数只接受一个参数，就是要转换的字符串。
+      <br />如果字符串不能被转换为有效的浮点数，parseFloat()函数会返回NaN。
+      <br />parseFloat()函数会忽略字符串的前导和后缀空格¹⁴，并且只解析十进制数字。
+    </p>
+    <script>
+      // 创建一个十进制数字的字符串
+      let str = "123.456";
+      // 使用parseFloat()函数并传入该字符串，返回浮点数123.456
+      console.log(parseFloat(str)); // 123.456
+
+      // 创建一个带有前导空格的字符串
+      let str2 = " 2018 ";
+      // 使用parseFloat()函数并传入该字符串，返回浮点数2018（忽略了空格）
+      console.log(parseFloat(str2)); // 2018
+
+      // 创建一个带有非数字字符的字符串
+      let str3 = "3.14abc";
+      // 使用parseFloat()函数并传入该字符串，返回浮点数3.14（忽略了非数字字符）
+      console.log(parseFloat(str3)); // 3.14
+
+      // 创建一个无效的字符串
+      let str4 = "xyz";
+      // 使用parseFloat()函数并传入该字符串，返回NaN（因为xyz不能被转换为有效的浮点数）
+      console.log(parseFloat(str4)); // NaN
+    </script>
+  </body>
+</html>

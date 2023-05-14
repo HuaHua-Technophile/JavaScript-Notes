@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>花花</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        background: #1e1e1e;
+        display: flex;
+        justify-content: space-between;
+      }
+      div[id^="container"] {
+        width: 30vw;
+        height: 150px;
+        border: 1px solid rgb(192, 192, 192);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+      }
+      div[id^="son"] {
+        background: pink;
+        width: 95% !important;
+        height: 40%;
+        border-radius: 15px;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.418),
+          -1px -1px 1px rgba(255, 255, 255, 0.486);
+        user-select: none; /*取消文本选中*/
+        color: white;
+        font-size: 22px;
+        text-align: center;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.js"
+      integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+      crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="container1">
+      <div id="son1" draggable="true">son1</div>
+      <div id="son2" draggable="true">son2</div>
+    </div>
+    <div id="container2"></div>
+    <div id="container3"></div>
+    <script>
+      $("div[id^='son']").on("dragstart", function (ev) {
+        ev.originalEvent.dataTransfer.setData("text", ev.target.id); //在 jQuery 中，最终传入事件处理程序的 ev 其实已经被 jQuery 做过标准化处理，其原有的事件对象被保存在 ev 对象的 originalEvent 属性中。每个 ev 都是 jQuery.event 的实例 ， 所以 event.originalEvent 是指向的原始的事件对象
+      });
+      $("div[id^='container']")
+        .on("dragover", function (ev) {
+          ev.preventDefault(); //防止元素的默认处理方法(浏览器默认不让放下元素(不让drop事件发生))
+        })
+        .on("drop", function (ev) {
+          let Son_Id = ev.originalEvent.dataTransfer.getData("text"); // 获取被拖动数据的类型和值
+          $(ev.target).append($(`#${Son_Id}`)); // 将被拖动元素附加到放置目标中
+        });
+    </script>
+  </body>
+</html>

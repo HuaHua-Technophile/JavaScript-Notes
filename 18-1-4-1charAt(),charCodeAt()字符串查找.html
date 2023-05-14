@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>18-1-4-1charAt(),charCodeAt()字符串查找</title>
+  </head>
+  <body>
+    <p>
+      在JavaScript中，charAt和charCodeAt是两个字符串方法，可以用来查找字符串中的某个字符或它的编码。
+      <br />charAt方法可以接受一个索引（位置）作为参数，返回字符串中对应索引的字符。如果索引超出了字符串的范围，返回一个空字符串。如果没有提供索引，默认为0。例如：
+    </p>
+    <script>
+      var str = "Hello";
+      str.charAt(0); // 返回"H"
+      str.charAt(4); // 返回"o"
+      str.charAt(5); // 返回""
+      str.charAt(); // 返回"H"
+    </script>
+    <p>
+      charCodeAt方法可以接受一个索引（位置）作为参数，返回字符串中对应索引的字符的Unicode编码。如果索引超出了字符串的范围，返回NaN。如果没有提供索引，默认为0。例如：
+    </p>
+    <script>
+      var str = "Hello";
+      str.charCodeAt(0); // 返回H的编码:72
+      str.charCodeAt(4); // 返回111
+      str.charCodeAt(5); // 因为不存在第6个字符,因此返回NaN
+      str.charCodeAt(); // 返回72
+    </script>
+  </body>
+</html>

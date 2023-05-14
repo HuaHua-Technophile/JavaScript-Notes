@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>21-4-2函数防抖与函数节流</title>
+    <style>
+      #div1 {
+        width: 50vw;
+        height: 50vh;
+        background: #00000063;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      函数防抖（debounce）是一种优化高频触发事件的技术，它可以让一个函数在一定时间内只执行一次，避免重复调用或浪费资源
+    </p>
+    <p>
+      JavaScript中，函数防抖的实现可以利用 setTimeout
+      来延迟执行函数，如果在延迟时间内又触发了事件，则取消上一次的延迟执行，并重新计时
+    </p>
+    <div id="div1"></div>
+    <script>
+      function debounce(fn, delay) {
+        let timer = null, // 定义一个定时器变量
+          context = null, // 保存this上下文的对象
+          args = null; // 保存实参列表
+        return function () {
+          context = this; // 把正确的this对象赋值给context变量
+          args = arguments; // 把正确的arguments对象赋值给args变量
+          clearTimeout(timer); // 清除上一次定时器
+          timer = setTimeout(function () {
+            fn.apply(context, args); // 改变fu函数内部this指向,并且传递参数
+          }, delay); // 设置一个新的定时器，等待执行函数
+        };
+      }
+      let count = 0;
+      function movefn(e) {
+        console.log("this对象=>", this);
+        console.log("e事件对象=>", e);
+        count++;
+        this.innerText =
+          "触发了" +
+          count +
+          "次事件,当前鼠标在盒子内坐标为" +
+          e.offsetX +
+          "," +
+          e.offsetY;
+      }
+      div1.onmousemove = debounce(movefn, 1000);
+    </script>
+    <p>
+      JavaScript中，函数节流是一种优化高频事件触发的技术
+      <br />它的目的是让连续执行的函数，在一段时间内只执行一次，从而减少函数的调用次数，提高性能
+      <br />函数节流的原理是使用一个变量（时间戳或定时器）来记录上一次执行函数的时间，然后在下一次触发函数时，判断当前时间和上一次执行时间的差值是否大于设定的时间间隔，如果是，则执行函数，并更新上一次执行时间，如果否，则不执行函数
+    </p>
+    <script>
+      // 定义一个节流函数
+      function throttle(func, delay) {
+        let previous = 0; // 定义记录上一次执行时间的变量,初始值为0
+        return function () {
+          let now = Date.now(), // 获取当前时间
+            context = this, // 保存函数调用上下文环境
+            args = arguments; // 保存函数调用参数对象
+          if (now - previous > delay) {
+            // 如果当前时间和上一次执行时间的差值大于设定的时间间隔
+            func.apply(context, args); // 执行函数
+            previous = now; // 更新上一次执行时间
+          }
+        };
+      }
+      window.addEventListener(
+        "scroll",
+        throttle(function () {
+          console.log("你滚动了window对象");
+        }, 1000)
+      );
+    </script>
+  </body>
+</html>

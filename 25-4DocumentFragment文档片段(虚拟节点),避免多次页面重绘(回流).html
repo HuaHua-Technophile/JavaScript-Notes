@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-4DocumentFragment文档片段(虚拟节点),避免多次页面重绘(回流)</title>
+  </head>
+  <body>
+    <p>
+      DocumentFragment是一个表示没有父节点的最小文档对象的接口,仅存在于内存中,没有添加到文档树,不是活动文档树结构的一部分。
+      <br />它用作Document的轻量级版本，用于存储由节点组成的文档结构的一段，就像标准文档一样
+      <br />使用文档片段(虚拟节点)的好处是:可以等到文档片段设计完善后,一次性由JS渲染到文档树中,减少页面重绘(回流)的次数.
+    </p>
+    <ul id="myList"></ul>
+    <script>
+      const dFrag = document.createDocumentFragment(), // 创建一个文档片段
+        fruits = ["苹果", "香蕉", "草莓"];
+      for (let x in fruits) {
+        const li = document.createElement("li");
+        li.textContent = fruits[x];
+        dFrag.appendChild(li);
+      } // 添加li元素到文档片段中
+      document.getElementById("myList").appendChild(dFrag); // 将文档片段一次性渲染到页面中,避免渲染3次子列表
+    </script>
+  </body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>21-2-3闭包的局限性,缺点</title>
+  </head>
+  <body>
+    <p>
+      闭包会导致变量不会被垃圾回收机制回收，造成内存消耗。因为闭包中的函数可以访问外部函数的变量，这些变量会一直保存在内存中，直到闭包被销毁。如果闭包使用不当，可能会造成内存泄漏的问题。
+      <br /><br />闭包会增加代码的复杂度和可读性。因为闭包中的函数可以访问外部函数的变量，这些变量可能会在多个地方被修改，导致闭包中的逻辑难以理解和维护。
+      <br /><br />因此，在使用闭包时，我们需要注意以下几点：
+      <br /><br />及时释放不需要的闭包，避免占用过多的内存。
+      <br /><br />不要在闭包中保存大量的数据，尽量减少闭包对内存的影响。
+      <br /><br />不要在闭包中修改外部函数的变量，尽量保持闭包的纯净性。
+      <br /><br />不要滥用闭包，只在必要的时候使用闭包，提高代码的清晰度和可维护性。
+    </p>
+    <p>
+      解决内存消耗的例子：我们可以在不需要使用闭包的时候，将闭包赋值为null，这样就可以断开闭包对外部函数变量的引用，让垃圾回收机制回收这些变量。
+    </p>
+    <script>
+      // 定义一个外部函数，返回一个内部函数
+      function outer() {
+        let a = 10; // 声明一个外部函数的私有变量
+        return function inner() {
+          console.log(a); // 内部函数可以访问外部函数的私有变量
+        };
+      }
+      let fn = outer(); // 调用外部函数，得到内部函数
+      fn(); // 调用内部函数，输出 10
+      fn = null; // 将闭包赋值为 null，断开对外部函数变量的引用
+    </script>
+    <p>
+      解决代码复杂度的例子：我们可以使用一些工具或规范来提高闭包的可读性和可维护性，例如使用注释、命名规范、模块化、测试等
+    </p>
+    <script>
+      // 使用注释来说明闭包的作用和逻辑
+      // 定义一个函数，用于创建一个计数器
+      function createCounter() {
+        let count = 0; // 声明一个私有变量，用于保存计数器的值
+        return {
+          // 返回一个对象，作为计数器的接口
+          getCount: function () {
+            return count; // 获取计数器的值的方法
+          },
+          increase: function () {
+            count++; // 增加计数器的值的方法
+          },
+          decrease: function () {
+            count--; // 减少计数器的值的方法
+          },
+        };
+      }
+      // 使用命名规范来区分闭包中的私有和公共变量和方法
+      // 定义一个函数，用于创建一个用户对象
+      function createUser(name, age) {
+        let _userInfo = {
+          name: name, // 声明一个私有变量，用于保存用户信息
+          age: age,
+        };
+        // 返回一个对象，作为用户对象的接口
+        return {
+          // 获取用户信息的方法
+          getUserInfo: function () {
+            return _userInfo;
+          },
+          // 修改用户信息的方法
+          setUserInfo: function (newInfo) {
+            // 检查 newInfo 是否是一个对象
+            if (typeof newInfo === "object") {
+              // 遍历 newInfo 的属性，更新 _userInfo 的值
+              for (let key in newInfo) {
+                _userInfo[key] = newInfo[key];
+              }
+            }
+          },
+        };
+      }
+      // 使用模块化来封装闭包中的逻辑和数据
+      // 定义一个模块，用于操作商品信息
+      let productModule = function () {
+        let _productList = [
+          { id: 1, name: "Apple", price: 5 },
+          { id: 2, name: "Banana", price: 3 },
+          { id: 3, name: "Orange", price: 4 }, // 声明一个私有变量，用于保存商品列表
+        ];
+        return {
+          // 返回一个对象，作为模块的接口
+          getProductList: function () {
+            return _productList; // 获取商品列表的方法
+          },
+          addProduct: function (product) {
+            // 添加商品的方法
+            if (
+              typeof product === "object" &&
+              product.id &&
+              product.name &&
+              product.price // 检查 product 是否是一个对象，并且有 id, name, price 属性
+            ) {
+              _productList.push(product); // 将 product 添加到 _productList 中
+            }
+          },
+        };
+      };
+    </script>
+    <p>
+      解决循环中的异步回调问题：我们可以使用闭包来保存循环中的每个i值，避免异步回调时i值已经变化的问题。
+    </p>
+    <script>
+      // 定义一个函数，用于发送异步请求
+      function sendRequest(url, callback) {
+        // 模拟异步请求
+        setTimeout(function () {
+          let data = "Response from " + url; // 模拟响应数据
+          callback(data); // 调用回调函数
+        }, 1000);
+      }
+      let urls = ["a.com", "b.com", "c.com"]; // 定义一个数组，用于存放请求的 url
+      // 使用 for 循环遍历数组，发送请求
+      for (let i = 0; i < urls.length; i++) {
+        // 定义一个闭包函数，用于保存 i 值
+        (function (index) {
+          // 调用 sendRequest 函数，传入 url 和回调函数
+          sendRequest(urls[index], function (data) {
+            console.log("i = " + index + ", data = " + data); // 在回调函数中打印 i 值和响应数据
+          });
+        })(i); // 立即执行闭包函数，传入 i 值
+      }
+    </script>
+    <p>
+      解决事件监听器中的this指向问题：我们可以使用闭包来保存事件监听器中的this值，避免事件触发时this指向改变的问题。
+    </p>
+    <script>
+      // 定义一个构造函数，用于创建一个用户对象
+      function User(name) {
+        this.name = name; // 设置用户对象的 name 属性
+      }
+      // 在用户对象的原型上定义一个方法，用于显示用户信息
+      User.prototype.showInfo = function () {
+        // 在方法中打印 this.name 的值
+        console.log("User name is " + this.name);
+      };
+      // 创建一个用户对象，传入 name 参数
+      let user = new User("Alice");
+      // 获取页面上的一个按钮元素
+      let button = document.getElementById("button");
+      // 给按钮元素添加一个点击事件监听器
+      button.addEventListener("click", function () {
+        // 定义一个闭包函数，用于保存 this 值
+        (function (self) {
+          // 调用用户对象的 showInfo 方法，传入 this 值作为上下文
+          self.showInfo.call(self);
+        })(this); // 立即执行闭包函数，传入 this 值
+      });
+    </script>
+  </body>
+</html>

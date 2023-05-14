@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>17-3-1label标识符和break跳出语句</title>
+  </head>
+  <body>
+    <p>
+      label语句用于给一个语句添加一个标识符，可以用来在break或continue语句中引用。¹³
+      <br />label语句的语法是: &nbsp; &nbsp; &nbsp; &nbsp; label: statement
+    </p>
+    <p>
+      <br />label是一个不是保留字的JavaScript标识符。¹³
+      <br />statement是要添加标识符的语句，可以是任何块级语句。¹³
+    </p>
+    <p>
+      break语句用于跳出一个循环或者一个switch语句。²³
+      <br />break语句可以包含一个可选的标签，用来跳出一个带有标签的语句。²³
+    </p>
+    <p>break语句的语法是： <br />break; &nbsp; 或者 &nbsp; break label;</p>
+
+    <script>
+      outer: for (let i = 0; i < 5; i++) {
+        // 定义并初始化一个变量i为0，当i小于5时继续循环，每次循环后将i加一，并给这个for循环添加一个outer标签.outer就是label
+        for (let j = 0; j < 5; j++) {
+          // 定义并初始化一个变量j为0，当j小于5时继续循环，每次循环后将j加一
+          if (i === 2 && j === 2) {
+            // 如果i等于2且j等于2
+            break outer; // 跳出带有outer标签的for循环
+          }
+          document.write(i, " &nbsp; ", j, "<br />"); // 打印i和j的值
+        }
+      }
+    </script>
+    <p>因为当i等于2且j等于2时，就跳出了外层的for循环。</p>
+    <p>
+      下面是一个使用label和break语句来判断一个数组中的所有元素是否都通过了一组测试的例子：
+    </p>
+    <script>
+      let tests_function = [
+        // 定义一个数组tests_function，包含三个函数
+        function (item) {
+          return item > 10;
+        }, // 第一个函数判断item是否大于10
+        function (item) {
+          return item % 2 === 0;
+        }, // 第二个函数判断item是否是偶数
+        function (item) {
+          return item < 20;
+        }, // 第三个函数判断item是否小于20
+      ];
+      let items = [12, 16, 18, 22]; // 定义一个数组items，包含四个数字
+      let allPass = true; // 定义并初始化一个变量allPass为true，用来记录所有元素是否都通过了所有测试
+      top: for (let i = 0; i < items.length; i++) {
+        // 遍历items数组中的每个元素，并给这个for循环添加一个top标签,这个top就是label
+        for (let j = 0; j < tests_function.length; j++) {
+          // 遍历tests_function数组中的每个函数
+          if (!tests_function[j](items[i])) {
+            // 如果当前元素没有通过当前测试
+            allPass = false; // 将allPass设为false
+            break top; // 跳出带有top标签的for循环
+          }
+        }
+      }
+
+      document.write("该数组通过了所有测试? => ", allPass); // 打印allPass的值
+    </script>
+    <p>因为当i等于3时，items[i]等于22，没有通过第三个测试。</p>
+  </body>
+</html>

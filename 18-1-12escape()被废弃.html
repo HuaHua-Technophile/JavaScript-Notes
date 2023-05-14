@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>花花</title>
+  </head>
+  <body>
+    <p>
+      escape方法(被弃用)用於將一個字符串中的特殊字符轉換為轉義序列。這個方法返回一個新的字符串，不會改變原始的字符串。
+      您可以直接調用escape方法(被弃用)，並傳遞一個字符串作為參數。
+      例如，下面的代碼使用escape方法(被弃用)將一個字符串中的中文字符轉換為轉義序列：
+    </p>
+    <script>
+      let str = "你好，世界！";
+      let escapeStr = escape(str);
+      console.log(escapeStr); // "%u4F60%u597D%uFF0C%u4E16%u754C%uFF01"
+    </script>
+    <p>
+      這裡，escape方法(被弃用)將每個中文字符轉換為%u加上四位十六進制數。
+      <br />但是，您應該注意，escape方法(被弃用)已經被棄用，不建議使用。因為它不能正確處理非ASCII字符和Unicode字符。您應該使用encodeURI或encodeURIComponent方法來替代。
+    </p>
+    <p>
+      encodeURI方法用於將一個URI中的特殊字符轉換為轉義序列¹。這個方法返回一個新的字符串，不會改變原始的字符串。
+      您可以直接調用encodeURI方法，並傳遞一個URI作為參數¹。
+    </p>
+    <p>
+      <script>
+        const uri = "https://example.com/你好";
+        const encodeUri = encodeURI(uri);
+        console.log(encodeUri); // "https://example.com/%E4%BD%A0%E5%A5%BD"
+      </script>
+    </p>
+    <p>
+      這裡，encodeURI方法將中文字符轉換為%E加上兩位十六進制數³。
+      但是，您應該注意，encodeURI方法不會轉換URI中的保留字符，如冒號、斜杠、問號等¹。如果您想轉換這些字符，您應該使用encodeURIComponent方法¹。
+      例如，下面的代碼使用encodeURIComponent方法將一個URI組件中的所有特殊字符轉換為轉義序列：
+    </p>
+    <script>
+      const uriComponent = "https://example.com/你好?name=张三";
+      const encodeUriComponent = encodeURIComponent(uriComponent);
+      console.log(encodeUriComponent); // "https%3A%2F%2Fexample.com%2F%E4%BD%A0%E5%A5%BD%3Fname%3D%E5%BC%A0%E4%B8%89"
+    </script>
+    <p>
+      這裡，encodeURIComponent方法將所有特殊字符轉換為%加上兩位十六進制數³。
+      <br />例如，下面的代碼使用encodeURIComponent方法將一個字符串中的中文字符轉換為轉義序列：
+    </p>
+    <script>
+      str = "你好，世界！";
+      encodeStr = encodeURIComponent(str);
+      console.log(encodeStr); // "%E4%BD%A0%E5%A5%BD%EF%BC%8C%E4%B8%96%E7%95%8C%EF%BC%81"
+    </script>
+    <p>
+      這裡，encodeURIComponent方法將每個中文字符轉換為%E加上兩位十六進制數。
+    </p>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>21-4-3分时函数</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，分时函数是一种优化大量数据渲染的技术
+      <br />它的目的是将一次性渲染大量数据的任务分割成多个小任务，每个小任务在一个时间片段内执行，然后暂停，让出浏览器的控制权，使得浏览器有时间进行其他的渲染工作，从而避免页面卡顿或假死
+      <br />分时函数的原理是使用一个定时器，每隔一段时间执行一次渲染函数，渲染函数会从数据数组中取出一定数量的数据进行渲染，直到数据数组为空，清除定时器
+    </p>
+    <script>
+      function timeChunk(ary, fn, count) {
+        // 参数分别是:需处理的数据数组,处理数据的函数体,一次处理多少个
+        let start = function () {
+          // 定义一个执行函数
+          for (let i = 0; i < Math.min(count || 1, ary.length); i++) {
+            // 直到i被执行count个或执行完最后几个
+            // 每次拿第一个值值进行函数处理
+            let obj = ary.shift();
+            fn(obj);
+          }
+        };
+        return function () {
+          // 返回一个函数，形成闭包
+          let timer = setInterval(function () {
+            // 每隔一段时间执行一下start函数，直至ary长度为0，清除定时器
+            if (ary.length === 0) {
+              return clearInterval(timer);
+            }
+            start();
+          }, 200); // 分批执行的时间间隔，也可以用参数的形式传入
+        };
+      }
+      // 测试分时函数
+      let ary = [];
+      for (let i = 1; i <= 1000; i++) {
+        ary.push(i);
+      }
+      let renderFriendList = timeChunk(
+        ary,
+        function (n) {
+          let div = document.createElement("div");
+          div.innerHTML = n;
+          document.body.appendChild(div);
+        },
+        8
+      );
+      renderFriendList();
+    </script>
+  </body>
+</html>

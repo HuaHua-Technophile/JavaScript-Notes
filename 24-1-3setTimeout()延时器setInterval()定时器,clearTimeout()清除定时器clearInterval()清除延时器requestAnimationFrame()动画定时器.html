@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      24-1-3setTimeout()延时器setInterval()定时器,clearTimeout()清除定时器clearInterval()清除延时器requestAnimationFrame()动画定时器
+    </title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，定时器是一种可以在指定的时间后或者按照指定的周期重复执行某些代码的功能。JavaScript中有两种常用的定时器(延时器)方法，分别是：
+      <br />setTimeout()：在指定的毫秒数后执行一次函数或代码段，只执行一次。语法如下：
+      <li>let timeoutId = setTimeout(function[, delay, arg1, arg2, ...]);</li>
+      <li>let timeoutId = setTimeout(code[, delay]);</li>
+    </p>
+    <p>
+      setInterval()：按照指定的毫秒数周期性地执行函数或代码段，不停地执行，直到调用clearInterval()或关闭窗口。语法如下：
+      <li>let intervalId = setInterval(function[, delay, arg1, arg2, ...]);</li>
+      <li>let intervalId = setInterval(code[, delay]);</li>
+    </p>
+    <p>
+      其中，function是要执行的函数（通常使用匿名函数），code是要执行的代码（不推荐使用），delay是延迟或周期的毫秒数（如果省略，默认为0），arg1、arg2、...是要传递给函数的实参
+      <br />这两个方法都会返回一个正整数值，表示定时器(延时器)的唯一编号，可以用来取消定时器(延时器)。取消定时器(延时器)的方法有：
+      <li>clearTimeout(timeoutId)：取消由setTimeout()设置的定时器(延时器)</li>
+      <li>clearInterval(intervalId)：取消由setInterval()设置的定时器</li>
+    </p>
+    <p id="clock"></p>
+    <script>
+      let timeoutId = setTimeout(function () {
+        console.log("Hello"); //使用setTimeout()在3秒后控制台输出
+      }, 3000);
+      clearTimeout(timeoutId); //使用clearTimeout()取消上面的定时器
+      let intervalId = setInterval(
+        function (str) {
+          let d = new Date();
+          document.getElementById("clock").innerHTML =
+            str + d.toLocaleTimeString(); //使用setInterval()每隔1秒更新页面上显示当前时间
+        },
+        1000,
+        "您好,现在是北京时间 : " //传递给函数的实参
+      );
+      // clearInterval(intervalId);//使用clearInterval()取消上面的定时器
+    </script>
+    <p>
+      JavaScript中，requestAnimationFrame是一个方法，用于在浏览器下一次重绘之前执行一个回调函数或代码段
+      <br />requestAnimationFrame的应用场景主要是需要实现流畅、高性能的动画效果的时候
+      <br />它类似于setTimeout(func(){},
+      16)，但是更高效，因为它会根据浏览器的刷新率来调整执行频率，而且在后台标签页或隐藏的iframe中会暂停调用，以提升性能和电池寿命
+      <li>
+        游戏开发：使用requestAnimationFrame可以让游戏的画面和浏览器的刷新率保持同步，避免卡顿或掉帧的问题。
+      </li>
+      <li>
+        图表绘制：使用requestAnimationFrame可以让图表的变化和数据的更新保持同步，提高用户体验。
+      </li>
+      <li>
+        滚动监听：使用requestAnimationFrame可以优化滚动事件的处理，避免频繁触发导致的性能损耗。
+      </li>
+      <li>轮播图：使用requestAnimationFrame可以实现平滑、自适应的轮播图效果</li>
+      这个方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行，并且会接收到一个表示当前时间的DOMHighResTimeStamp参数
+      <br />如果想要在下一次重绘之前继续更新动画，那么回调函数自身必须再次调用requestAnimationFrame()
+    </p>
+    <div
+      id="box"
+      style="
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: absolute;
+        left: 0;
+        top: 0;
+      "></div>
+    <script>
+      let speed = 5;
+      function animate() {
+        let left = box.offsetLeft;
+        left += speed;
+        if (left >= document.documentElement.clientWidth - box.offsetWidth) {
+          left = document.documentElement.clientWidth - box.offsetWidth;
+          speed = -speed;
+        }
+        if (left <= 0) {
+          left = 0;
+          speed = -speed;
+        }
+        box.style.left = left + "px";
+        requestAnimationFrame(animate);
+      }
+      animate();
+    </script>
+  </body>
+</html>

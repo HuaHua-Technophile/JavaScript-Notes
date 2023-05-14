@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>16-1-5求余运算</title>
+  </head>
+  <body>
+    <script>
+      let a = 2;
+      console.log(a % 0); //任何数求余0都是NaN
+
+      console.log(a % NaN);
+      console.log(NaN % a); // NaN参与求余，结果都是NaN
+
+      console.log(Infinity % a);
+      console.log(-Infinity % a);
+      console.log(Infinity % -a);
+      console.log(-Infinity % -a);
+      console.log(Infinity % Infinity);
+      console.log(-Infinity % -Infinity);
+      console.log(Infinity % -Infinity); // Infinity求余任意数，结果都是NaN
+
+      console.log(a % Infinity); //=》2
+      console.log(a % -Infinity); //=》2 任何非0数求余Infinity，结果是本身
+
+      console.log(0 % a); //=> 0
+      console.log(0 % Infinity); //=> 0
+      console.log(0 % -Infinity); //=> 0    0求余任何数都是0
+      console.log(-0 % a); //=> -0    -0求余任何数都是-0
+    </script>
+  </body>
+</html>

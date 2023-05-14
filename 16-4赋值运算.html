@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>16-4赋值运算</title>
+  </head>
+  <body>
+    <script>
+      let a = (b = c = d = e = f = g = h = i = j = k = l = m = 1);
+      //赋值运算符的结合性时从右向左
+
+      let x;
+      console.log(
+        (x =
+          1 &&
+          (y = function () {
+            return x;
+          })())
+      );
+      //=>undefined   因为在逻辑与运算中,左侧的"x=1"赋值不会真正的赋值给x
+
+      // 由于赋值运算符作为表达式具有副作用.对于上面的表达式, 更安全的写法如下
+      let z = 1;
+      s = function () {
+        return z;
+      };
+      console.log(z && s()); // =>1
+      console.log(z || s()); // =>1
+      z = 0;
+      console.log(z && s()); // =>0
+      console.log(z || s()); // =>0
+      z = true;
+      console.log(z && s()); // =>true
+      console.log(z || s()); // =>true
+      z = false;
+      console.log(z && s()); // =>false
+      console.log(z || s()); // =>false
+    </script>
+  </body>
+</html>

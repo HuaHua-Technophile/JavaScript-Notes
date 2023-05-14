@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>21-5-1递归运算</title>
+  </head>
+  <body>
+    <p>
+      递归必须由两部分组成 : 递归调用的过程,递归终止的条件.
+      <br />在没有限制的情况下,递归运算会无终止的自身调用.因此,在递归运算中要结合if语句进行控制.
+    </p>
+    <script>
+      function factorial(num) {
+        //递归运算来设置阶乘函数
+        if (num < 1) return 1;
+        return num * factorial(num - 1);
+      }
+    </script>
+    <p>
+      在JavaScript中，递归运算是一种函数调用自身的方法，可以用来遍历DOM文档树。
+      <br />DOM文档树是一种树形结构，表示HTML文档中的元素和它们的关系。每个元素都是一个节点，有一个父节点和零个或多个子节点。例如：
+    </p>
+    <pre>
+    html
+    ├── head
+    │   └── title
+    │       └── My Page
+    └── body
+        ├── h1
+        │   └── Hello World
+        └── p
+            └── This is a paragraph.
+    </pre>
+    <p>
+      <br />为了遍历DOM文档树，我们可以定义一个递归函数，接受一个节点和一个回调函数作为参数。这个函数的作用是
+      <br />对当前节点执行回调函数
+      <br />如果当前节点有子节点，就遍历它们，并对每个子节点递归调用自身
+      <br />如果当前节点没有子节点，就返回。
+    </p>
+    <script>
+      // 定义一个递归函数，接受一个节点和一个回调函数作为参数
+      function traverseDOM(node, callback) {
+        // 对当前节点执行回调函数
+        callback(node);
+        // 如果当前节点有子节点，就遍历它们，并对每个子节点递归调用自身
+        if (node.hasChildNodes()) {
+          let children = node.childNodes;
+          for (let i = 0; i < children.length; i++) {
+            traverseDOM(children[i], callback);
+          }
+        }
+      }
+      // 定义一个回调函数，打印出每个节点的类型和内容（如果有）
+      function printNode(node) {
+        console.log("Node type: " + node.nodeType);
+        if (node.nodeValue) {
+          console.log("Node value: " + node.nodeValue.trim());
+        }
+      }
+      // 获取文档的根节点（html元素）
+      let root = document.documentElement;
+      // 调用递归函数，遍历DOM文档树，并打印出每个节点的信息
+      traverseDOM(root, printNode);
+    </script>
+    <p>
+      <br />
+      定义一个递归函数，接受四个参数：n表示圆盘的数量，from表示原柱子，to表示目标柱子，aux表示辅助柱子。这个函数的作用是：
+      <br />
+      如果n等于1，直接将圆盘从from移动到to，并打印出移动的步骤。 <br />
+      如果n大于1，先将n-1个圆盘从from移动到aux（用递归），然后将第n个圆盘从from移动到to，并打印出移动的步骤，再将n-1个圆盘从aux移动到to（用递归）。
+    </p>
+    <script>
+      // 定义一个递归函数，接受四个参数：n表示圆盘的数量，from表示原柱子，to表示目标柱子，aux表示辅助柱子
+      function hanoi(n, from, to, aux) {
+        // 如果n等于1，直接将圆盘从from移动到to，并打印出移动的步骤
+        if (n == 1) {
+          console.log(
+            "移动第 " + n + " 个盘子从柱子 " + from + " 到柱子 " + to
+          );
+          return;
+        }
+        // 如果n大于1，先将n-1个圆盘从from移动到aux（用递归）
+        hanoi(n - 1, from, aux, to);
+        // 然后将第n个圆盘从from移动到to，并打印出移动的步骤
+        console.log("移动第 " + n + " 个盘子从柱子 " + from + " 到柱子 " + to);
+        // 再将n-1个圆盘从aux移动到to（用递归）
+        hanoi(n - 1, aux, to, from);
+      }
+      // 假设有三个圆盘在A柱子上，目标是将它们移动到C柱子上，B柱子作为辅助
+      hanoi(3, "A", "C", "B");
+    </script>
+  </body>
+</html>

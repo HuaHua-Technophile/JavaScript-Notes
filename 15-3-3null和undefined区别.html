@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-3-3null和undefined区别</title>
+  </head>
+  <body>
+    <p>
+      null和undefined都是JavaScript的基本数据类型，表示没有值或缺失值¹²³⁴⁵。但是它们之间有一些区别，主要有以下几点：
+    </p>
+    <p>
+      null是一个特殊的对象引用，表示空或不存在的引用。
+      <br />典型用法是： （1） 作为函数的参数，表示该函数的参数不是对象。
+      <br />（2） 作为对象原型链的终点。
+      <br />（3）当一个数据不再需要使用时，我们最好通过将其值设置为null来释放其引用，这个做法叫做解除引用。不过解除一个值的引用并不意味着自动回收该值所占用的内存。解除引用的真正作用是让值脱离执行环境，以便垃圾收集器在下次运行时将其回收。解除引用还有助于消除有可能出现的循环引用的情况。这一做法适用于大多数全局变量和全局对象的属性，局部变量会在它们离开执行环境时(函数执行完时)自动被解除引用。
+    </p>
+    <br />
+    <p>
+      undefined是一个特殊的原始值，表示未定义或未赋值的变量¹²。就是此处应该有一个值，但是还没有定义。典型用法是：
+      <br />（1）变量被声明了，但没有赋值时，就等于undefined。
+      <br />（2）调用函数时，应该提供的参数没有提供，该参数等于undefined。
+      <br />（3）对象没有赋值的属性，该属性的值为undefined。
+      <br />（4）函数没有返回值时，默认返回undefined。
+    </p>
+    <br />
+    JavaScript会自动给没有赋值的变量分配undefined值，但不会自动给变量分配null值²。null只能由程序员或API显式地赋给变量²。
+    <br />
+    typeof操作符对null返回"object"，对undefined返回"undefined"²⁴。这是一个历史错误，因为null并不是一个对象²。
+    <br />
+    <p>
+      null和undefined在双等号（==）比较时相等，但在三等号（===）比较时不相等⁵。这是因为双等号会进行类型转换，而三等号不会⁵。
+    </p>
+    <script>
+      // 声明一个变量x，但不赋值
+      var x;
+      // 检测x的类型
+      console.log(typeof x); // "undefined"
+      // 检测x的值
+      console.log(x); // undefined
+      function fn(a) {
+        console.log(a);
+      }
+      fn(); //未传递实参,所以是 undefined
+      /*  ECMAScript 明确规定 void 操作符 对任何表达式求值都返回 undefined
+      这和函数执行操作后没有返回值的作用是一样的
+      JavaScript 中的函数都有返回值，当没有 return 操作时，就默认返回一个原始的状态值，这个值就是 undefined，表明函数的返回值未被定义。 */
+      void 0; // undefined
+      void false; // undefined
+      void []; // undefined
+      void null; // undefined
+      void function fn() {}; // undefined
+
+      // 给x赋值为null
+      x = null;
+      // 检测x的类型
+      console.log(typeof x); // "object"
+      // 检测x的值
+      console.log(x); // null
+      // 声明一个变量y，并赋值为null
+      var y = null;
+      // 比较x和y是否相等（双等号）
+      console.log(x == y); // true
+      // 比较x和y是否严格相等（三等号）
+      console.log(x === y); // true
+      // 声明一个变量z，并赋值为0
+      var z = 0;
+      // 比较z和null是否相等（双等号）
+      console.log(z == null); // false
+      // 比较z和undefined是否相等（双等号）
+      console.log(z == undefined); // false
+      // 比较z和null是否严格相等（三等号）
+      console.log(z === null); // false
+      // 比较z和undefined是否严格相等（三等号）
+      console.log(z === undefined); // false
+    </script>
+  </body>
+</html>

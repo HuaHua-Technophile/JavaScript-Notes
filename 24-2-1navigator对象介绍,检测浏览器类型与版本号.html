@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-2-1navigator对象介绍,检测浏览器类型与版本号</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，navigator对象是window对象的一个属性，用于存储和获取与浏览器相关的信息。navigator对象的属性和方法有以下几种
+    </p>
+    <ul>
+      <li>cookieEnabled：返回一个布尔值，表示浏览器是否启用了cookie</li>
+      <li>appCodeName：返回浏览器的应用程序代码名称，通常是"Mozilla"</li>
+      <li>appName：返回浏览器的应用程序名称，通常是"Netscape"</li>
+      <li>appVersion：返回浏览器的版本信息</li>
+      <li>userAgent：返回浏览器发送到服务器的用户代理头部</li>
+      <li>platform：返回浏览器所在的操作系统平台</li>
+      <li>language：返回浏览器的首选语言</li>
+      <li>onLine：返回一个布尔值，表示浏览器是否在线</li>
+      <li>javaEnabled()：返回一个布尔值，表示浏览器是否启用了Java</li>
+    </ul>
+    <script>
+      console.log(window.navigator);
+      console.log(navigator.userAgent); //Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36
+      let ua = navigator.userAgent.toLowerCase();
+      let info = {
+        ie: /msie/.test(ua) && !/opera/.test(ua),
+        op: /opera/.test(ua),
+        sa: /version.*safari/.test(ua),
+        ch: /chrome/.test(ua),
+        ff: /gecko/.test(ua) && !/webkit/.test(ua),
+      };
+      info.ie && console.log("IE浏览器");
+      info.op && console.log("Opera浏览器");
+      info.sa && console.log("Safari浏览器");
+      info.ch && console.log("Chrome浏览器");
+      info.ff && console.log("Firefox浏览器");
+    </script>
+    <script>
+      function 移动端判断() {
+        navigator.userAgent.match(
+          // 18-1-4-3 字符串对象.match()方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配
+          /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+        )
+          ? (window.location.href = "//m.example.com") // 移动端
+          : (window.location.href = "//www.example.com"); // PC端
+      }
+    </script>
+  </body>
+</html>

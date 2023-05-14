@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      26-1-3removeEventListener(),detachEvent()注销事件(取消绑定事件)
+    </title>
+  </head>
+  <body>
+    <button id="btn1">按钮1</button>
+    <button id="btn2">按钮2</button>
+    <button id="btn3">按钮3</button>
+    <p>
+      如果使用传统方式绑定事件，如 `.onclick = function()
+      {...}`，则可以通过将事件处理函数赋值为 `null` 来取消绑定，如 `.onclick =
+      null`
+    </p>
+    <script>
+      btn1.onclick = function () {
+        console.log("onclick");
+      };
+      btn1.onclick = null; // 删除传统绑定事件可以赋值null(推荐),或赋值空函数
+      //btn1.onclick = function () {};   删除传统绑定事件可以赋值null(推荐),或赋值空函数
+    </script>
+    <p>
+      如果使用 `addEventListener` 方法绑定事件，如 `.addEventListener(type,
+      listener, options)`，则可以通过 `removeEventListener` 方法来取消绑定，如
+      `.removeEventListener(type, listener,
+      options)`。注意：这里的参数必须与添加事件时使用的参数相同，否则无法移除。另外，<strong
+        >如果添加事件时使用了匿名函数，则无法移除。</strong
+      >
+    </p>
+    <script>
+      function fn1() {
+        console.log("addEventListener");
+      }
+      btn2.addEventListener("click", fn1);
+      btn2.removeEventListener("click", fn1); //解绑非匿名的fn1事件函数
+    </script>
+    <p>
+      如果使用 `attachEvent` 方法绑定事件（IE8及以下浏览器），如
+      `.attachEvent('onclick', fn)`，则可以通过 `detachEvent` 方法来取消绑定，如
+      `.detachEvent('onclick', fn)`。
+    </p>
+    <script>
+      if (false) {
+        btn3.attachEvent("click", function () {
+          console.log("attachEvent");
+        });
+        btn3.detachEvent("click", function () {
+          console.log("attachEvent");
+        }); //解绑
+      }
+    </script>
+  </body>
+</html>

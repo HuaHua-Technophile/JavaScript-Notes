@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>22-5-3Data对象(时间对象)介绍,相关方法</title>
+  </head>
+  <body>
+    <p>
+      Date对象是JavaScript的一个内置对象，用于处理日期和时间
+      <br />Date对象可以表示一个时刻，也可以表示一个日期
+    </p>
+    <p>
+      Date对象的内部存储的是一个整数，表示从UTC（世界标准时间）1970年1月1日00:00:00开始经过的毫秒数
+    </p>
+    <p>
+      创建Date对象的语法有四种
+      <li>new Date()：不带参数，创建一个表示当前日期和时间的Date对象</li>
+      <li>
+        new
+        Date(value)：带一个整数参数，依据从1970年1月1日00:00:00开始经过的"参数"毫秒数，而创建一个对应的Date对象。
+      </li>
+      <li>
+        new
+        Date(dateString)：带一个字符串参数.依据这个表示日期的字符串值，而创建一个对应的Date对象
+        <br />字符串应该能被Date.parse()方法正确识别(即符合IETF-compliant RFC
+        2822 timestamps或ISO8601格式)
+      </li>
+      <li>
+        new Date(year, monthIndex [, day [, hours [, minutes [, seconds [,
+        milliseconds]]]]])：带多个参数，分别表示年、月、日、时、分、秒、毫秒，创建一个对应的Date对象。如果没有提供某些参数，会使用默认值（日为1，其他为0）。注意月份是从0开始计算的，即0表示一月，11表示十二月。
+      </li>
+    </p>
+    <p>
+      Date对象有一些静态方法和实例方法，用于获取和设置日期和时间的各个部分
+      <li>Date.now()：静态方法，返回当前时间的毫秒数。</li>
+      <li>
+        Date.parse(dateString)：静态方法，解析一个日期字符串，并返回对应的毫秒数。
+      </li>
+      <li>
+        Date.UTC(year, monthIndex [, day [, hours [, minutes [, seconds [,
+        milliseconds]]]]])：静态方法，接受和构造函数最长形式相同的参数，并返回对应的毫秒数。
+      </li>
+      <li>
+        date.getFullYear()：实例方法，根据对象中存储的本地时间，返回一个指定的Date对象的完整年份（四位数年份）。
+      </li>
+      <li>
+        date.getMonth()：实例方法，根据对象中存储的本地时间，返回一个指定的Date对象的月份（0-11），0表示一月。
+      </li>
+      <li>
+        date.getDate()：实例方法，根据对象中存储的本地时间，返回一个指定的Date对象为一个月中的哪一日（1-31）。
+      </li>
+      <li>
+        date.getDay()：实例方法，根据对象中存储的本地时间，返回一个指定的Date对象是在一周中的第几天（0-6），0表示星期天。
+      </li>
+      <li>
+        date.getHours()：实例方法，根据对象中存储的本地时间，返回一个指定的Date对象的小时（0-23）。
+      </li>
+      <li>
+        date.getMinutes()：实例方法，根据对象中存储的本地时间，返回一个指定的Date对象的分钟（0-59）。
+      </li>
+      <li>
+        date.getSeconds()：实例方法，根据对象中存储的本地时间，返回一个指定的Date对象的秒数（0-59）。
+      </li>
+      <li>
+        date.getMilliseconds()：实例方法，根据对象中存储的本地时间，返回一个指定的Date对象的毫秒数（0-999）。
+      </li>
+      <li>
+        date.getTime()：实例方法，返回一个指定的Date对象距离1970年1月1日00:00:00
+        UTC经过的毫秒数。
+      </li>
+    </p>
+    <p>
+      除了上述基于本地时间的方法外，还有一些基于UTC时间（世界标准时间）的方法。它们与本地时间方法类似，只是在方法名中加了"UTC"前缀。例如：
+      <li>
+        date.getUTCDate()：根据UTC时间，返回一个指定的Date对象为一个月中的哪一日（1-31）。
+      </li>
+      <li>
+        date.getUTCDay()：根据UTC时间，返回一个指定的Date对象是在一周中的第几天
+      </li>
+    </p>
+  </body>
+</html>

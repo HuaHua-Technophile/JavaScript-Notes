@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      22-5-1Math对象简介,Math.random()生成指定随机数,案例-指定范围随机整数
+    </title>
+  </head>
+  <body>
+    <p>
+      Math对象是JavaScript的一个内置对象，它有一些属性和方法用于数学常数和函数
+      <br />Math对象不是一个函数对象，也不是一个构造器，所以你不能用new关键字来创建一个Math对象
+      <br />Math对象是静态的，也就是说，它的所有属性和方法都可以直接使用，而不需要创建一个Math对象实例
+      <br />Math对象与Number类型一起工作，但是不支持BigInt类型
+      <li>
+        Math对象有一些属性，用于表示数学中的常数，例如圆周率、自然对数的底数、平方根等。这些属性的语法是Math.属性，例如Math.PI表示圆周率，Math.E表示自然对数的底数。
+      </li>
+      <li>
+        Math对象也有一些方法，用于执行数学中的函数，例如三角函数、指数函数、对数函数、取整函数等。这些方法的语法是Math.方法(参数)，例如Math.sin(x)表示计算x的正弦值，Math.pow(x,y)表示计算x的y次幂
+      </li>
+    </p>
+    <p>
+      Math.random()方法是JavaScript的一个内置方法，它返回一个0（包含）到1（不包含）之间的浮点数
+    </p>
+    这个数是伪随机的，也就是说它不是真正的随机数，但是在一定范围内可以看作是均匀分布的
+    <br />你可以根据你的需要对这个随机数进行缩放或取整
+    <script>
+      function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+      console.log(getRandom(5, 10)); //5(包含)~10(包含)之间的整数,也就是:[5,6,7,8,9,10]之间6选1
+    </script>
+  </body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>花花</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      table {
+        margin: 0;
+        padding: 0;
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        text-align: center;
+        width: 49%;
+        float: left;
+      }
+      td {
+        border: #ccc 1px solid;
+      }
+      table:nth-of-type(1) td.color {
+        background: greenyellow;
+      }
+      table:nth-of-type(2) td.color {
+        background: skyblue;
+      }
+      table:nth-of-type(3) td.color {
+        background: orange;
+      }
+      table:nth-of-type(4) td.color {
+        background: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      写一个程序输出1到100这些数字。但是遇到数字为3的倍数的时候，输出“三”替代数字，为5的倍数用“五”代替，既是3的倍数又是5的倍数则输出“三五”。
+    </p>
+    <p>
+      <script>
+        for (let i = 1; i <= 100; i++) {
+          if (i % 3 == 0 && i % 5 == 0) {
+            document.write("三五 &nbsp;&nbsp;&nbsp;");
+          } else if (i % 3 == 0) {
+            document.write("三 &nbsp;&nbsp;&nbsp;");
+          } else if (i % 5 == 0) {
+            document.write("五 &nbsp;&nbsp;&nbsp;");
+          } else {
+            document.write(i + " &nbsp;&nbsp;&nbsp;");
+          }
+        }
+      </script>
+    </p>
+    <hr />
+    <p>
+      坤兔同笼
+      有若干只坤兔在同一个笼子里，从上面数，有35个头，从下面数，有94只脚。问笼中各有多少只坤和兔？
+    </p>
+    <p>
+      <script>
+        for (let Ji = 0; Ji <= 35; Ji++) {
+          let Tu = 35 - Ji;
+          if (Ji * 2 + Tu * 4 == 94) {
+            document.write("有" + Ji + "只蔡徐坤<br>有" + Tu + "兔子");
+          }
+        }
+      </script>
+    </p>
+    <hr />
+    <p>
+      大家轮流报数，如果报到能被7整除的数字，或者尾数是7的数字，都算踩地雷了。
+      <br />请输出1~60之间的所有“安全数”。
+    </p>
+    <p>
+      <script>
+        for (let i = 1; i <= 60; i++) {
+          if (i % 7 == 0 || i % 10 == 7) {
+            continue;
+          }
+          document.write(i + " &nbsp;&nbsp;&nbsp;&nbsp;");
+        }
+      </script>
+    </p>
+    <hr />
+    <p>
+      里面现存有 100 块钱。 <br />如果存钱，就用输入钱数加上先存的钱数,
+      之后弹出显示余额提示框
+      <br />如果取钱，就减去取的钱数，之后弹出显示余额提示框
+      <br />如果显示余额，就输出余额 <br />如果退出，弹出退出信息提示框
+    </p>
+    <script>
+      let money = 100, //里面现存有 100 块钱。
+        select = 0;
+      while (false) {
+        // 开关
+        do {
+          1;
+          while (true) {
+            select = Number(
+              window.prompt("键入1:存钱\n2:取钱\n3:显示余额\n4:退出")
+            );
+            if (select >= 1 && select <= 4) {
+              break;
+            }
+            window.alert("您输入的不是1~4当中的整数\n请重新键入");
+          }
+
+          switch (select) {
+            case 1:
+              money += Number(window.prompt("请输入您要存入的金额"));
+              break;
+            case 2:
+              moneyout = Number(window.prompt("请输入您要取走的金额"));
+              if (money >= moneyout) {
+                money -= moneyout;
+              } else {
+                window.alert("您的余额不足");
+              }
+              break;
+            case 3:
+              window.alert(money);
+              break;
+            case 4:
+              window.alert("退出成功");
+          }
+        } while (select != 4);
+      }
+    </script>
+    <script>
+      let str = "";
+      str += "<table>"; // 第一个表格
+      for (let i = 1; i <= 9; i++) {
+        str += "<tr>"; //行
+        for (let j = 9 - i; j > 0; j--) {
+          str += "<td></td>"; //空白格
+        }
+        for (let k = 1; k <= i; k++) {
+          str +=
+            "<td class='color'>" +
+            (10 - i) +
+            "×" +
+            (10 - k) +
+            "=" +
+            (10 - i) * (10 - k) +
+            "</td>"; //单元格
+        }
+        str += "</tr>";
+      }
+      str += "</table>";
+      str += "<table>"; // 第二个表格
+      for (let i = 1; i <= 9; i++) {
+        str += "<tr>"; //行
+        for (let k = 1; k <= i; k++) {
+          str += "<td class='color'>" + i + "×" + k + "=" + i * k + "</td>"; //单元格
+        }
+        for (let j = 9 - i; j > 0; j--) {
+          str += "<td></td>"; //空白格
+        }
+        str += "</tr>";
+      }
+      str += "</table>";
+      str += "<table>"; //第三个表格
+      for (let i = 1; i <= 9; i++) {
+        str += "<tr>"; //行
+        for (let j = i; j > 1; j--) {
+          str += "<td></td>"; //空白格
+        }
+        for (let k = 9; k >= i; k--) {
+          str += "<td class='color'>" + i + "×" + k + "=" + i * k + "</td>"; //单元格
+        }
+        str += "</tr>";
+      }
+      str += "</table>";
+      str += "<table>"; //第四个表格
+      for (let i = 9; i >= 1; i--) {
+        str += "<tr>"; //行
+        for (let k = 1; k <= i; k++) {
+          str += "<td class='color'>" + i + "×" + k + "=" + i * k + "</td>"; //单元格
+        }
+        for (let j = i; j < 9; j++) {
+          str += "<td></td>"; //空白格
+        }
+        str += "</tr>";
+      }
+      str += "</table>";
+      document.write(str);
+    </script>
+  </body>
+</html>

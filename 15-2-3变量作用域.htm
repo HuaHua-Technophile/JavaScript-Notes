@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-2-3变量作用域</title>
+  </head>
+  <body>
+    <p>
+      变量作用域是指变量可以被访问的范围。在JavaScript中，有全局作用域和块级作用域两种类型的作用域¹²。
+    </p>
+    <p>
+      全局作用域是指在程序的顶部或者函数外部声明的变量，它们可以在程序的任何地方被访问¹²。
+    </p>
+    <script>
+      // 全局变量a
+      var a = 10;
+      function fun1() {
+        // 访问全局变量a
+        console.log("访问全局变量a=>", a); // 10
+      }
+      fun1();
+    </script>
+    <p>
+      块级作用域是指在一个代码块（如if语句或循环语句）内部声明的变量，它们只能在该代码块内部被访问¹²。
+      <br />使用let和const关键字可以创建块级作用域的变量²
+    </p>
+    <script>
+      function fun2() {
+        // 块级作用域变量b
+        let b = 20;
+        if (true) {
+          // 块级作用域常量c
+          const c = 30;
+          // 访问b和c
+          console.log("块级作用域变量b=>", b); // 20
+          console.log("块级作用域常量c=>", c); // 30
+        }
+        // 访问b，但不能访问c
+        console.log("在判断块外可以访问b=>", b); // 20
+        // c is not defined
+        // console.log("但不能访问c=>", c);
+      }
+      fun2();
+      // 访问b和c都会报错，因为它们不在全局作用域内,只在fun2函数块内生效
+      // ReferenceError: b is not defined
+      // console.log(b);
+      // ReferenceError: c is not defined
+      // console.log(c);
+    </script>
+  </body>
+</html>

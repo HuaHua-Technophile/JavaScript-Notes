@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      25-1-4appendChild()末尾添加节点insertBefore()指定节点前插入节点
+    </title>
+  </head>
+  <body>
+    <p>
+      appendChild()和insertBefore()都是JavaScript中的DOM方法，是Node接口的方法，用于向一个父节点中添加子节点。它们的语法和示例代码如下：
+    </p>
+    <p>
+      appendChild()方法将一个节点追加到父节点的子节点列表的末尾。如果被添加的节点已经存在于文档中，那么它会从原来的位置移动到新位置
+      <br />语法：parent.appendChild(child)
+      <br />参数：child是要添加的子节点，必须是一个有效的Node对象或者DocumentFragment对象
+      <br />返回值：返回被添加的子节点
+      <br />异常：如果child是parent本身或者不属于当前文档，会抛出HierarchyRequestError或NotFoundError
+    </p>
+    <div id="container"></div>
+    <script>
+      let p = document.createElement("p"); // 创建一个新的<p>元素
+      let text = document.createTextNode("Hello World!"); // 创建一个文本节点
+      p.appendChild(text); // 将文本节点追加到<p>元素中
+      let parent = document.getElementById("container"); // 获取要插入<p>元素的父元素 也可用innerHTML
+      parent.appendChild(p); // 将<p>元素追加到父元素中
+    </script>
+    <p>
+      <br />insertBefore()方法将一个节点插入到父节点的子节点列表中指定位置之前。如果被插入的节点已经存在于文档中，那么它会从原来的位置移动到新位置。
+      <br />语法：parent.insertBefore(newNode, referenceNode)
+      <br />参数：newNode是要插入的新节点，必须是一个有效的Node对象或者DocumentFragment对象；referenceNode是参考节点，表示在其之前插入新节点。如果为null，则相当于appendChild()方法。
+      <br />返回值：返回被插入的新节点。
+      <br />异常：如果newNode或referenceNode不属于当前文档，或者newNode是parent本身或其祖先，会抛出HierarchyRequestError或NotFoundError。
+    </p>
+    <ul id="fruit-list">
+      <li>子节点1</li>
+      <li>子节点2</li>
+    </ul>
+    <script>
+      let li = document.createElement("li"); // 创建一个新的<li>元素
+      text = document.createTextNode("Banana"); // 创建一个文本节点
+      li.appendChild(text); // 将文本节点追加到<li>元素中
+      parent = document.getElementById("fruit-list"); // 获取要插入<li>元素的父元素
+      let reference = parent.children[1]; // 获取参考子元素（第二个<li>子节点2</li>）
+      parent.insertBefore(li, reference); // 将<li>元素插入到参考子元素之前
+    </script>
+  </body>
+</html>

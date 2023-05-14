@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>花花</title>
+  </head>
+  <body>
+    <p>
+      Javascript中的constructor属性是一个对象实例的数据属性，它返回一个指向创建该对象实例的构造函数的引用。
+      <br />注意，这个属性的值不是一个包含函数名的字符串，而是一个指向函数本身的引用。
+      <br />
+      undefined和null没有constructor属性，不能直接读取，会报错
+      <br />
+    </p>
+    <script>
+      let value = 1;
+      console.log("数值的constructor=>", value.constructor); //function Number() { [native code] }
+      value = "a";
+      console.log("字符串的constructor=>", value.constructor); //function String() { [native code] }
+      value = true;
+      console.log("逻辑值的constructor=>", value.constructor); //function Boolean() { [native code] }
+      value = {};
+      console.log("对象{}的constructor=>", value.constructor); //function Object() { [native code] }
+      value = new Object();
+      console.log("对象new Object()的constructor=>", value.constructor); //function Object() { [native code] }
+      value = [];
+      console.log("数组[]的constructor=> ", value.constructor); //function Array() { [native code] }
+      value = new Array();
+      console.log("数组new Array()的constructor=> ", value.constructor); //function Array() { [native code] }
+      value = function () {};
+      console.log("函数function () {}的constructor=> ", value.constructor); //function Function() { [native code] }
+      function HanShuMin() {}
+      value = new HanShuMin();
+      console.log(
+        "函数function HanShuMin() {}的constructor=> ",
+        value.constructor
+      ); //function HanShuMin() {}
+    </script>
+    <p>
+      可以使用constructor属性来判断一个对象是哪个类的实例，或者创建同类的新对象⁴。
+      <br />例如，下面的代码定义了一个Person类，并使用constructor属性来检查和创建Person类的对象：
+    </p>
+    <script>
+      class Person {
+        constructor(name) {
+          this.name = name;
+        }
+      }
+
+      let p1 = new Person("Alice");
+      console.log(p1.constructor); // function Person(name) { ... }
+      console.log(p1.constructor === Person); // true
+
+      let p2 = new p1.constructor("Bob"); // 创建同类的新对象
+      console.log(p2.name); // Bob
+    </script>
+  </body>
+</html>

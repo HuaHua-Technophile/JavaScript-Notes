@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>27-2-1offsetLeft,offsetTop当前元素偏移位置属性</title>
+  </head>
+  <body>
+    <p>
+      offsetLeft,offsetTop属性(只读不可写)
+      <br />在IE怪异模式,返回以父元素为参照进行偏移的位置
+      <br />在DOM标准模式,返回以最近定位元素为参照进行偏移的位置
+    </p>
+    <p>
+      offsetLeft和offsetTop从最近定位父标签的padding开始计算，不包括border。
+    </p>
+    <img
+      src="https://s2.51cto.com/images/blog/202112/31160354_61ceb96a099b039783.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_30,g_se,x_10,y_10,shadow_20,type_ZmFuZ3poZW5naGVpdGk=/format,webp/resize,m_fixed,w_1184"
+      alt="" />
+  </body>
+  <script>
+    //下面的代码可以算出元素左上角相对于整张网页的坐标。
+    function getElementPosition(e) {
+      let x = 0,
+        y = 0;
+      while (e !== null) {
+        x += e.offsetLeft;
+        y += e.offsetTop;
+        e = e.offsetParent; //逐层往上累加
+      }
+      return [x, y];
+    }
+  </script>
+</html>

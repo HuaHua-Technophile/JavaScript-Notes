@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>17-4-1throw抛出自定义异常</title>
+  </head>
+  <body>
+    <p>
+      throw语句用于抛出一个用户自定义的异常。你可以抛出任何类型的值，比如字符串、数字、布尔值或对象。例如：
+    </p>
+    <script>
+      function checkAge(age) {
+        if (age < 18) {
+          throw "Too young"; // Throw a string value
+        } else {
+          console.log("Welcome!");
+        }
+      }
+
+      try {
+        checkAge(15); // Call the function with an invalid value
+      } catch (error) {
+        console.log(error); // Catch and print the error
+      }
+    </script>
+    <p>
+      在这个例子中，checkAge函数会检查传入的年龄参数是否大于等于18。如果不是，它会抛出一个字符串值"Too
+      young"。try块会调用这个函数，并捕获可能发生的错误。catch块会打印错误信息。
+    </p>
+  </body>
+</html>

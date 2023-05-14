@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-3keys()迭代数组</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，keys()方法可以用于数组或对象，返回一个包含它们的键的迭代器对象。数组的键就是它们的索引，对象的键就是它们的属性名。keys()方法不会改变原始的数组或对象。
+    </p>
+    <script>
+      // 数组
+      let arr = ["a", "b", "c"];
+      let keys = arr.keys();
+      console.log(keys); //Array Iterator {}
+      for (let item of keys) console.log(item); //=>0   =>1   =>2
+
+      // 对象
+      obj = { name: "Alice", age: 20, city: "New York" };
+      keys = Object.keys(obj);
+      console.log(keys); // ['name', 'age', 'city']
+    </script>
+  </body>
+</html>

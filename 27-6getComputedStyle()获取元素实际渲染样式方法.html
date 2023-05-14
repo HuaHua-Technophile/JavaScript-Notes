@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>27-6getComputedStyle()获取元素实际渲染样式方法</title>
+    <style>
+      #myDIV {
+        color: rgb(0, 255, 0);
+      }
+      #myDIV::after {
+        content: "456";
+        display: block;
+        font-size: 30px;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      getComputedStyle()方法是一个JavaScript的window对象的全局函数，它可以用来获取指定元素的<strong>最终渲染</strong>的CSS样式
+      <br />var style = window.getComputedStyle(element, pseudoElement);
+      <br />其中，element是必需的参数，表示要获取样式的元素。pseudoElement是可选的参数，表示要获取样式的伪元素，如":after"或":before"。如果不需要获取伪元素的样式，可以省略或传入null
+    </p>
+    <p>
+      getComputedStyle()方法返回一个实时的CSSStyleDeclaration对象，它包含了元素所有应用的CSS属性和值,当元素的样式更改时，它会自动更新本身
+      <br />我们可以通过getPropertyValue()方法来访问具体的属性值，例如：
+    </p>
+    <div id="myDIV">132</div>
+    <script>
+      console.log(window.getComputedStyle(myDIV, null));
+      console.log(window.getComputedStyle(myDIV, ":after"));
+      console.log(
+        window.getComputedStyle(myDIV, null).getPropertyValue("color")
+      ); //输出元素的颜色值
+      console.log(getComputedStyle(myDIV).color);
+      console.log(getComputedStyle(myDIV, ":after")["color"]);
+      console.log(getComputedStyle(myDIV, ":after")["font-size"]);
+      console.log(getComputedStyle(myDIV, ":after").fontSize); //点语法需要使用驼峰
+    </script>
+    <p>
+      getComputedStyle()方法与element.style属性有一些区别。
+      <br />element.style只能访问元素内联样式（即写在style属性上的样式），而getComputedStyle()可以访问外部样式表、嵌入样式和内联样式中应用到元素上的所有样式<br />element.style既支持读取也支持修改元素的内联样式，而getComputedStyle()只支持读取元素的最终样式，不支持修改
+      <br />
+      getComputedStyle()方法在IE9及以上版本和其他主流浏览器中都支持²。在IE6~8中，可以使用element.currentStyle属性来代替
+    </p>
+  </body>
+</html>

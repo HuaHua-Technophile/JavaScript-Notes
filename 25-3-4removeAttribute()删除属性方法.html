@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-3-4removeAttribute()删除属性方法</title>
+  </head>
+  <body>
+    <p>
+      removeAttribute()是一个JavaScript方法，用于从指定的元素上移除一个属性。如果属性不存在，那么removeAttribute()方法不会报错。
+    </p>
+    <p>
+      removeAttribute()方法的语法是：
+      <br />element.removeAttribute(name)
+    </p>
+    <p>
+      其中，name是一个字符串，表示要移除的属性的名称。
+      <br />removeAttribute()方法没有返回值，也就是说它隐式地返回undefined。
+    </p>
+    <p>
+      removeAttribute()方法有一些高级和复杂的使用案例，例如：
+      <br />从元素上移除类名（class）或样式（style）属性
+      <br />从a元素上移除超链接（href）或目标窗口（target）属性
+      <br />从input元素上移除输入类型（type）或占位符（placeholder）属性
+      <br />从自定义元素上移除自定义属性
+    </p>
+    <h1 id="myH1" class="democlass" style="color: red; font-size: 30px">
+      Hello World
+    </h1>
+    <script>
+      //  从元素上移除类名（class）或样式（style）属性
+      myH1.removeAttribute("class"); // 移除类名属性
+      myH1.removeAttribute("style"); // 移除样式属性
+    </script>
+    <a id="myAnchor" href="https://www.example.com" target="_blank"
+      >https://www.example.com</a
+    >
+    <script>
+      // 从a元素上移除超链接（href）或目标窗口（target）属性
+      myAnchor.removeAttribute("href"); // 移除超链接属性
+      myAnchor.removeAttribute("target"); // 移除目标窗口属性，表示在当前窗口打开链接
+    </script>
+    <div>
+      <input id="myInput" type="button" value="input" title="Click me" />
+    </div>
+    <script>
+      // 从<input>元素上移除输入类型（type）或占位符（placeholder）属性
+      myInput.removeAttribute("type"); // 移除输入类型属性，表示将按钮变成文本框
+      myInput.removeAttribute("title"); // 移除悬浮提示符属性，鼠标悬浮时不显示提示文字
+    </script>
+    <custom-element id="myCustomElement" data-name="John Doe"
+      >自定义元素custom-element</custom-element
+    >
+    <script>
+      // 从自定义元素上移除自定义属性
+      myCustomElement.removeAttribute("data-name"); // 移除一个以data-开头的自定义属性，可以用于存储额外的信息或数据。
+    </script>
+  </body>
+</html>

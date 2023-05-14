@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>26-2-3-mouseenter和mouseover的区别</title>
+    <style>
+      p {
+        width: 150px;
+        height: 150px;
+        background: orange;
+        margin: 50px auto;
+      }
+      .father {
+        width: 300px;
+        height: 300px;
+        background: pink;
+        padding: 20px;
+        margin: 50px auto;
+      }
+      .father .son {
+        width: 120px;
+        height: 120px;
+        background: skyblue;
+      }
+      ul {
+        background: lightgreen;
+        padding: 20px;
+      }
+      ul li {
+        background: aqua;
+      }
+    </style>
+  </head>
+  <body>
+    <p>p段落的内容</p>
+    <div class="father">
+      <div class="son">son元素</div>
+    </div>
+    <ul>
+      <li>苹果</li>
+      <li>西瓜</li>
+      <li>哈密瓜</li>
+    </ul>
+    <script>
+      // mouseenter鼠标进入和mouseleave鼠标移开是一组事件,一般会一起使用
+      // mouseover鼠标移上和mouseout鼠标移出是一组事件,一般会一起使用
+      // 同一个元素绑定这两组事件,区别不大
+      // mouseover鼠标移上和mouseout鼠标移出是这组事件,会冒泡; 而mouseenter鼠标进入和mouseleave鼠标移开这组事件,不会冒泡
+      var objP = document.querySelector("p");
+      objP.addEventListener("mouseenter", function () {
+        console.log("p段落的mouseenter事件");
+      });
+      objP.addEventListener("mouseleave", function () {
+        console.log("p段落的mouseleave事件");
+      });
+      objP.addEventListener("mouseover", function () {
+        console.log("p段落的mouseover事件");
+      });
+      objP.addEventListener("mouseout", function () {
+        console.log("p段落的mouseout事件");
+      });
+      var father = document.querySelector(".father");
+      var son = document.querySelector(".son");
+      son.addEventListener("mouseenter", function () {
+        console.log("son的mouseenter事件");
+      });
+      son.addEventListener("mouseleave", function () {
+        console.log("son的mouseleave事件");
+      });
+      son.addEventListener("mouseover", function () {
+        console.log("son的mouseover事件");
+      });
+      son.addEventListener("mouseout", function () {
+        console.log("son的mouseout事件");
+      });
+      father.addEventListener("mouseenter", function () {
+        console.log("father的mouseenter事件");
+      });
+      father.addEventListener("mouseleave", function () {
+        console.log("father的mouseleave事件");
+      });
+      father.addEventListener("mouseover", function () {
+        console.log("father的mouseover事件");
+      });
+      father.addEventListener("mouseout", function () {
+        console.log("father的mouseout事件");
+      });
+      var objUl = document.querySelector("ul");
+      objUl.onmouseover = function () {
+        console.log("ul的mouseover事件,哈哈哈");
+      };
+      objUl.onmouseenter = function () {
+        console.log("ul的mouseenter事件,呵呵呵");
+      };
+    </script>
+  </body>
+</html>

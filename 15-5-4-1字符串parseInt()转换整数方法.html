@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-5-4-1字符串parseInt()转换整数方法</title>
+  </head>
+  <body>
+    <p>
+      parseInt()是一个函数，它用于将一个字符串转换为一个整数
+      <br />parseInt()函数可以接受两个参数，第一个参数是要转换的字符串，第二个参数是表示进制的整数。如果省略第二个参数，parseInt()函数会根据字符串的格式自动判断进制。如果字符串不能被转换为有效的整数，parseInt()函数会返回NaN。
+    </p>
+    <script>
+      // 创建一个十进制数字的字符串
+      let str = "123";
+      // 使用parseInt()函数并不传入第二个参数，返回十进制数字123
+      console.log(parseInt(str)); // 123
+      // 使用parseInt()函数并传入第二个参数10，返回十进制数字123
+      console.log(parseInt(str, 10)); // 123
+
+      // 创建一个十六进制数字的字符串
+      let str2 = "0x7b";
+      // 使用parseInt()函数并不传入第二个参数，返回十六进制数字0x7b对应的十进制数字123
+      console.log(parseInt(str2)); // 123
+      // 使用parseInt()函数并传入第二个参数16，返回十六进制数字0x7b对应的十进制数字123
+      console.log(parseInt(str2, 16)); // 123
+
+      // 创建一个八进制数字的字符串
+      let str3 = "0173";
+      // 使用parseInt()函数并不传入第二个参数，在严格模式下返回八进制数字0173对应的十进制数字123，在非严格模式下返回八进制前缀被忽略后剩余部分对应的十进制数字173（因为在ECMAScript 5中取消了八进制字面量）
+      console.log(parseInt(str3)); // 173 or 123 depending on mode
+      // 使用parseInt()函数并传入第二个参数8，返回八进制数字0173对应的十进制数字123
+      console.log(parseInt(str3, 8)); // 123
+
+      // 创建一个无效的字符串
+      let str4 = "abc";
+      // 使用parseInt()函数并不传入第二个参数，返回NaN（因为abc不能被转换为有效的整数）
+      console.log(parseInt(str4)); // NaN
+    </script>
+  </body>
+</html>

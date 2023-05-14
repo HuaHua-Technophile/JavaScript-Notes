@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-1-6replaceChild()替换子节点方法</title>
+  </head>
+  <body>
+    <p>
+      replaceChild()是Node接口的方法，用于将一个父节点中的一个子节点替换为另一个子节点。它的语法和使用案例如下：
+    </p>
+    <p>
+      replaceChild()方法接受两个参数，分别是要替换的新子节点和要被替换的旧子节点。
+      <br />如果新子节点已经存在于文档中，那么它会先被移除，然后再插入到新的位置。
+      <br />如果旧子节点不属于父节点，那么该方法会抛出异常。它的语法是：
+      <br />parentNode.replaceChild(newChild, oldChild);
+    </p>
+    <p>
+      其中，parentNode是要替换子节点的父节点，newChild是要替换的新子节点，oldChild是要被替换的旧子节点。该方法返回被替换的旧子节点。
+    </p>
+    <ul id="myList">
+      <li>apple</li>
+      <li>world</li>
+      <li>love</li>
+    </ul>
+    <script>
+      // 例如，以下代码创建了一个新的<li>元素，并将其替换到<ul>元素中第一个<li>元素的位置：
+      let newItem = document.createElement("li"); // 创建一个新的<li>元素
+      let newText = document.createTextNode("Water"); // 创建一个文本节点
+      newItem.appendChild(newText); // 将文本节点添加到<li>元素中
+      let list = document.getElementById("myList"); // 获取<ul>元素
+      let oldItem = list.firstElementChild; // 获取第一个<li>元素
+      list.replaceChild(newItem, oldItem); // 将第一个<li>元素替换为新创建的<li>元素
+    </script>
+    <p>
+      若使用变量或者常量容器接收 = parentNode.replaceChild(newChild, oldChild);
+      <br />replaceChild()方法不会销毁被移除的子节点，而是将其保留在内存中，可以在以后重新使用。如果你不想保留被移除的子节点在内存中，你可以不使用变量或者常量容器接收**返回的被移除的子节点**。
+      <br />这样，被移除的子节点会在一定时间后被JavaScript垃圾回收器销毁。
+    </p>
+  </body>
+</html>

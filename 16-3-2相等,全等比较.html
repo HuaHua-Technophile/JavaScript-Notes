@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>16-3-2相等,全等比较</title>
+  </head>
+  <body>
+    <script>
+      //字符串和布尔比较时，两者转"数字",再比较
+      console.log("1" == 1);
+      // 数值和布尔比较时,布尔转数字,再比较
+      console.log(true == 1);
+      console.log(false == 0);
+      console.log(null == undefined); //=>都是true
+
+      console.log("a" == 1); //=>false 字符"a"转换为NaN,再判断NaN==1
+      console.log(true == 2); //=>false
+
+      console.log(null == 0);
+      console.log(undefined == 0);
+      console.log(NaN == "NaN");
+      console.log(NaN == NaN); //=>都是false
+
+      console.log(NaN != NaN); //=>true
+
+      console.log(null === undefined);
+      console.log(0 === "0");
+      console.log(0 === false); //=>都是false
+
+      let a = {};
+      let b = a;
+      console.log(a === b); //=>true  引用了相同的地址
+
+      let c = {};
+      let d = {};
+      console.log(c == d);
+      console.log(c === d); //=>都是false  芮苒结构相同,但是地址不同
+
+      //对象和布尔值比较时,先转换数值,再比较
+      console.log({} == true); // NaN == 1 => false
+      console.log({} == false); // NaN == 0 => false
+      console.log({ key: "value" } == false); // NaN == 1  => false
+
+      //对象和布尔值比较时,先转换数值,再比较
+      console.log({} == 1); // NaN == 1 => false
+      console.log({} == 0); // NaN == 0 => false
+      console.log({ key: "value" } == 1); // NaN == 1  => false
+    </script>
+  </body>
+</html>

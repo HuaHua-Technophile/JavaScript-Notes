@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>23-3利用闭包实现'模块'</title>
+  </head>
+  <body>
+    <p>
+      利用闭包实现"模块"是一种使用JavaScript的特性来封装一些私有的变量和函数，并向外暴露一些公共的接口的技术。这样可以实现模块的封装、复用和解耦
+    </p>
+    <p>
+      利用闭包实现"模块"的一般步骤是：
+      <li>
+        定义一个立即执行函数表达式（IIFE），在函数内部声明一些私有的变量和函数，这些变量和函数只能在函数内部访问，不会污染全局作用域
+      </li>
+      <li>
+        在函数内部返回一个对象，该对象包含了一些引用私有变量或函数的属性或方法，这些属性或方法就是模块的公共接口，可以被外部访问
+      </li>
+      <li>
+        将返回的对象赋值给一个变量，该变量就是模块的命名空间，可以通过它来调用模块的公共接口
+      </li>
+    </p>
+    <script>
+      //下面的代码演示了如何利用闭包实现一个简单的计数器模块
+      // 定义一个立即执行函数表达式
+      let counter = (function () {
+        // 在函数内部声明一个私有变量
+        let count = 0;
+        // 在函数内部声明一个私有函数
+        function print(message) {
+          console.log(message + " " + count);
+        }
+        // 在函数内部返回一个对象
+        return {
+          // 该对象包含了一些引用私有变量或函数的属性或方法
+          value: function () {
+            return count;
+          },
+          increment: function () {
+            count++;
+            print("After increment:");
+          },
+          reset: function () {
+            print("Before reset:");
+            count = 0;
+            print("After reset:");
+          },
+        };
+      })();
+      // 调用模块的公共接口
+      console.log(counter.value()); // 0
+      counter.increment(); // After increment: 1
+      counter.increment(); // After increment: 2
+      counter.reset(); // Before reset: 2 // After reset: 0
+      console.log(counter.count); //undefined
+    </script>
+    <script>
+      /* 下面实例设计了一个能够自动生成序列号的对象,serial对象包含的方法都没有使用this或that,因此没有办法损害serial,除非调用对应的方法,否则没法改变prefix或serial的值
+      serial对象是可变,它的方法可能会被替换掉,但替换后的方法依然不能访问私有成员
+      如果把serial.get作为一个值传递给第三方函数,这个函数只能通过它产生一个字符串,却不能通过它来改变prefix或serial的值 */
+      let serial = (function () {
+        let prefix = "", //私有变量:前缀字符,默认不加
+          serial = 0; //私有变量:序列号,默认从0开始
+        return {
+          //返回一个对象直接量
+          setPrefix: function (p) {
+            prefix = String(p); //设置前缀字符
+          },
+          setSerial: function (s) {
+            serial = typeof s == "number" ? s : 0; //设置序列号从多少开始
+          },
+          get: function () {
+            return prefix + serial++; //返回拼接后的序列号字符串,并使序列号递增
+          },
+        };
+      })();
+      serial.setPrefix("No.");
+      serial.setSerial(100);
+      console.log(serial.get()); //No.100
+      console.log(serial.get()); //No.101
+      console.log(serial.get()); //No.102
+    </script>
+  </body>
+</html>

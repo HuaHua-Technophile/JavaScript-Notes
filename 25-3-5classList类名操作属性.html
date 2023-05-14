@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-3-5classList类名操作属性</title>
+  </head>
+  <body>
+    <p>
+      classList是一个HTML5新增的JavaScript属性，用于返回一个元素的类名列表，也就是一个DOMTokenList对象。这个对象可以用来操作元素的类名。
+    </p>
+    <p>
+      classList属性的语法是：
+      <br />element.classList <br />其中，element是一个HTML元素。
+    </p>
+    <p>
+      classList属性本身是只读的，但是它有一些方法可以用来修改元素的类名，例如：
+      <br />add()方法：用于添加一个或多个类名到元素上。如果类名已经存在，则不会重复添加。
+      <br />remove()方法：用于移除一个或多个类名从元素上。如果类名不存在，则不会报错。
+      <br />replace()方法：用于替换一个已有的类名为另一个新的类名。
+      <br />toggle()方法：用于切换一个类名在元素上的存在与否。如果存在，则移除；如果不存在，则添加。
+      <br />contains()方法：用于检查元素是否包含指定的类名。如果包含，则返回true；如果不包含，则返回false。
+      <br />item()方法：用于返回指定索引位置上的类名。如果索引超出范围，则返回null。
+    </p>
+    <p>
+      classList属性有一些使用案例，例如：
+      <br />为元素添加或移除样式 <br />为元素添加或移除动画效果
+      <br />为元素添加或移除状态标识
+    </p>
+    <div id="div1" class="class1 class2"></div>
+    <script>
+      console.log(div1.classList); // DOMTokenList(2) ['class1', 'class2', value: 'class1 class2']
+      // 添加一个或多个类名到元素上
+      div1.classList.add("class1"); // 添加一个类名 重复的话不会添加
+      console.log(div1.classList); // DOMTokenList(2) ['class1', 'class2', value: 'class1 class2']
+      div1.classList.add("class2", "class3"); // 添加多个类名
+      console.log(div1.classList); // DOMTokenList(3) ['class1', 'class2', 'class3', value: 'class1 class2 class3']
+      // 从元素上移除一个或多个类名
+      div1.classList.remove("class4"); // 移除一个类名 就算类名不存在也不会报错
+      console.log(div1.classList); // DOMTokenList(3) ['class1', 'class2', 'class3', value: 'class1 class2 class3']
+      div1.classList.remove("class3", "class2"); // 移除多个类名
+      console.log(div1.classList); // DOMTokenList ['class1', value: 'class1']
+      // 替换一个已有的类名为另一个新的类名
+      div1.classList.replace("class1", "class4"); // 替换class1为class4
+      console.log(div1.classList); // DOMTokenList ['class4', value: 'class4']
+      // 切换一个类名在元素上的存在与否
+      div1.classList.toggle("class3"); // 如果没有class3，则添加；如果有，则移除。
+      console.log(div1.classList); // DOMTokenList(2) ['class4', 'class3', value: 'class4 class3']
+      // 检查元素是否包含指定的类名
+      console.log(div1.classList.contains("class3")); // true
+      console.log(div1.classList.contains("class2")); // false
+      // 返回指定索引位置上的类名
+      console.log(div1.classList.item(0)); // class4
+      console.log(div1.classList.item(1)); // class3
+      console.log(div1.classList.item(2)); // null
+    </script>
+  </body>
+</html>

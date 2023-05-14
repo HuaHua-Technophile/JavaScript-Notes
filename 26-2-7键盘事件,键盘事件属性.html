@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>26-2-7键盘事件,键盘事件属性</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，有以下几种键盘事件：
+      <li>keydown：在键盘上按下某个键时触发。</li>
+      <li>keypress：在键盘上按下某个字符键时触发（功能键或特殊键除外）</li>
+      <li>keyup：在键盘上释放某个键时触发。</li>
+    </p>
+    <p>
+      对于字符键来说，键盘事件的响应顺序是：keydown→keypress→keyup。如果按下字符键不放，则keydown和keypress事件将逐个持续发生，直至松开按键
+      <br />对于非字符键（如功能键或特殊键）来说，键盘事件的响应顺序是：keydown→keyup。
+    </p>
+    <p>
+      <li>keyCode:触发键盘事件时按下的键(除PS键)的编码,字母键以大写返回值</li>
+      <li>charCode:onkeypress事件触发键值的字母代码(除IE)</li>
+      <li>altKey:触发键盘事件时是否按下了Alt键,是则返回true,否则返回false</li>
+      <li>
+        shiftKey:触发键盘事件时是否按下了Shift键,是则返回true,否则返回false
+      </li>
+      <li>ctrlKey:触发键盘事件时是否按下了Ctrl键,是则返回true,否则返回false</li>
+      <li>which:触发键盘事件时按下的键的编码（非标准属性）</li>
+    </p>
+    <!-- <script>
+      document.onclick = function (e) {
+        e = e || window.event;
+        e.target = e.target || e.srcElement;
+        if (e.ctrlKey && e.shiftKey) {
+          e.target.parentNode.removeChild(e.target);
+        } //若同时按下Ctrl和Shift键,点击文档中任意元素,则该元素会被删除(包括body甚至html元素,只留下<!DOCTYPE html>)
+      };
+    </script> -->
+  </body>
+</html>

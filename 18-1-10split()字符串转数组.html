@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>18-1-10split()字符串转数组</title>
+  </head>
+  <body>
+    <p>
+      split方法用於將一個字符串根據一個分隔符或者一個正則表達式分割成一個數組。這個方法返回一個新的數組，不會改變原始的字符串。
+    </p>
+    <p>
+      您可以傳遞一個字符串或者一個對象作為分隔符，也可以傳遞一個數字作為限制參數，表示返回數組的最大長度。
+    </p>
+    <script>
+      let str = "JavaScript String split";
+      let words = str.split(" ");
+      console.log(words); // ["JavaScript", "String", "split"]
+    </script>
+    <p>
+      這裡，' '表示使用空格作為分隔符。
+      <br />下面的代碼使用split方法將一個字符串根據逗號分割成數字，並限制返回數組的長度為3：
+    </p>
+    <script>
+      str = "1,2,3,4,5";
+      numbers = str.split(",", 3);
+      console.log(numbers); // ["1", "2", "3"]
+    </script>
+    <p>
+      這裡，','表示使用逗號作為分隔符，3表示返回數組的最大長度。
+      下面的代碼使用split方法將一個字符串根據正則表達式分割成子字符串：
+    </p>
+    <script>
+      str = "Hello-World-2021";
+      parts = str.split(/[-|\d]+/);
+      console.log(parts); // ["Hello", "World", ""]
+    </script>
+    <p>這裡，/[-|\d]+/表示使用連字符或者數字作為分隔符。</p>
+  </body>
+</html>

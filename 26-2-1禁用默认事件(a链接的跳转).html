@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>26-2-1禁用默认事件(a链接的跳转)</title>
+  </head>
+  <body>
+    <a id="link1" href="//www.example.com">link1:example网站</a>
+    <a id="link2" href="//www.example.com" target="_blank">link2:example网站</a>
+    <a id="link3" href="//www.example.com">link3:example网站</a>
+    <script>
+      link1.addEventListener("click", function (e) {
+        e.preventDefault(); // 阻止默认事件，即不跳转页面
+        console.log("你点击了链接1，但是没有跳转");
+      });
+      link2.addEventListener("click", function () {
+        console.log(
+          "你点击了链接2，但是addEventListener方法不能使用'return false'方法,去禁止绑定对象的默认行为"
+        );
+        return false;
+      });
+      link3.onclick = function (e) {
+        console.log("你点击了链接3，但是接下来会不让你跳转");
+        return false; // 阻止默认事件，即不跳转页面
+      };
+    </script>
+  </body>
+</html>

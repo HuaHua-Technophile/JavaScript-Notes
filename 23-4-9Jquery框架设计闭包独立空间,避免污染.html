@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>23-4-9Jquery框架设计闭包独立空间,避免污染</title>
+  </head>
+  <body>
+    <p>
+      页面中有多个js框架时,很难确保这些框架不会冲突,因此利用闭包将Jquery框架放入匿名函数中,然后自调用,并传入window对象
+      <br />将闭包体内的私有变量Jquery传递给参数对象"window"的Jquery属性,而参数对象"window"就是外部传入的window对象
+      <br />所以在全局作用域中可通过Jquery变量或$变量来访问闭包体内的Jquery框架
+    </p>
+    <script>
+      (function (window) {
+        var $ = (Jquery = function (selector, context) {
+          //Jquery构造函数
+          return new Jquery.fn.init(selector, context); //Jquery实例对象
+        });
+        Jquery.fn = Jquery.prototype = {
+          init: function (selector, context) {
+            //初始化构造函数
+            selector = selector || document; //初始化选择器,默认document
+            context = context || document; //初始化上下文对象,默认document
+            if (selector.nodeType) {
+              //如果是DOM对象
+              this[0] = selector; //直接把该DOM对象传递给实例对象这个伪数组的属性"0"
+              this.length = 1; //设置实例对象的length属性,表示包含一个DOM元素
+              this.context = selector; //重新设置上下文为DOM对象
+              return this; //返回当前实例
+            }
+            if (typeof selector === "string") {
+              //如果是选择符类型的字符串
+              let e = document.querySelectorAll(selector);
+              len = e.length;
+              for (let i = 0; i < len; i++) {
+                this[i] = e[i]; //把获取的所有DOM对象传递给实例对象这个伪数组
+              }
+              this.length = len; //保存实例的length属性,也就是获取到的DOM对象的个数
+              this.context = context; //保存上下文对象
+              return this; //返回当前实例
+            } else {
+              this.length = 0; //length为0,也就是输入的selector既不是现成的DOM对象,也不是字符串,因此啥都没获取到
+              this.context = context; //保存上下文对象
+              return this; //返回当前实例
+            }
+          },
+        };
+        Jquery.fn.init.prototype = Jquery.fn;
+        Jquery.each = function (object, callback, args) {
+          len = object.length;
+          for (let i = 0; i < len; i++) {
+            //因为Jquery对象中这个伪数组中,DOM元素就是数字作为属性名,而且有length属性.所以使用for循环迭代Jquery对象中每个DOM元素.
+            callback.call(object[i], args); //在每个DOM元素上执行回调 实参
+          }
+          return object; //返回Jquery对象
+        };
+        //重新定义Jquery扩展函数,有两个功能,一个是合并覆盖对象,一个是给原型上添加扩展方法
+        Jquery.extend = Jquery.fn.extend = function () {
+          let dest = arguments[0],
+            source = arguments[1]; //获得第一个实参和第二个实参
+          if (typeof dest == "object" && typeof source == "object") {
+            //如果存在两个实参,且都为对象
+            for (let property in source) {
+              dest[property] = source[property];
+            } //将第二个实参合并覆盖掉第一个实参,并返回合并后的第一个实参
+            return dest;
+          } else {
+            //如果只传入了一个实参,则改为:为Jquery扩展功能,将该功能插件复制到Jquery.fn原型对象上
+            for (let prop in dest) {
+              this[prop] = dest[prop];
+            }
+            return this;
+          }
+        };
+        window.Jquery = window.$ = jQuery; //实现闭包最关键一步
+      })(window);
+    </script>
+  </body>
+</html>

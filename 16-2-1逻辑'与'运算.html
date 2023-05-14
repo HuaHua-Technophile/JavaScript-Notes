@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>16-2-1逻辑"与"运算</title>
+  </head>
+  <body>
+    <p>
+      &&:逻辑"与" <br />俩个操作数都为true时,返回true
+      <br />俩个操作数有一个为false时,返回false
+    </p>
+    <p>
+      逻辑"与"运算是一种短路逻辑.
+      <br />若左侧表达式为false,则直接短路返回结果,再运算右侧表达式
+    </p>
+    <script>
+      let boolean = true;
+      boolean && console.log("左侧变量为真值");
+      !boolean && console.log("左侧变量为真值");
+
+      let undefinedexample;
+      undefinedexample && console.log("左侧变量未赋值,undefined");
+      !undefinedexample && console.log("左侧变量未赋值,undefined");
+    </script>
+    <p>
+      右侧表达式不应包含赋值,递增,递减,函数调用等有效运算
+      <br />因为左侧表达式false,跳过了右侧表达式,会潜在影响后续
+    </p>
+  </body>
+</html>

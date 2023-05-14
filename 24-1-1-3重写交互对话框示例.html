@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-1-1-3重写交互对话框示例</title>
+    <style></style>
+  </head>
+  <body>
+    <script>
+      //重写alert方法
+      window.alert = function (alert_info, alert_title = "Alert!!!") {
+        let box = document.createElement("div"),
+          mask = document.createElement("div"),
+          title = document.createElement("div"),
+          info = document.createElement("div"),
+          buttonbox = document.createElement("div"),
+          affirmbox = document.createElement("button"),
+          cancelbox = document.createElement("button");
+        mask.setAttribute(
+          "style",
+          "width:100vw;height:100vh;position:fixed;top:0;left:0;background:#00000056;"
+        );
+        mask.id = "alert_mask";
+        box.setAttribute(
+          "style",
+          "position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:809px;border-radius:15px;padding-bottom:10px;background:#1c1c1c;overflow:hidden;"
+        );
+        mask.appendChild(box);
+        title.setAttribute(
+          "style",
+          "width:100%;height:70px;text-align:center;background:brown;font-size:40px;font-weight:bold;line-height:70px;color:#c8c8c8"
+        );
+        title.innerHTML = alert_title;
+        box.appendChild(title);
+        info.setAttribute(
+          "style",
+          "padding:10px;color:#c8c8c8;text-align:center;"
+        );
+        info.innerHTML = alert_info;
+        box.appendChild(info);
+        box.appendChild(buttonbox);
+        cancelbox.setAttribute(
+          "style",
+          "float:right;padding:5px 10px;background:brown;border-radius:10px;margin-right:15px;color:#c8c8c8"
+        );
+        cancelbox.id = "alert_cancelbox";
+        cancelbox.innerHTML = "取消";
+        buttonbox.appendChild(cancelbox);
+        affirmbox.setAttribute(
+          "style",
+          "float:right;padding:5px 10px;background:brown;border-radius:10px;margin-right:15px;color:#c8c8c8"
+        );
+        affirmbox.id = "alert_affirmbox";
+        affirmbox.innerHTML = "确认";
+        buttonbox.appendChild(affirmbox);
+        document.documentElement.appendChild(mask);
+        alert_affirmbox.onclick = function () {
+          alert_mask.parentNode.removeChild(alert_mask);
+          console.log(123);
+          return true;
+        };
+        alert_cancelbox.onclick = function () {
+          alert_mask.parentNode.removeChild(alert_mask);
+          console.log(456);
+          return false;
+        };
+      };
+      //测试
+      alert("提示框文本");
+    </script>
+  </body>
+</html>

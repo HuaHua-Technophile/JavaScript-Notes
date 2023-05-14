@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>21-1-3arguments函数实参合集</title>
+  </head>
+  <body>
+    <p>
+      arguments对象是一个伪数组(类数组对象)，它可以在函数内部访问传递给函数的参数的值
+      它有一个length属性，表示参数的个数，以及一个索引属性，表示每个参数的值。例如，如果一个函数传递了三个参数，你可以这样访问它们：
+      <li>arguments[0]; // 第一个参数</li>
+      <li>arguments[1]; // 第二个参数</li>
+      <li>arguments[2]; // 第三个参数</li>
+    </p>
+    <p>你也可以给索引属性赋值，改变参数的值： arguments[1] = '新值';</p>
+    <p>
+      arguments对象对于处理变数量的参数的函数很有用，例如Math.min()。你可以使用arguments.length来确定传递给函数的参数的个数，然后使用arguments对象来处理每个参数。
+    </p>
+    <p>
+      注意，在严格模式下，或者在使用剩余参数、默认参数或解构赋值参数的函数中，arguments对象不会与实际的参数同步更新。也就是说，改变arguments对象中的值不会影响实际的参数，反之亦然
+      如果你想把arguments对象转换为真正的数组，你可以使用Array.from()方法或扩展运算符：
+      <li>let args = Array.from(arguments);</li>
+      <li>let args = [...arguments];</li>
+    </p>
+  </body>
+</html>

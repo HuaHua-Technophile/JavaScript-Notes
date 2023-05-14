@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      22-3-1Object.defineProperty()对象定义属性Object.defineProperties()对象定义多个属性
+    </title>
+  </head>
+  <body>
+    <p>
+      在对象直接量中,属性名与属性值之间通过冒号分隔,冒号左侧是属性名,右侧是属性值
+      <br />名值对(属性)之间通过逗号分隔
+    </p>
+    <p>
+      JavaScript中，给对象定义属性有多种方式。一种是使用点符号或方括号符号，直接给对象添加属性
+    </p>
+    <script>
+      let obj = {};
+      obj.name = "Alice"; // 使用点符号
+      obj["age"] = 25; // 使用方括号符号
+    </script>
+    <p>
+      另一种是使用Object.defineProperty()或Object.defineProperties()方法，给对象定义一个或多个属性。这些方法可以指定属性的值、可写性、可枚举性和可配置性
+      <br />defineProperty方法是一个静态方法，用于在一个对象上直接定义一个新属性，或者修改一个对象的现有属性，并返回该对象。它的语法是:
+      <br />Object.defineProperty(obj, prop, descriptor)
+    </p>
+    <p>
+      其中，obj是要定义或修改属性的对象，prop是要定义或修改的属性的名称或Symbol，descriptor是要定义或修改的属性描述符。
+      <br />属性描述符是一个对象，它可以是数据描述符或存取描述符。数据描述符是一个具有值和可写性的属性的对象，存取描述符是一个由getter和setter函数组成的对象。一个描述符只能是这两者之一，不能同时是两者
+      <br />数据描述符和存取描述符都有以下可选的键值
+      <li>configurable：表示该属性是否可以被删除或修改，默认为false。</li>
+      <li>enumerable：表示该属性是否可以被枚举，默认为false。</li>
+      数据描述符还有以下可选的键值
+      <li>
+        value：表示该属性的值，可以是任何有效的JavaScript值，默认为undefined。
+      </li>
+      <li>writable：表示该属性的值是否可以被赋值运算符改变，默认为false。</li>
+      存取描述符还有以下可选的键值
+      <li>
+        get：表示一个读取属性拦截器函数，用于获取该属性的值，如果没有getter，则为undefined。默认为undefined。
+      </li>
+      <li>
+        set：表示一个设置属性值拦截器函数，用于设置该属性的值，如果没有setter，则为undefined。默认为undefined。
+      </li>
+    </p>
+    <p>
+      使用defineProperty方法可以精确地添加或修改对象的属性，避免了使用赋值操作添加的普通属性可能带来的问题，比如可枚举性、可写性、可配置性等。例如:
+    </p>
+    <script>
+      Object.defineProperty(obj, "ValueA", {
+        value: 10,
+        writable: false,
+      }); // 使用defineProperty方法添加一个只读的数据属性
+      Object.defineProperty(obj, "ValueB", {
+        get: function () {
+          console.log(`ValueB的值被读取了↓,但始终返回ValueA的2倍`);
+          return this.ValueA * 2;
+        },
+      }); // 使用defineProperty方法添加一个读取属性拦截器,该方法表示`b`的值始终只会返回`a`的两倍
+      Object.defineProperty(obj, "ValueC", {
+        get: function () {
+          console.log(`ValueC的值被读取了↓`);
+          return ValueC;
+        },
+        set: function ($V) {
+          console.log(`属性'ValueC'的值被尝试修改为=>`, $V);
+          ValueC = $V;
+        },
+      }); // 使用defineProperty方法添加一个读取拦截器
+      console.log(obj.ValueA); // 10
+      console.log(obj.ValueB); // 20
+      //console.log(obj.ValueC);  报错,未设置初始值
+
+      obj.ValueA = 20; // 尝试修改只读属性不生效,但不会报错
+      obj.ValueC = 30; // 属性'ValueC'的值被尝试修改为=> 30
+      console.log(obj.ValueA); // 10 // 访问只读属性
+      console.log(obj.ValueB); // 20 // 访问可读可写属性
+      console.log(obj.ValueC); // 20 // 访问可读可写属性
+    </script>
+    <script>
+      Object.defineProperty(obj, "name2", {
+        value: "Alice",
+        writable: true,
+        enumerable: true,
+        configurable: true,
+      }); // 使用Object.defineProperty()方法
+      Object.defineProperties(obj, {
+        age2: {
+          value: 25,
+          writable: true,
+          enumerable: true,
+          configurable: true,
+        },
+        gender2: {
+          value: "female",
+          writable: false,
+          enumerable: false,
+          configurable: false,
+        },
+      }); // 使用Object.defineProperties()方法
+      console.log(obj);
+    </script>
+  </body>
+</html>

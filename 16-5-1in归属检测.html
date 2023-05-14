@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>花花</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，in运算符可以用来判断一个属性是否存在于一个对象或其原型链中，如果存在则返回true，否则返回false。
+      <br />in运算符的语法是： <br />prop in object
+    </p>
+    <p>
+      其中prop是一个字符串类型或者symbol类型的属性名或者数组索引（非symbol类型将会强制转为字符串），object是要检查它（或其原型链）是否包含具有指定名称的属性的对象。¹
+    </p>
+    <script>
+      // 创建一个对象
+      let person = {
+        name: "Alice",
+        age: 25,
+      };
+
+      // 使用 in 运算符检查"""属性"""是否存在
+      console.log("name" in person); // 输出 true
+      console.log("gender" in person); // 输出 false
+
+      // 创建一个数组
+      let fruits = ["apple", "banana", "orange"];
+
+      // 使用 in 运算符检查"""索引"""是否存在
+      console.log(0 in fruits); // 输出 true
+      console.log(3 in fruits); // 输出 false
+
+      // 创建一个原型对象
+      let animal = {
+        type: "mammal",
+      };
+
+      // 创建一个继承自原型对象的对象
+      let cat = Object.create(animal);
+      cat.name = "Kitty";
+
+      // 使用 in 运算符检查"""属性"""是否存在于"""原型链"""中
+      console.log("name" in cat); // 输出 true
+      console.log("type" in cat); // 输出 true
+    </script>
+  </body>
+</html>

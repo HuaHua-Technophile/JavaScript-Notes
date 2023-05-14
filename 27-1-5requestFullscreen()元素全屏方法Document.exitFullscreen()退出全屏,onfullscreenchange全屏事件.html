@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      27-1-5requestFullscreen()元素全屏方法Document.exitFullscreen()退出全屏,onfullscreenchange全屏事件
+    </title>
+  </head>
+  <body>
+    <ol>
+      <li>
+        你可以使用 Element.requestFullscreen ()
+        方法，让指定的元素进入全屏模式。这个方法是异步的，返回一个 Promise
+        对象，可以在全屏模式激活或失败时处理。
+      </li>
+      <li>
+        你可以使用 Document.exitFullscreen ()
+        方法，退出全屏模式。这个方法也是异步的，返回一个 Promise
+        对象，可以在全屏模式关闭或失败时处理。
+      </li>
+      <li>
+        你可以使用 Document.fullscreenElement
+        属性，判断当前是否处于全屏模式。如果这个属性不为 null
+        ，则表示有一个元素正在全屏显示。
+      </li>
+      <li>
+        你可以使用 Document.onfullscreenchange
+        事件处理程序，监听全屏模式的变化。当进入或退出全屏模式时，这个事件会被触发。
+      </li>
+      <li>
+        你可以使用 Document.onfullscreenerror
+        事件处理程序，监听全屏模式的错误。当全屏模式发生错误时，这个事件会被触发。
+      </li>
+    </ol>
+    <p>
+      让视频全屏的方法是使用video元素的requestFullscreen()方法，它会请求浏览器将视频显示在全屏模式下。同样，不同的浏览器可能需要不同的前缀。
+    </p>
+    <video
+      src="../HTML5/video/代码之子@1080P@24hz.mp4"
+      style="width: 100%"
+      id="video"></video>
+    <button id="btn1">视频全屏</button>
+    <button id="btn2">网页全屏</button>
+    <button id="btn3">退出网页全屏</button>
+    <script>
+      btn1.onclick = function () {
+        // 如果浏览器支持requestFullscreen方法
+        if (video.requestFullscreen) {
+          // 请求全屏
+          video.requestFullscreen();
+          // 如果浏览器支持webkitRequestFullscreen方法（Safari）
+        } else if (video.webkitRequestFullscreen) {
+          // 请求全屏
+          video.webkitRequestFullscreen();
+          // 如果浏览器支持msRequestFullscreen方法（IE11）
+        } else if (video.msRequestFullscreen) {
+          // 请求全屏
+          video.msRequestFullscreen();
+        }
+      };
+      btn2.onclick = function () {
+        document.documentElement.requestFullscreen(); //document的根元素:html
+      };
+      btn3.onclick = function () {
+        if (document.fullscreenElement !== null) {
+          document.exitFullscreen();
+        }
+      };
+      document.onfullscreenchange = function () {
+        console.log("网页全屏了");
+      };
+    </script>
+  </body>
+</html>

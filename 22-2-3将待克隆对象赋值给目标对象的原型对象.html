@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>22-2-3将待克隆对象赋值给目标对象的原型对象</title>
+  </head>
+  <body>
+    <p>
+      克隆对象是指将一个对象的属性和方法复制到另一个对象中，以便在修改原始对象时不会影响到克隆的对象
+    </p>
+    <p>
+      克隆对象有两种方式，浅克隆和深克隆
+      <br />浅克隆是对象的逐位复制。创建一个新对象，该对象具有原始对象中值的精确副本。如果对象的任何属性是引用类型，那么新对象和原始对象将共享该属性的引用。这意味着如果修改了新对象或原始对象中的引用类型属性，那么另一个对象也会受到影响
+      <br />深克隆是对象的完全复制。创建一个新对象，该对象具有原始对象中值的完整副本。如果对象的任何属性是引用类型，那么新对象将创建该属性的新副本，而不是共享原始对象的引用。这意味着如果修改了新对象或原始对象中的引用类型属性，那么另一个对象不会受到影响
+    </p>
+    <p>
+      浅克隆可以使用Object类的clone()方法，它会返回一个调用者的拷贝。但是要使用这个方法，需要实现Cloneable接口，并重写clone()方法
+    </p>
+    <p>
+      深克隆可以使用序列化和反序列化的方式JSON.parse(JSON.stringify())，它会将一个对象转换为字节流，然后再从字节流中恢复为一个新的对象。这种方法不能实现完全复制，不能处理循环引用或函数等特殊情况
+    </p>
+    <script>
+      function CloneObj(obj) {
+        function Temp() {}
+        Temp.prototype = obj;
+        return new Temp();
+      } /*封装克隆函数,把一个对象传递给一个临时构造函数temp的原型对象,然后实例化构造函数temp.并返回这个实例对象
+      它拥有参数对象的所有成员,不再与原参数对象保持联系*/
+      let obj = {
+          id: 1,
+          hello: function () {
+            console.log("哈哈");
+          },
+        },
+        objclone = {};
+      objclone = CloneObj(obj);
+      console.log(objclone); /* Temp {}
+                              [[Prototype]]: Object
+                                hello: ƒ ()
+                                id: 1 */
+      console.log(objclone.id); //1
+      objclone.hello(); //哈哈
+      console.log(objclone === obj); //false
+    </script>
+  </body>
+</html>

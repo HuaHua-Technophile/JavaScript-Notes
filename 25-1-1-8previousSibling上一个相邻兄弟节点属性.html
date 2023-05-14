@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-1-1-8previousSibling上一个相邻兄弟节点属性</title>
+  </head>
+  <body>
+    <p class="test">
+      JavaScript中，previousSibling属性和"25-1-1-7nextSibling下一个兄弟节点属性"方向相反.其他一样.
+    </p>
+    <p id="p2">
+      下面例子是使用该属性获取一个元素或节点的上一个兄弟节点。例如，下面的代码可以获取id为"item2"的元素的上一个兄弟节点的HTML内容
+    </p>
+    <p class="test"><strong>123</strong><span id="span2">456</span></p>
+    <script>
+      console.log(document.getElementById("span2").previousSibling); //strong
+      let content = document.getElementById("span2").previousSibling.innerHTML;
+      console.log(content); //123
+    </script>
+    <p>
+      或者，可以使用该属性从一个元素或节点开始向前遍历DOM树，直到找到满足条件的兄弟节点。例如，下面的代码可以获取id为"myNodeTwo"的元素的上一个具有类名"test"的兄弟元素，并改变其颜色为红色：
+    </p>
+    <script>
+      let node = document.getElementById("p2");
+      while (true) {
+        if (node.nodeType === 1 && node.classList.contains("test")) {
+          node.style.color = "red";
+          break;
+        }
+        node = node.previousSibling;
+      }
+    </script>
+  </body>
+</html>

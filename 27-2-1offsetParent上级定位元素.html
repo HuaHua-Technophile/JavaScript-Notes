@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>27-2-1offsetParent上级定位元素</title>
+  </head>
+  <body>
+    <p>
+      offsetParent属性返回CSS 的position属性不等于static的最近层次祖先元素。
+    </p>
+    <p>
+      该属性主要用于确定子元素位置偏移的计算基准
+      <br />offsetTop和offsetLeft返回值,是以offsetParent元素为基准计算的。
+    </p>
+    <p>
+      若该元素是不可见的（display属性为none），或者position属性为fixed，则offsetParent属性返回null
+    </p>
+  </body>
+</html>

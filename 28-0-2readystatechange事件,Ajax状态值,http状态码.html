@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>28-0-2readystatechange事件,Ajax状态值,http状态码</title>
+  </head>
+  <body>
+    <p>
+      readystatechange事件是指当Ajax对象的readyState属性(Ajax状态值)发生改变时，会触发的事件。
+    </p>
+    <p>
+      readystatechange事件可以用来监测请求和响应的过程，以便根据不同的状态执行相应的任务
+      <br />通常，我们会在readystatechange事件中检查readyState(Ajax状态值)是否等于4，以及status(http状态码)是否等于200，表示请求已完成且响应已就绪
+    </p>
+    <p>
+      ajax对象.readyState(Ajax状态值)是指运行Ajax时，无论是成功还是失败都要响应的步骤的几种状态。Ajax状态值有五种：
+      <li>0：(未初始化UNSENT) 代理被创建,还没有调用open()方法</li>
+      <li>1：(启动OPENED) 已经调用open()方法，但还没有调用send()方法</li>
+      <li>2：(发送HEADERS_RECEIVED) 已经调用send()方法，但还没有接收到响应</li>
+      <li>3：(接收LOADING) 已经接收到部分响应数据</li>
+      <li>4：(完成DONE) 已经接收到全部的响应数据，且可以在客户端使用了</li>
+    </p>
+    <button id="btn">获取土味情话</button>
+    <script>
+      btn.onclick = function () {
+        let xhr = new XMLHttpRequest(); // 1. 创建ajax对象
+        console.log("1.代理被创建,还没有调用open()=>", xhr.readyState);
+        console.log("1.没有响应数据=>", xhr.responseText);
+        xhr.open("GET", "https://api.uomg.com/api/rand.qinghua"); // 2. 初始化ajax请求
+        console.log(
+          "2.已经调用open()方法，但还没有调用send()方法=>",
+          xhr.readyState
+        );
+        console.log("2.没有响应数据=>", xhr.responseText);
+        xhr.send(); // 3. 发送请求
+        xhr.onreadystatechange = function () {
+          // 4. 监听ajax状态码变化以及处理响应数据
+          console.log("readystatechange事件里面的状态值=>", xhr.readyState);
+          console.log("readystatechange事件里面的响应数据=>", xhr.responseText);
+        };
+      };
+    </script>
+    <p>
+      ajax对象.status(http状态码)是指服务器根据请求返回的HTTP头信息代码，用来表示请求的结果和状态。Ajax状态码有很多种，可以分为五大类：
+      <li>1xx：请求收到，继续处理</li>
+      <li>2xx：操作成功收到，分析、接受</li>
+      <li>3xx：完成此请求必须进一步处理</li>
+      <li>4xx：请求包含一个错误无法或不能完成</li>
+      <li>5xx：服务器执行一个完全有效请求失败</li>
+    </p>
+    <p>
+      <li>100——客户必须继续发出请求</li>
+      <li>101——客户要求服务器根据请求转换HTTP协议版本</li>
+      <li>200——交易成功</li>
+      <li>201——提示知道新文件的URL</li>
+      <li>202——接受和处理、但处理未完成</li>
+      <li>203——返回信息不确定或不完整</li>
+      <li>204——请求收到，但返回信息为空</li>
+      <li>205——服务器完成了请求，用户代理必须复位当前已经浏览过的文件</li>
+      <li>206——服务器已经完成了部分用户的GET请求</li>
+      <li>300——请求的资源可在多处得到</li>
+      <li>301——删除请求数据</li>
+      <li>302——在其他地址发现了请求数据</li>
+      <li>303——建议客户访问其他URL或访问方式</li>
+      <li>304——客户端已经执行了GET，但文件未变化</li>
+      <li>305——请求的资源必须从服务器指定的地址得到</li>
+      <li>306——前一版本HTTP中使用的代码，现行版本中不再使用</li>
+      <li>307——申明请求的资源临时性删除</li>
+      <li>400——错误请求，如语法错误（后台问题，找后台）</li>
+      <li>401——请求授权失败</li>
+      <li>402——保留有效ChargeTo头响应</li>
+      <li>403——请求不允许</li>
+      <li>404——没有发现文件、查询或URl</li>
+      <li>405——用户在Request-Line字段定义的方法不允许</li>
+      <li>406——根据用户发送的Accept拖，请求资源不可访问</li>
+      <li>407——类似401，用户必须首先在代理服务器上得到授权</li>
+      <li>408——客户端没有在用户指定的时间内完成请求</li>
+      <li>409——对当前资源状态，请求不能完成</li>
+      <li>410——服务器上不再有此资源且无进一步的参考地址</li>
+      <li>411——服务器拒绝用户定义的Content-Length属性请求</li>
+      <li>412——一个或多个请求头字段在当前请求中错误</li>
+      <li>413——请求的资源大于服务器允许的大小</li>
+      <li>414——请求的资源URL长于服务器允许的长度</li>
+      <li>415——请求资源不支持请求项目格式</li>
+      <li>
+        416——请求中包含Range请求头字段，在当前请求资源范围内没有range指示值，请求也不包含If-Range请求头字段
+      </li>
+      <li>
+        417——服务器不满足请求Expect头字段指定的期望值，如果是代理服务器，可能是下一级服务器不能满足请求
+      </li>
+      <li>500——服务器产生内部错误</li>
+      <li>501——服务器不支持请求的函数</li>
+      <li>502——服务器暂时不可用，有时是为了防止发生系统过载</li>
+      <li>503——服务器过载或暂停维修</li>
+      <li>
+        504——关口过载，服务器使用另一个关口或服务来响应用户，等待时间设定值较长
+      </li>
+      <li>505——服务器不支持或拒绝支请求头中指定的HTTP版本</li>
+    </p>
+  </body>
+</html>

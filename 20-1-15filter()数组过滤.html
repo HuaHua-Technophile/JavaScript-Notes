@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-15filter()数组过滤</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中的filter()方法是一个数组方法，它用于创建一个新的数组，新数组的元素都是原数组中满足提供的函数的测试条件的元素
+      <br />filter()方法不会改变原始数组，也不会对空元素执行函数。
+    </p>
+    <p>
+      JavaScript中的filter()方法的语法如下：
+      <br />array.filter(function(items, index, arr), thisValue);
+    </p>
+    <p>
+      <br />array是要被过滤的原始数组。
+      <br />function是用于测试每个元素的回调函数，***它应该返回一个布尔值*** 。
+      <br />items是当前元素的值，是必需的参数。
+      <br />index是当前元素的索引，是可选的参数。
+      <br />arr是原始数组，是可选的参数。
+      <br />thisValue是回调函数的this值，是可选的参数，默认为undefined。
+    </p>
+    <script>
+      let numbers = [1, 2, 3, 4, 5];
+      let evenNumbers = numbers.filter((items) => items % 2 === 0); // 使用filter()方法来创建一个新的数字数组，只包含偶数元素
+      console.log(numbers); // [1, 2, 3, 4, 5]
+      console.log(evenNumbers); // [2, 4]
+    </script>
+    <script>
+      let biggerThanThree = numbers.filter((num) => num > 3); // 使用filter()方法来创建一个新的数字数组，只包含大于3的元素
+      console.log(numbers); // [1, 2, 3, 4, 5]
+      console.log(biggerThanThree); // [4, 5]
+    </script>
+    <script>
+      let words = ["apple", "banana", "grape", "orange"];
+      let fiveLetters = words.filter((word, index) => {
+        console.log(`Index of ${word} is ${index}`); // 使用filter()方法来创建一个新的字符串数组，只包含长度为5的单词,同时打印出每个单词的索引
+        return word.length === 5;
+      });
+      console.log(fiveLetters); // ["apple", "grape"]
+    </script>
+    <p>
+      filter()方法可以接收一个可选的第二个参数，表示回调函数的this值。如果没有提供这个参数，this值会是undefined。
+    </p>
+    <script>
+      let people = [
+        { name: "Alice", age: 23 },
+        { name: "Bob", age: 27 },
+        { name: "Charlie", age: 18 },
+      ]; // 创建一个对象数组\
+      let criteria = {
+        minAge: 20,
+      }; // 创建一个对象，表示过滤条件
+      let olderPeople = people.filter(function (person) {
+        return person.age >= this.minAge; // 使用filter()方法来创建一个新的对象数组，只包含年龄大于等于条件中最小年龄的人,并使用条件对象作为回调函数的this值
+      }, criteria);
+      console.log(olderPeople); // [{ name: "Alice", age: 23 }, { name: "Bob", age: 27 }]
+    </script>
+  </body>
+</html>

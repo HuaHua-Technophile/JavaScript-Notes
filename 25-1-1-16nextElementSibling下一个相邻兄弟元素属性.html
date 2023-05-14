@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-1-1-16nextElementSibling下一个相邻兄弟元素属性</title>
+  </head>
+  <body>
+    <p>
+      nextElementSibling属性是一个只读属性，它返回指定元素在同一树级别中的下一个元素节点。如果没有下一个元素节点，它返回null。
+    </p>
+    <p>
+      与nextSibling属性不同的是，nextSibling属性会返回下一个兄弟节点，无论它是元素节点、文本节点还是注释节点。而nextElementSibling属性只会返回下一个兄弟元素节点，忽略文本和注释节点。
+    </p>
+    <div id="div-01">这是div-01</div>
+    <div id="div-02">这是div-02</div>
+    <script>
+      let el = document.getElementById("div-01").nextElementSibling;
+      document.write(
+        "<p>#div-01往下遍历到的,所有<strong>同级兄弟</strong>元素:</p><ol>"
+      );
+      while (el) {
+        document.write(
+          "<li>" + el.nodeName + (el.id ? " #" + el.id : "") + "</li>"
+        );
+        el = el.nextElementSibling;
+      }
+      document.write("</ol>");
+    </script>
+</html>

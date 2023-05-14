@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>17-2-4for,in遍历对象语句</title>
+  </head>
+  <body>
+    <p>
+      for...in循环用于创建一个循环，它可以遍历一个对象的所有可枚举属性，并执行一个代码块。
+      <br />for (variable in object) { <br />
+      // code block to be executed <br />}
+    </p>
+    <p>
+      variable是在每次循环中用于存储当前属性名的变量。**如果是数组或字符串,则存储下标.**
+    </p>
+    <p>object是要遍历的对象。(数组对象/字符串对象也可)</p>
+
+    <script>
+      var person = { Fname: "Mahesh", Lname: "Kumawat", Age: 29 }; // 定义一个对象person
+      var perproperty; // 定义一个变量perproperty
+      for (perproperty in person) {
+        // 遍历person对象的所有属性，将属性名赋值给perproperty
+        document.write(perproperty + ": " + person[perproperty] + "<br/>"); // 打印属性名和属性值
+      }
+      //Fname: Mahesh<br/>Lname: Kumawat<br/>Age: 29<br/>
+    </script>
+    <hr />
+    <p>还可以用for/in语句遍历对象,将每个属性名寄存到一个数组中</p>
+    <script>
+      let object1 = { key1: 1, key2: true, key3: "Hello" },
+        arr = [],
+        index = 0;
+      for (arr[index++] in object1); //实际上是一个空的循环结构.省略了分号前的{}空语句
+      document.write(arr);
+    </script>
+    <hr />
+    <p>
+      如果对象属性设置为只读,存档,不可枚举等限制特性,那么for/in语句就无法枚举了.
+      <br />for/in将会枚举所有可枚举的属性.包括原生属性和继承属性
+      <br />对于数组或其他相似对象而言,可能获取到的不止数组元素,还有其他不想要的额外属性及其属性值.如果仅仅想获取数组的元素值,建议使用for循环结构或其他
+    </p>
+    <script>
+      Array.prototype.x = "inherit_value1"; //自定义所有数组对象的继承属性
+      arr.extrakey = "extra_value";
+      for (let index_and_key in arr) {
+        document.write(index_and_key + " : " + arr[index_and_key] + "<br />");
+      }
+    </script>
+  </body>
+</html>

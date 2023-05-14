@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-3-2typeof检测数据类型</title>
+  </head>
+  <body>
+    <p>
+      typeof是一个JavaScript的操作符，用于检测变量的数据类型¹²³。typeof的语法是：
+      <br />
+      typeof operand
+    </p>
+    <p>
+      其中operand可以是任何表达式或变量。typeof会返回一个字符串，表示operand的数据类型。例如：
+    </p>
+    <script>
+      // 检测字符串类型
+      console.log(typeof "Hello"); // "string"
+      // 检测数字类型
+      console.log(typeof 3.14); // "number"
+      // 检测布尔类型
+      console.log(typeof true); // "boolean"
+      // 检测对象类型
+      console.log(typeof { name: "Alice", age: 25 }); // "object"
+      // 检测数组类型
+      console.log(typeof [1, 2, 3]); // "object"
+      // 检测函数类型
+      console.log(typeof function () {}); // "function"
+      // 检测null类型
+      console.log(typeof null); // "object"
+      // 检测undefined类型
+      console.log(typeof undefined); // "undefined"
+    </script>
+    <p>
+      注意，typeof对于对象、数组和null都会返回"object"，这可能不够精确²。
+      <br />如果需要更细致地检查对象的具体类型，可以使用其他方法，如instanceof或constructor属性²。
+    </p>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-2-1var,let声明变量;const声明常量</title>
+  </head>
+  <body>
+    <ol>
+      <li>
+        var是JavaScript中的一个关键字，用于声明一个函数作用域或全局作用域的变量，可以选择性地给它赋一个初始值
+      </li>
+      <li>
+        var声明的变量在任何代码执行之前就被创建，这种行为被称为“提升”（hoisting），意味着用var声明变量的位置不影响它的作用域
+      </li>
+      <li>
+        var声明的变量的作用域是它所在的执行上下文和闭包，要么是包含它的函数和函数内部声明的函数，要么是全局
+      </li>
+      <li>
+        var声明的变量可以被重复声明而不会报错，即使在严格模式下，也不会丢失它的值，除非有另外的赋值操作
+      </li>
+      <li>
+        var声明的变量在全局作用域下会成为全局对象的一个不可配置的属性，也就是说它不能被删除或改变属性描述符
+      </li>
+    </ol>
+    <ol>
+      <li>
+        let是JavaScript中的一个关键字，用于声明一个块级作用域的局部变量，可以选择性地给它赋一个初始值
+      </li>
+      <li>
+        let声明的变量只能在它被声明的位置之后访问，这被称为“暂时性死区”（temporaldeadzone），这意味着用let声明变量的位置会影响它的作用域
+      </li>
+      <li>
+        let声明的变量的作用域是它所在的块和子块，这与var不同，var声明的变量的作用域是它所在的函数或全局
+      </li>
+      <li>let声明的变量在同一作用域内不能被重复声明，否则会报语法错误</li>
+      <li>let声明的变量在全局作用域下不会成为全局对象的一个属性，与var不同</li>
+    </ol>
+    <ol>
+      <li>
+        const是JavaScript中的一个关键字，用于声明一个块级作用域的常量，它的值不能被重新赋值或重新声明
+      </li>
+      <li>const声明的常量必须在声明时初始化，不能留到以后赋值</li>
+      <li>
+        <strong
+          >const声明的常量如果是一个对象或数组，它的属性或元素是可以被修改或删除的</strong
+        >
+      </li>
+      <li>const声明的常量不会成为全局对象的属性，不同于var变量</li>
+      <li>const声明的常量在同一作用域内不能和函数或变量同名</li>
+    </ol>
+    <script>
+      // 使用var声明一个名为x的变量
+      var x = 10;
+      // 使用let声明一个名为y的变量
+      let y = 20;
+      // 使用const声明一个名为z的常量
+      const z = 30;
+    </script>
+    <p>
+      综上所述，在现代JavaScript中，推荐使用let和const来声明变量，因为它们可以提高代码的可预测性、可维护性和可靠性。只有当你需要兼容老旧浏览器或者特殊情况下才考虑使用var。
+    </p>
+  </body>
+</html>

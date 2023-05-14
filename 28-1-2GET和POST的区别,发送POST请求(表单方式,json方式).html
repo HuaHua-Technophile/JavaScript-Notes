@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>28-1-2GET和POST的区别,发送POST请求(表单方式/json方式)</title>
+  </head>
+  <body>
+    <p>
+      GET和POST是HTTP协议中两种常用的请求方法，它们有以下几点区别
+      <li>GET把参数拼接在URL中，POST把参数放在请求体中。</li>
+      <li>GET请求的URL有长度限制，POST请求的数据量没有限制。</li>
+      <li>GET请求的参数只能是ASCII字符，POST请求的参数可以是任意类型的数据</li>
+      <li>
+        GET请求会被浏览器主动缓存(被缓存、收藏和保存在浏览器历史中),包括请求的参数，POST请求不会也不可以(可以防止CSRF攻击)
+      </li>
+      <li>
+        GET请求相对不安全，因为参数暴露在URL中，POST请求相对更安全，因为参数不会显示在URL中
+      </li>
+      <li>浏览器在回退时，get 不会重新请求，但是post会重新请求</li>
+    </p>
+    <button id="btn">获取星座运势</button>
+    <script>
+      btn.onclick = function () {
+        let xhr = new XMLHttpRequest() || createXHR(); // 创建一个 XMLHttpRequest 对象实例
+        xhr.open("POST", "https://v2.alapi.cn/api/star"); // 设置请求的方法、URL 和其他参数
+        /* xhr.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        ); 
+        xhr.send("star=leo&token=lJLxHK2NrnPVri457AaK");*/ //POST发送请求(传统表单格式数据)
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(
+          JSON.stringify({
+            star: "leo",
+            token: "lJLxHK2NrnPVri457AaK",
+          })
+        ); // POST发送请求(JSON字符串格式数据)
+        xhr.onreadystatechange = function () {
+          // 监听响应状态的变化
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            // 如果请求已完成(readyState=4)并且响应状态为 200（成功）
+            console.log(xhr.response); // 获取响应数据(如果未指定responseType,则默认是返回字符串)
+          }
+        };
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-5-5Boolean()转换布尔值,!!双重逻辑非转换布尔值</title>
+  </head>
+  <body>
+    <p>
+      在Javascript中有一些特定的假值和真值⁵。假值包括：false、null、undefined、0、NaN和空字符串""。除了这些假值之外的所有其他的都是真值。
+    </p>
+    <p>在Javascript中，你可以使用以下两种方法将任何值或表达式转换为布尔值：</p>
+    <p>
+      1.使用双重非运算符（!!）。这个运算符会对一个值或表达式进行两次逻辑非运算，返回一个布尔值。例如：
+    </p>
+    <script>
+      console.log('空字符串""=>', !!""); // false（因为空字符串是假值）
+      console.log('字符串"false"=>', !!"false"); // true（因为非空字符串是真值）
+      console.log('字符串"true"=>', !!"true"); // true（因为非空字符串是真值）
+    </script>
+    <p>
+      2.使用Boolean对象包装器。这个函数接受一个值作为参数，返回一个布尔值。例如：
+    </p>
+    <script>
+      console.log("Bolean(0)=>", Boolean(0)); // false（因为0是假值）
+      console.log("Bolean(NaN)=>", Boolean(NaN)); // false(非数字是假值)
+      console.log("Bolean(-NaN)=>", Boolean(-NaN)); // false(非数字是假值)
+      console.log("Bolean(-1)=>", Boolean(-1)); // true（因为非零数字是真值）
+      console.log("Bolean(Infinity)=>", Boolean(Infinity)); // true（因为非零数字是真值）
+      console.log("Bolean(-Infinity)=>", Boolean(-Infinity)); // true（因为非零数字是真值）
+    </script>
+  </body>
+</html>

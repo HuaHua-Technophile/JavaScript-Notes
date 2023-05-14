@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>16-5-2delete删除属性方法</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，delete方法可以用来从某个对象或集合中删除指定的属性或元素。
+      <br />delete方法的语法是： <br />delete object.property <br />delete
+      object[index] <br />delete property
+    </p>
+    <p>
+      其中object是要删除属性或元素的对象或集合，property是要删除的属性名，index是要删除的元素索引，property是一个全局变量名。⁵
+    </p>
+    <p>
+      使用delete方法时，需要注意以下几点：
+      <br /><strong
+        >如果要删除的属性或元素不存在，那么delete不会起任何作用，但仍会返回true</strong
+      >
+      <br />如果要删除的属性或元素是从原型链上继承来的，那么delete只会在自身对象上删除该属性或元素，并不会影响原型链。
+      <br />如果要删除的属性或元素是不可配置的（configurable为false），那么delete会失败并返回false（在严格模式下还会抛出TypeError异常）。
+      <br /><strong
+        >如果要删除数组中的某个元素，那么delete只会将该元素设置为undefined，并不会改变数组的长度</strong
+      >
+    </p>
+    <script>
+      // 创建一个对象
+      let person = {
+        name: "Alice",
+        age: 25,
+      };
+      // 使用 delete 方法删除属性
+      console.log(delete person.name); // 输出 true
+      console.log(person.name); // 输出 undefined
+      // 创建一个数组
+      let fruits = ["apple", "banana", "orange"];
+      // 使用 delete 方法删除元素
+      console.log(delete fruits[1]); // 输出 true
+      console.log(fruits); // 输出 ["apple", undefined, "orange"]
+      console.log(fruits.length); // 输出 3
+      // 创建一个原型对象
+      let animal = {
+        type: "mammal",
+      };
+      // 创建一个继承自原型对象的对象
+      let cat = Object.create(animal);
+      cat.name = "Kitty";
+      // 使用 delete 方法删除继承来的属性
+      console.log(delete cat.type); // 输出 true
+      console.log(cat.type); // 输出 "mammal"
+      // 创建一个不可配置的属性
+      Object.defineProperty(person, "gender", {
+        value: "female",
+        configurable: false,
+      });
+      // 使用 delete 方法尝试删除不可配置的属性（在非严格模式下）
+      console.log(delete person.gender); // 输出 false
+    </script>
+  </body>
+</html>

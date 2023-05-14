@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>16-1-2减法运算</title>
+  </head>
+  <body>
+    <script>
+      let a = 1;
+      console.log(a - NaN); // Nan与任意操作数相减，结果都是NaN
+      console.log(a + Infinity); // Infinity与任意操作数相减，结果都是Infinity
+      console.log(Infinity + Infinity); // Infinity与Infinity相减，结果是NaN
+      console.log(-Infinity + -Infinity); // -Infinity(负Infinity)相减，结果是NaN
+      console.log(Infinity + -Infinity); // 正负Infinity相减，结果是-Infinity(负Infinity)
+
+      console.log(a - a); // =》0   数值相减
+      console.log(a - "1"); //=》0   如果非数值类型，会先尝试转为数值，再运算
+      console.log(a - "a"); //=》NaN   如果非数值类型，会先尝试转为数值，再运算
+    </script>
+    <script>
+      //小技巧：使用任意值减去0，可以快速把值转换为数字
+      console.log(parseFloat("100aaa")); //=> 100
+      console.log("100aaa" - 0); //=> NaN
+      console.log(parseFloat("true")); //=> 1
+      console.log("true" - 0); //=> NaN
+    </script>
+  </body>
+</html>

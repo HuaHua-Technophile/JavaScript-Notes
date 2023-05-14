@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-5-3-3数值toPrecision转换为科学计数法(指定有效位数)</title>
+  </head>
+  <body>
+    <p>
+      toPrecision()是一个方法，它用于将一个数字转换为一个字符串，并保留指定的有效位数⁴⁵。toPrecision()方法可以接受一个参数，表示有效位数¹⁴。如果省略该参数，toPrecision()方法的行为与toString()方法相同⁵。如果有效位数不足以表示整数部分，toPrecision()方法会使用科学计数法¹。
+    </p>
+    <script>
+      // 创建一个数字
+      let num = 123.456;
+      // 使用toPrecision()方法并不传入参数，返回数字本身的字符串表示
+      console.log(num.toPrecision()); // 123.456
+      // 使用toPrecision()方法并传入参数1，返回有效位数为1的字符串表示，并使用科学计数法
+      console.log(num.toPrecision(1)); // 1e+2
+      // 使用toPrecision()方法并传入参数3，返回有效位数为3的字符串表示，并使用科学计数法
+      console.log(num.toPrecision(3)); // 123
+
+      // 创建另一个数字
+      let num2 = 0.0000123;
+      // 使用toPrecision()方法并不传入参数，返回数字本身的字符串表示
+      console.log(num2.toPrecision()); // 0.0000123
+      // 使用toPrecision()方法并传入参数2，返回有效位数为2的字符串表示，并使用科学计数法
+      console.log(num2.toPrecision(2)); // 1.2e-5
+
+      // 创建一个非有限数字
+      let num3 = Infinity;
+      console.log(num3.toPrecision(1)); // Infinity
+
+      // 创建一个非数字值
+      let num4 = NaN;
+      console.log(num4.toExponential(1)); // NaN
+    </script>
+  </body>
+</html>

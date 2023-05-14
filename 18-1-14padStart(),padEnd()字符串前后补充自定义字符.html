@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>18-1-14padStart(),padEnd()字符串前后补充自定义字符至目标长度</title>
+  </head>
+  <body>
+    <p>
+      padStart() 和 padEnd() 是 JavaScript 中的 String.prototype
+      的方法，用于在字符串的前面或后面填充指定的字符，直到达到目标长度
+    </p>
+    <p>
+      <li>它们不会改变原字符串，而是返回一个新的字符串。</li>
+      <li>
+        它们接受两个参数：targetLength 和 padString。targetLength
+        是目标长度，如果小于或等于原字符串长度，会返回原字符串。padString
+        是填充字符串，如果没有指定，会用空格代替。如果填充字符串太长，会被截断。
+      </li>
+      <li>
+        padStart() 从字符串的左侧开始填充，padEnd() 从字符串的右侧开始填充。
+      </li>
+      <li>它们可以用于格式化数字、日期、对齐文本等场景。</li>
+    </p>
+    <script>
+      let num = 123;
+      console.log(num.toString().padStart(5, "0")); //"00123" //在字符串头部补充"0"直至字符串长度达到5
+      let str = "Hello";
+      console.log(str.padEnd(21, "█⊞⊞")); //"Hello█⊞⊞█⊞⊞█⊞⊞█⊞⊞█⊞⊞█" //在字符串尾部补充"█⊞⊞"直至字符串长度达到10
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = (date.getMonth() + 1).toString().padStart(2, "0");
+      let day = date.getDate().toString().padStart(2, "0");
+      console.log(year + "-" + month + "-" + day); // 输出 "2023-01-28"
+    </script>
+  </body>
+</html>

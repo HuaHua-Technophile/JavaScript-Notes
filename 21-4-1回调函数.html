@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>21-7-1回调函数</title>
+  </head>
+  <body>
+    <p>
+      在JavaScript中，回调函数是一种将函数作为参数传递给另一个函数的技术，这样可以在合适的时机或者满足某些条件后执行该函数
+    </p>
+    <p>
+      回调函数的作用是实现异步编程，即不按照代码的书写顺序执行，而是根据事件或者状态的变化来决定执行的顺序。回调函数应用场景:用户交互的事件处理函数、网络请求(异步请求)的回调函数、定时器的回调函数
+    </p>
+    <p>
+      例如，如果我们想要在页面上显示一个按钮，当用户点击按钮时弹出一个对话框，我们可以使用以下代码：
+    </p>
+    <button id="btn1">alert("You clicked the button!")</button>
+    <script>
+      function showAlert() {
+        alert("You clicked the button!");
+      } // 定义一个函数，用于显示对话框
+      // 为按钮添加一个点击事件监听器，并传入回调函数
+      btn1.addEventListener("click", showAlert);
+    </script>
+    <p>
+      在这里，showAlert函数就是一个最简单的回调函数，它作为参数传递给了addEventListener方法，表示当按钮被点击时执行该函数。这样，我们就实现了一个简单的用户交互功能
+    </p>
+    <p>
+      JavaScript中，定时器的回调函数是指在定时器到期后执行的函数或代码段。定时器可以使用以下四种方法创建：
+      <li>setTimeout：设置一个定时器，在定时器到期后执行一次函数或代码段</li>
+      <li>
+        setInterval：设置一个定时器，按照指定的周期（以毫秒计）来调用函数或计算表达式
+      </li>
+      <!-- <li>
+        setImmediate：设置一个定时器，在当前事件循环结束后立即执行函数或代码段(仅node.js支持)
+      </li> -->
+      <li>
+        requestAnimationFrame：设置一个定时器，在浏览器下一次重绘之前执行函数或代码段，通常用于动画效果
+      </li>
+    </p>
+    <p>使用setInterval实现一个倒计时效果</p>
+    <div>
+      <span id="hour">1</span>
+      <span id="minute">2</span>
+      <span id="second">3</span>
+    </div>
+    <script>
+      let inputTime = new Date("9999-1-1 18:00:00"); // 返回的是用户输入de截止时间 总的毫秒数
+      function countDown() {
+        let nowTime = new Date(); // 返回的是当前时间总的毫秒数
+        let times = inputTime > nowTime ? (inputTime - nowTime) / 1000 : 0; // times是剩余时间总的秒数
+        let h = parseInt((times / 60 / 60) % 24); //时
+        h = h < 10 ? "0" + h : h;
+        hour.innerHTML = h; // 把剩余的小时给 小时黑色盒子
+        let m = parseInt((times / 60) % 60); // 分
+        m = m < 10 ? "0" + m : m;
+        minute.innerHTML = m;
+        let s = parseInt(times % 60); // 当前的秒
+        s = s < 10 ? "0" + s : s;
+        second.innerHTML = s;
+      }
+      countDown(); //提前调用一次防止刷新间隔一秒的空白
+      setInterval(countDown, 1000);
+    </script>
+    <!-- <p>在node.js中,使用setImmediate实现一个异步操作的结果获取</p>
+    <script>
+      function fn(callback) {
+        setImmediate(function () {
+          let data = "hello";
+          callback(data);
+        });
+      }
+      fn(function (data) {
+        console.log(data);
+      });
+    </script> -->
+    <p>使用requestAnimationFrame实现一个简单的动画效果(24-1-3)</p>
+    <div
+      id="box"
+      style="
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: absolute;
+        left: 0;
+        top: 0;
+      "></div>
+    <script>
+      let speed = 3;
+      function animate() {
+        let left = box.offsetLeft;
+        left += speed;
+        if (left >= document.documentElement.clientWidth - box.offsetWidth) {
+          left = document.documentElement.clientWidth - box.offsetWidth;
+          speed = -speed;
+        }
+        if (left <= 0) {
+          left = 0;
+          speed = -speed;
+        }
+        box.style.left = left + "px";
+        requestAnimationFrame(animate);
+      }
+      animate();
+    </script>
+  </body>
+</html>

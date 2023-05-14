@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>22-2-4销毁对象(解除引用)</title>
+  </head>
+  <body>
+    <p>JavaScript中，销毁对象是指将对象从内存中释放，以便回收空间和提高性能</p>
+    <p>
+      JavaScript中，没有专门的方法或操作符来销毁对象，而是通过断开对象的引用来实现的
+    </p>
+    <p>
+      当一个对象没有任何变量或属性引用它时，它就成为一个孤立的对象，无法被访问或操作。这样的对象会被JavaScript的垃圾回收机制（GC）自动检测和清除，从而释放内存空间
+    </p>
+    <p>
+      因此，要销毁一个对象，只需要将所有引用该对象的变量或属性设置为null或undefined，或者使用delete操作符删除对象的属性
+    </p>
+    <script>
+      let obj = {
+        name: "Alice",
+        age: 20,
+        hobbies: ["reading", "writing"],
+        sayHello: function () {
+          console.log("Hello, I'm " + this.name);
+        },
+      };
+      let arr = [obj];
+      function getObj() {
+        return obj;
+      } // 创建一个函数，返回该对象.也算对该对象的引用
+
+      // 方法一(推荐)：将***所有引用该对象的变量或属性***设置为null或undefined
+      obj = null;
+      arr[0] = null;
+
+      // 方法二：使用delete操作符删除对象的所有属性
+      delete obj.name;
+      delete obj.age;
+      delete obj.hobbies;
+      delete obj.sayHello;
+
+      // 方法三：结合方法一和方法二
+      for (let prop in obj) {
+        delete obj[prop];
+      }
+      obj = null;
+    </script>
+  </body>
+</html>

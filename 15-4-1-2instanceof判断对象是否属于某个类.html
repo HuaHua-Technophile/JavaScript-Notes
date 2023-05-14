@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>15-4-1-2instanceof判断对象是否属于某个类</title>
+  </head>
+  <body>
+    <p>
+      instanceof是一个JavaScript的操作符，用于检测对象是否属于某个类¹²³。instanceof的语法是：
+      <br />
+      object instanceof constructor
+    </p>
+    <p>
+      其中object是要检测的对象，constructor是要检测的类（构造函数）。
+      <br />instanceof会返回一个布尔值，表示object是否是constructor的实例。
+    </p>
+    <script>
+      // 定义一个Person类
+      function Person(name) {
+        this.name = name;
+      }
+      // 创建一个Person的实例
+      let p1 = new Person("Alice");
+      // 检测p1是否属于Person类
+      console.log("p1=>", p1);
+      console.log("p1是否属于Person类=>", p1 instanceof Person); // true
+      // 检测p1是否属于Object类（所有对象都继承自Object）
+      console.log(
+        "p1是否属于Object类（所有对象都继承自Object）=>",
+        p1 instanceof Object
+      ); // true
+      // 检测p1是否属于Array类（显然不是）
+      console.log("p1是否属于Array类=>", p1 instanceof Array); // false
+    </script>
+    <p>
+      注意，instanceof会考虑继承关系³。
+      <br />如果object继承自constructor的原型链上的任何一个构造函数，instanceof也会返回true。
+    </p>
+    <script>
+      // 定义一个Student类，继承自Person类
+      function Student(name, grade) {
+        Person.call(this, name);
+        this.grade = grade;
+      }
+      Student.prototype = Object.create(Person.prototype);
+      Student.prototype.constructor = Student;
+      // 创建一个Student的实例
+      let s1 = new Student("Bob", 9);
+      // 检测s1是否属于Student类（显然是）
+      console.log(s1 instanceof Student); // true
+      // 检测s1是否属于Person类（也是，因为继承了Person）
+      console.log(s1 instanceof Person); // true
+      // 检测s1是否属于Object类（也是，因为所有对象都继承自Object）
+      console.log(s1 instanceof Object); // true
+      // 检测s1是否属于Array类（显然不是）
+      console.log(s1 instanceof Array); // false
+    </script>
+    <p>
+      注意，instanceof只能用来检测对象类型，不能用来检测基本数据类型²。如果要检测基本数据类型，请使用typeof操作符。
+    </p>
+  </body>
+</html>

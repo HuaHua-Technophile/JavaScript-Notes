@@ -1,0 +1,1 @@
+alert("Javascript加载完毕");

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-16reduce(),reduceRight()数组汇总</title>
+  </head>
+  <body>
+    <p>
+      reduce()方法可以对数组中的每个元素执行一个回调函数，将数组化为一个单一的值。
+      <br />JavaScript中的reduce()方法的语法如下：
+      <br />array.reduce(function(accumulator, items, index,
+      arr){},initialValue); <br />array是要被处理的原始数组。
+      <br />function是用于对每个元素执行的回调函数，它应该返回一个累加器的值。
+      <br />accumulator是上一次调用回调函数的返回值，或者是初始值（如果提供了的话）。
+      <br />items是当前元素的值，是必需的参数。
+      <br />index是当前元素的索引，是可选的参数。
+      <br />arr是原始数组，是可选的参数。
+      <br />initialValue是累加器的初始值，是可选的参数，默认为undefined。
+    </p>
+    <script>
+      let numbers = [1, 2, 3, 4, 5];
+      let sum = numbers.reduce((pre, curr) => pre + curr, 0); // 使用reduce()方法来求和
+      console.log(sum); // 15
+    </script>
+    <p>reduce()方法可以用于处理嵌套数组，即数组中的元素也是数组。</p>
+    <script>
+      let points = [
+        [1, 2],
+        [3, 4],
+        [5, 6],
+      ]; // 创建一个嵌套数组，每个子数组都是一个坐标点
+      let sums = points.reduce(
+        (acc, curr) => [acc[0] + curr[0], acc[1] + curr[1]],
+        [0, 0]
+      ); // 使用reduce()方法来求出所有坐标点的x和y的总和
+      console.log(sums); // [9, 12]
+    </script>
+    <p>reduce()方法可以用于转换对象数组，即数组中的元素是对象。</p>
+    <script>
+      let people = [
+        { name: "Alice", age: 23 },
+        { name: "Bob", age: 27 },
+        { name: "Charlie", age: 18 },
+      ]; // 创建一个对象数组，每个对象都是一个人的信息
+      let agesByName = people.reduce(
+        (acc, cur) => ({ ...acc, [cur.name]: cur.age }),
+        {}
+      ); // 使用reduce()方法来创建一个新的对象，以人名为键，年龄为值
+      console.log(agesByName); // { Alice: 23, Bob: 27, Charlie: 18 }
+    </script>
+    <p>
+      JavaScript中的reduceRight()方法是一个数组方法，它用于对数组中的每个元素（从右到左）执行一个回调函数，将数组化为一个单一的值
+    </p>
+    <script>
+      numbers = [1, 2, 3, 4, 5];
+      sum = numbers.reduceRight((acc, cur) => acc + cur, 0); // 使用reduceRight()方法来求和
+      console.log(sum); // 15
+    </script>
+    <p>
+      reduceRight()方法与reduce()方法类似，但是遍历的方向相反。reduce()方法从左到右遍历，而reduceRight()方法从右到左遍历
+    </p>
+    <script>
+      let words = ["apple", "banana", "grape", "orange"];
+      let sentence1 = words.reduce((acc, cur) => acc + " " + cur, ""); // 使用reduce()方法来拼接字符串
+      console.log(sentence1); // " apple banana grape orange"
+      let sentence2 = words.reduceRight((acc, cur) => acc + " " + cur, ""); // 使用reduceRight()方法来拼接字符串
+      console.log(sentence2); // " orange grape banana apple"
+    </script>
+    <p>
+      在JavaScript中，reduceRight方法是一个数组的方法，它可以将数组中的每个元素从右到左依次传递给一个回调函数，并返回最终的累计结果
+    </p>
+    <p>
+      reduceRight方法的语法是：
+      <br />array.reduceRight(callback(accumulator,currentValue,index,arr){},
+      initialValue)
+    </p>
+    <p>其中，callback是一个接收四个参数的函数，分别是：</p>
+    <li>
+      accumulator：累计器，上一次调用回调函数时的返回值，或者是初始值（initialValue）
+    </li>
+    <li>currentValue：当前元素的值</li>
+    <li>index(可选)：当前元素的索引</li>
+    <li>arr(可选)：调用reduceRight的数组</li>
+    <p>
+      initialValue是可选的，表示首次调用回调函数时的累计器的值。如果没有提供该初始值，则使用数组中的最后一个元素，并跳过该元素。
+    </p>
+    <p>例如，如果要求一个数组中所有值的和，可以使用reduceRight方法：</p>
+    <script>
+      let sum2 = [0, 1, 2, 3].reduceRight(function (a, b) {
+        return a + b;
+      }); // sum2 is 6
+    </script>
+    <p>如果要将一个二维数组扁平化（flatten），也可以使用reduceRight方法：</p>
+    <script>
+      let flattened = [
+        [0, 1],
+        [2, 3],
+        [4, 5],
+      ].reduceRight(function (a, b) {
+        return a.concat(b);
+      }, []); // flattened is [4, 5, 2, 3, 0, 1]
+    </script>
+  </body>
+</html>

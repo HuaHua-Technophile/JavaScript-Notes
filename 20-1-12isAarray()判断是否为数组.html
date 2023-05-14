@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-12isAarray()判断是否为数组</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中的isArray()方法是一个静态方法，用于判断传入的值是否是一个数组。如果是，返回true，否则返回false。
+    </p>
+    <script>
+      Array.isArray([1, 2, 3]); // true
+      Array.isArray("Hello"); // false
+    </script>
+    <p>
+      isArray()方法不会检查值的原型链，也不依赖于它所属的Array构造函数。它对于使用数组字面量语法或Array构造函数创建的任何值都返回true。这使得它可以安全地用于跨领域对象，其中Array构造函数的身份不同，因此会导致instanceof
+      Array失败。
+    </p>
+  </body>
+</html>

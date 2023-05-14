@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      20-1-10toString()对象(数组)转换字符串,toLocalString()对象(数组)按照当地分隔符转换字符串,join()数组转换字符串并指定分隔符
+    </title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，数组转换字符串有一些常用的方法，比如toString()，join()，concat()等。
+      <br />toString()方法可以将数组中的元素用逗号分隔，转换成一个字符串，它不会改变原数组的内容
+      <br />join()方法可以将数组中的元素用指定的分隔符（默认为逗号）连接成一个字符串，它也不会改变原数组的内容
+      <br />concat()方法可以将多个数组或值连接成一个新的数组，然后再用toString()或join()方法转换成一个字符串，它也不会改变原数组的内容
+    </p>
+    <script>
+      let number = [1, [2, 3, [4, 5, [6, 7], 8], 9]];
+      // 使用toString()方法将数组遍历并转换成字符串
+      console.log(number.toString()); // "1,2,3,4,5,6,7,8,9"
+      // 使用toLocaleString()方法将数组遍历,并按照用户所在地区特定的分隔符把生成的字符串连接起来
+      console.log(number.toLocaleString()); // "1,2,3,4,5,6,7,8,9"
+      // 使用join()方法将数组遍历并转换成字符串，并指定第一层分隔符为"-"
+      console.log(number.join("-")); // 只能修改第一层分隔符  "1-2,3,4,5,6,7,8,9"
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>17-5-4循环-杨辉三角</title>
+    <style>
+      #triangle {
+        line-height: 40px;
+        font-size: 40px;
+        text-align: center;
+        word-spacing: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="triangle"></div>
+    <script>
+      let a1 = [1, 1],
+        a2 = [1], //初始化两行数组
+        str = "1<br/>1 1<br/>";
+      let n = 10;
+      for (let i = 3; i <= n; i++) {
+        for (let j = 1; j < i - 1; j++) {
+          a2[j] = a1[j - 1] + a1[j];
+        }
+        a2.push(1);
+        //数组是复合的数据类型，直接复制的话，只是复制了指向底层数据结构的指针，而不是克隆一个全新的数组。因此下方赋值不能用等号.
+        a1 = a2.concat(); //a2.concat()的返回值时一个新的数组,并不会把a1和a2绑定到同一个底层数据结构的指针
+        str += a2.join("&nbsp;") + "<br/>";
+      }
+      triangle.innerHTML = str;
+    </script>
+  </body>
+</html>

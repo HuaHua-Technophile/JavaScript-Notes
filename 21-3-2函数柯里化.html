@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>21-3-2函数柯里化</title>
+  </head>
+  <body>
+    <p>
+      在JavaScript中，函数柯里化是一种将一个接收多个参数的函数转换为一个接收单个参数并返回一个新函数的过程，新函数可以继续接收剩余的参数并返回结果
+    </p>
+    <p>
+      函数柯里化的目的是为了实现以下几个功能：
+      <li>
+        延迟计算：柯里化后的函数只有在接收到所有参数后才会执行，否则会返回一个新函数等待下一个参数
+      </li>
+      <li>
+        参数复用：柯里化后的函数可以保留之前传入的参数，并在后续的调用中复用
+      </li>
+      <li>
+        动态生成函数：柯里化可以根据不同的参数生成不同的函数，实现更灵活的功能
+      </li>
+    </p>
+    <script>
+      function add(a, b, c) {
+        return a + b + c;
+      }
+      // 可以通过柯里化将它转换为：
+      function curryAdd(a) {
+        return function (b) {
+          return function (c) {
+            return a + b + c;
+          };
+        };
+      }
+      // 这样，就可以通过以下方式调用：
+      curryAdd(1)(2)(3); // 6
+      curryAdd(1)(2); // 返回一个新函数
+      curryAdd(1); // 返回一个新函数
+    </script>
+  </body>
+</html>

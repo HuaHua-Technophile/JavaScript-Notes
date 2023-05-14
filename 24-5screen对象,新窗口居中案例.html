@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-5screen对象,新窗口居中案例</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，screen对象是window对象的一个属性，用于存储和获取与客户端显示屏幕相关的信息。screen对象的属性有以下几种
+    </p>
+    <ul>
+      <li>availHeight：返回屏幕的高度（不包括Windows任务栏），以像素为单位</li>
+      <li>availWidth：返回屏幕的宽度（不包括Windows任务栏），以像素为单位</li>
+      <li>colorDepth：返回目标设备或缓冲器上的颜色深度，以位为单位</li>
+      <li>height：返回屏幕的总高度，以像素为单位</li>
+      <li>pixelDepth：返回屏幕的颜色分辨率（每像素的位数）</li>
+      <li>width：返回屏幕的总宽度，以像素为单位</li>
+    </ul>
+    <script>
+      let w = screen.width;
+      let h = screen.height;
+      console.log(`The screen width is ${w} pixels`);
+      console.log(`The screen height is ${h} pixels`);
+    </script>
+    <script>
+      function centerNewWindow(url) {
+        let width = screen.availWidth / 2,
+          height = screen.availHeight / 2,
+          top = (screen.availHeight - height) / 2,
+          left = (screen.availWidth - width) / 2,
+          position =
+            "top=" +
+            top +
+            ",left=" +
+            left +
+            ",width=" +
+            width +
+            ",height=" +
+            height; //设计坐标参数字符串
+        let NewWin = window.open(url, "newWin", position); //打开指定的窗口,并传递参数,使其居中
+        NewWin.focus(); //获取窗口焦点
+      }
+      centerNewWindow("//www.example.com");
+    </script>
+  </body>
+</html>

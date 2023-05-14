@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>28-1-12setRequestHeader()</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，setRequestHeader()方法是XMLHttpRequest对象的一个方法，它可以设置HTTP请求头的值。
+    </p>
+    <p>
+      必须在调用open()方法之后,调用send()方法之前使用setRequestHeader()方法。如果你对同一个请求头多次调用这个方法，那么这些值会合并成一个请求头
+    </p>
+    <p>
+      例如，如果你想在发送一个AJAX请求时，设置Content-Type请求头为application/json，你可以这样做：
+    </p>
+    <script>
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://example.com/api");
+      xhr.setRequestHeader("Content-Type", "application/json"); //设置你要上传的数据类型
+      xhr.send(JSON.stringify({ name: "Alice", age: 25 }));
+    </script>
+    <p>
+      JavaScript 中，Content-Type 是一个 HTTP
+      头，它用于指示资源的媒体类型。媒体类型是一个字符串，它表示了文件的格式。例如，对于图像文件，它的媒体类型可能是
+      image/png 或 image/jpg 等
+    </p>
+    <p>
+      在响应中，Content-Type
+      头告诉客户端返回的内容的实际类型。这个头的值可能会被忽略，例如当浏览器进行
+      MIME 探测时；可以设置 X-Content-Type-Options 头的值为 nosniff
+      来防止这种行为
+    </p>
+    <p>
+      在请求中（例如 POST 或 PUT ），客户端告诉服务器实际发送的数据的类型
+      <br />你可以使用 Content-Type 头来指定你发送或接收的 JSON
+      数据的格式，例如： <br />Content-Type: application/json
+      <br />这样，服务器就可以正确地解析和处理 JSON 数据了。
+    </p>
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      26-2-2鼠标事件,clientXY指针相对于可视区pageXY指针相对于文档screenXY指针相对于屏幕offsetXY指针相对于目标元素边框layerXY指针相对于定位父元素,元素拖拽案例
+    </title>
+    <style>
+      *:not(html) {
+        margin: 0;
+        padding: 0;
+      }
+      #drag {
+        width: 100px;
+        height: 100px;
+        background-color: green;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="myP">
+      <li>click 鼠标点击左键触发</li>
+      <li>dblclick 鼠标双击左键触发</li>
+      <li>mouseover 鼠标移上触发</li>
+      <li>mouseout 鼠标移出触发</li>
+      <li>mouseenter 鼠标进入触发</li>
+      <li>mouseleave 鼠标离开触发</li>
+      <li>mousemove 鼠标移动触发</li>
+      <li>mouseup 鼠标弹起触发</li>
+      <li>mousedown 鼠标按下触发</li>
+      <li>focus 获取鼠标焦点触发</li>
+      <li>blur 失去鼠标焦点触发</li>
+    </p>
+    <p>
+      鼠标事件对象是一个表示鼠标与页面元素交互时的状态和信息的对象，它可以通过事件处理函数的参数或者
+      window.event 属性获取。鼠标事件对象有以下一些常用的属性和方法：
+      <li>
+        clientX,clientY:指针相对于浏览器窗口可视区(不包括滚动条宽度)的水平/垂直坐标(除Safari)
+      </li>
+      <li>pageX,pageY:指针相对于文档的水平/垂直坐标。(IE9+)</li>
+      <li>screenX/screenY:指针相对于屏幕的水平,垂直坐标</li>
+      <li>offsetX/offsetY:指针相对于目标元素边框的水平/垂直坐标(除Mozilla)</li>
+      <li>
+        layerX/layerY:指针相对于最近的绝对定位的父元素.若没有则为文档页面(仅Mozilla和Safari)
+      </li>
+      <li>
+        <ul>
+          offsetLeft属性是一个元素的只读属性(不是event鼠标事件的,需要event.target)
+          <br />它表示当前元素相对于其最近的定位祖先元素（offsetParent）的左边界的偏移像素值。
+          <br />如果没有定位祖先元素，那么offsetParent就是body元素。offsetLeft属性的返回值包括：
+          <li>元素向左偏移的像素值</li>
+          <li>元素的外边距（margin）</li>
+          <li>
+            offsetParent 元素的左侧内边距（padding）、边框（border）及滚动条
+          </li>
+          例如，如果一个元素有 10px 的外边距，它的父元素有 5px 的内边距和 2px
+          的边框，那么这个元素的 offsetLeft 属性就是 17px。
+        </ul>
+      </li>
+      <li>
+        button：表示按下或释放的鼠标按钮，0 表示左键，1 表示中键，2 表示右键。
+      </li>
+      <li>
+        buttons:表示按下或释放的多个鼠标按钮，0表示没有按钮，1表示左键，2表示右键，4表示中键.
+        <br />其他值为组合键:左键+右键=1+2=3;中键+右键=2+4=6;3个一起=1+2+4=7
+      </li>
+      <li>which:与button属性相同(非标准属性,不建议使用)</li>
+      <li>target：表示触发事件的元素节点。</li>
+      <li>
+        altKey、ctrlKey、shiftKey、metaKey：表示当事件发生时是否按下了
+        alt、ctrl、shift 或 meta 键。
+      </li>
+      <li>
+        relatedTarget：表示与事件相关联的另一个元素节点，例如mouseover事件中表示离开的元素节点，
+        mouseout事件中表示进入的元素节点。
+      </li>
+      <li>
+        preventDefault()：阻止绑定元素的默认事件，例如阻止链接跳转或表单提交等。
+      </li>
+      <li>stopPropagation()：阻止事件在 DOM 树中向上冒泡或向下捕获传播。</li>
+    </p>
+    <div id="drag"></div>
+    <script>
+      function compatibilityIE(e) {
+        if (!e) {
+          e = window.event; //兼容IE
+          e.srcElement = e.target; //兼容IE
+          e.offsetX = e.layerX; //兼容Mozilla
+          e.offsetY = e.layerY; //兼容Mozilla
+        }
+        return e;
+      }
+    </script>
+    <!-- <script>
+      let isDrag = false; // 定义一个标志变量，表示是否正在拖拽
+      drag.onmousedown = function (e) {
+        e = compatibilityIE(e);
+        isDrag = true; // 设置标志为true，表示开始拖拽
+        e.preventDefault(); // 阻止默认事件，避免选中文字或图片等
+        drag.style.cursor = "move"; // 设置鼠标指针样式为移动
+        (mouseX = e.offsetX), (mouseY = e.offsetY);
+      };
+      document.onmousemove = function (e) {
+        e = compatibilityIE(e);
+        // 给文档绑定鼠标移动事件
+        if (isDrag) {
+          // 判断是否正在拖拽
+          drag.style.left = e.pageX - mouseX + "px";
+          drag.style.top = e.pageY - mouseY + "px"; // 设置元素的新位置
+        }
+      };
+      document.onmouseup = function () {
+        e = compatibilityIE(e);
+        // 给文档绑定鼠标松开事件
+        isDrag = false; // 设置标志为false，表示结束拖拽
+        drag.style.cursor = "default"; // 设置鼠标样式为默认
+      };
+    </script> -->
+    <script>
+      drag.onmousedown = function (e) {
+        e = compatibilityIE(e);
+        e.target.style.cursor = "move"; // 设置鼠标指针样式为移动
+        e.preventDefault(); // 阻止默认事件，避免选中文字或图片等
+        document.onmousemove = function (event) {
+          event = compatibilityIE(event);
+          let pagex =
+              event.pageX ||
+              event.clientX +
+                (document.documentElement.scrollLeft ||
+                  document.body.scrollLeft),
+            pagey =
+              event.pageY ||
+              event.clientY +
+                (document.documentElement.scrollTop || document.body.scrollTop), //鼠标在文档中的位置(兼容IE8-,怪异模式)
+            offsetx = e.offsetX || e.layerX - e.target.offsetLeft;
+          offsety = e.offsetY || e.layerY - e.target.offsetTop; //鼠标在元素中的位置(兼容Mozilla)(Mozilla和Safari会包含外边框,高阶的使用方法因此需要减去)
+          e.target.style.left = pagex - offsetx + "px";
+          e.target.style.top = pagey - offsety + "px";
+        };
+        drag.onmouseup = function () {
+          e.target.style.cursor = "default"; // 设置鼠标指针样式为默认
+          drag.onmouseup = document.onmousemove = null; //释放所有绑定的事件处理
+        };
+      };
+    </script>
+    <!-- <script>
+      let page = document.querySelector("body");
+      page.onclick = function (event) {
+        // 兼容IE浏览器
+        event = event || window.event;
+        let button = event.button || event.which; // 获取鼠标按下的
+        button == 0
+          ? {}
+          : button == 1
+          ? console.log("你点击了左键")
+          : button == 2
+          ? console.log("你点击了中间")
+          : button == 3
+          ? console.log("你点击了右键")
+          : console.log("你点击了其他"); // 根据button或which的值输出不同信息
+      };
+    </script> -->
+  </body>
+</html>

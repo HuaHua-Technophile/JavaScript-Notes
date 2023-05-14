@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>23-4-7设计Jquery.extend()扩展方法接口</title>
+  </head>
+  <body>
+    <h1>Jquery框架提供了良好的扩展接口,方便用户自定义Jquery()方法</h1>
+    <p>
+      根据设计习惯,如果为Jquery新增方法时,可以直接在Jquery.prototype原型对象内增加即可.
+    </p>
+    <p>但是这样容易破坏Jquery框架的结构,也不方便后期代码的维护</p>
+    <p>
+      Jquery使用extend()方法来实现功能扩展.先定义扩展函数extend(),然后为Jquery.fn原型对象调用extend方法,为其添加extend(obj)中传入的对象的方法
+      <br />也就是也就是把参数对象的所有属性复制给Jquery或Jquery.prototype
+    </p>
+    <script>
+      var $ = (Jquery = function (selector, context) {
+        //Jquery构造函数
+        return new Jquery.fn.init(selector, context); //Jquery实例对象
+      });
+      Jquery.fn = Jquery.prototype = {
+        init: function (selector, context) {
+          //初始化构造函数
+          selector = selector || document; //初始化选择器,默认document
+          context = context || document; //初始化上下文对象,默认document
+          if (selector.nodeType) {
+            //如果是DOM对象
+            this[0] = selector; //直接把该DOM对象传递给实例对象这个伪数组的属性"0"
+            this.length = 1; //设置实例对象的length属性,表示包含一个DOM元素
+            this.context = selector; //重新设置上下文为DOM对象
+            return this; //返回当前实例
+          }
+          if (typeof selector === "string") {
+            //如果是选择符类型的字符串
+            let e = document.querySelectorAll(selector);
+            len = e.length;
+            for (let i = 0; i < len; i++) {
+              this[i] = e[i]; //把获取的所有DOM对象传递给实例对象这个伪数组
+            }
+            this.length = len; //保存实例的length属性,也就是获取到的DOM对象的个数
+            this.context = context; //保存上下文对象
+            return this; //返回当前实例
+          } else {
+            this.length = 0; //length为0,也就是输入的selector既不是现成的DOM对象,也不是字符串,因此啥都没获取到
+            this.context = context; //保存上下文对象
+            return this; //返回当前实例
+          }
+        },
+      };
+      Jquery.fn.init.prototype = Jquery.fn;
+      Jquery.each = function (object, callback, args) {
+        len = object.length;
+        for (let i = 0; i < len; i++) {
+          //因为Jquery对象中这个伪数组中,DOM元素就是数字作为属性名,而且有length属性.所以使用for循环迭代Jquery对象中每个DOM元素.
+          callback.call(object[i], args); //在每个DOM元素上执行回调函数,修改callback函数中的this,并且修改传入的实参
+        }
+        return object; //返回Jquery对象
+      };
+      Jquery.extend = Jquery.fn.extend = function (obj) {
+        for (let prop in obj) {
+          this[prop] = obj[prop];
+        }
+        return this;
+      };
+      Jquery.fn.extend({
+        // extend方法传入的是一个对象,这个对象中包含了需要添加扩展的方法
+        html: function (val) {
+          //模仿Jquery的html()方法,为匹配DOM元素处插入html字符串
+          Jquery.each(
+            this, //谁调用,谁就是this.Jquery
+            function (val) {
+              //为每一个DOM元素执行回调函数
+              this.innerHTML = val;
+            },
+            val
+          );
+        },
+      });
+    </script>
+    <div class="target"></div>
+    <div class="target"></div>
+    <div class="target"></div>
+    <script>
+      $(".target").html("<h1>你好</h1>");
+    </script>
+  </body>
+</html>

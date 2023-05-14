@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=`, initial-scale=1.0" />
+    <title>花花</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，history对象是window对象的一个属性，用于操作浏览器的会话历史记录。history对象的方法有以下几种
+    </p>
+    <ul>
+      <li>
+        back()：异步地转到浏览器会话历史的上一页，相当于点击浏览器的后退按钮
+      </li>
+      <li>
+        forward()：异步地转到浏览器会话历史的下一页，相当于点击浏览器的前进按钮
+      </li>
+      <li>
+        go()：异步地转到浏览器会话历史中指定位置的页面，可以传递一个整数参数表示相对于当前页面的位置，例如-1表示上一页，1表示下一页，0表示重新加载当前页面
+      </li>
+      <li>
+        pushState方法是HTML 5 History
+        API的一部分，它可以让你在不重新加载页面的情况下，修改浏览器的历史记录和地址栏。你可以使用pushState方法将一个状态对象和一个URL关联起来，这样当用户导航到这个状态时，就可以触发popstate事件，并且获取到状态对象的数据
+        <br />pushState方法有以下优点：
+        <ul>
+          <li>新的URL可以是任何和当前URL同源的URL，而不仅仅是修改哈希值</li>
+          <li>修改URL是可选的，你可以只传递一个状态对象而不改变URL</li>
+          <li>
+            你可以将任何可以序列化的对象作为状态对象传递，而不需要将数据编码成字符串
+          </li>
+        </ul>
+        注意，pushState方法不会触发hashchange事件，即使新的URL和旧的URL只有哈希值不同
+      </li>
+      <li>
+        replaceState()：按指定的数据、标题和URL（如果提供该参数），更新历史栈上最新的条目。这个方法不会导致浏览器加载新的URL，但可能会在稍后某些情况下加载这个URL
+      </li>
+    </ul>
+    <script>
+      window.onload = function () {
+        setTimeout(function () {
+          console.log('123');
+          // 调用pushState方法
+          history.pushState({ page_id: 1, user_id: 5 }, '', 'hello-world.html');
+          //浏览器的地址栏就会变成"hello-world.html"，但是页面不会刷新。如果用户点击浏览器的后退按钮，就会返回到之前的URL，并且触发popstate事件，你可以在事件的state属性中获取到之前保存的状态对象
+        }, 5000);
+      };
+    </script>
+  </body>
+</html>

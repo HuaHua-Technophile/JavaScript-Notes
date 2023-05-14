@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>23-4-5设计Jquery选择器(获取DOM对象)</title>
+  </head>
+  <body>
+    <h6>
+      23-4-1分布讲解了Jquery框架模型的顶层逻辑结构,下面再探索Jquery内部的核心功能:选择器
+    </h6>
+    <p>
+      Jquery框架返回的是Jquery对象,而不是DOM对象.是有区别的.Jquery对象实际上就是伪数组
+    </p>
+    <p>
+      Jquery()构造函数包含两个参数:selector和context.
+      <br />selector表示选择器,context表示匹配的下上文,即:可选择的访问.它表示一个DOM元素
+      <br />为简化操作,本例假设选择器的类型仅为标签选择器
+    </p>
+    <script>
+      var $ = (Jquery = function (selector, context) {
+        //Jquery构造函数
+        return new Jquery.fn.init(selector, context); //Jquery实力对象
+      });
+      Jquery.fn = Jquery.prototype = {
+        init: function (selector, context) {
+          //初始化构造函数
+          selector = selector || document; //初始化选择器,默认document
+          context = context || document; //初始化上下文对象,默认document
+          if (selector.nodeType) {
+            //如果是DOM对象
+            this[0] = selector; //直接把该DOM对象传递给实例对象这个伪数组
+            this.length = 1; //重新设置实例对象的length属性,表示包含一个元素
+            this.context = selector; //重新设置上下文为DOM对象
+            return this; //返回当前实例
+          }
+          if (typeof selector === "string") {
+            //如果是选择符类型的字符串
+            let e = document.querySelectorAll(selector);
+            len = e.length;
+            for (let i = 0; i < len; i++) {
+              this[i] = e[i]; //把获取的所有DOM对象传递给实例对象这个伪数组
+            }
+            this.length = len; //保存实例的length属性,也就是获取到的DOM对象的个数
+            this.context = context; //保存上下文对象
+            return this; //返回当前实例
+          } else {
+            this.length = 0; //length为0,也就是输入的selector既不是现成的DOM对象,也不是字符串,因此啥都没获取到
+            this.context = context; //保存上下文对象
+            return this; //返回当前实例
+          }
+        },
+      };
+      Jquery.fn.init.prototype = Jquery.fn;
+      window.onload = function () {
+        console.log($("div"));
+        console.log($("#div3"));
+      };
+    </script>
+    <div id="div1">AAA</div>
+    <div id="div2">BBB</div>
+    <div id="div3">CCC</div>
+    <div id="div4">DDD</div>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-1-2open()打开窗口方法</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，open()方法是Window对象的一个方法，用于打开一个新的浏览器窗口或查找一个已命名的窗口。它的语法是：
+      <br />window.open ( URL,name,features,replace)
+    </p>
+    <p>
+      URL是可选的，表示要打开的页面的URL；
+      <br />name是可选的，表示新窗口的名称或目标属性.这个名称可以用作标记a标签和from标签的target目标值
+      <br />features是可选的，表示新窗口要显示的标准浏览器的特征(新窗口的外观和控件)；
+      <br />replace是可选的，表示新页面是否替换浏览历史中的当前条目
+    </p>
+    <p>
+      open()方法返回新创建的window对象(新窗口的引用)，如果调用失败，则返回null
+      <br />这个新创建的window对象有一个opener属性,应用打开它的原始窗口对象.opener只在弹出窗口的最外层window对象(top)中定义.
+    </p>
+    <!-- <script>
+      window.open("//www.example.com");
+    </script> -->
+    <!-- <script>
+      let myWindow = window.open("", "MsgWindow", "width=200,height=100");
+      myWindow.document.write(
+        '<p>window.open("", "MsgWindow", "width=200,height=100")</p>'
+      ); //打开名为 "MsgWindow" 的新窗口，并在其中写入一些文本：
+    </script> -->
+    <!-- <script>
+      window.open(
+        "//www.example.com",
+        "_blank",
+        "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"
+      ); //打开新窗口并控制其外观：
+    </script> -->
+    <script>
+      //动态生成一个超链接，然后设置2秒钟之后自动关闭该窗口，同时允许用户单击页面超链接，更换弹出窗口内显示的网页 URL
+      let url = "//www.example.com"; //要打开的网页地址
+      let features =
+        "height=500,width=800,top=100,left=100,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no"; //设置新窗口的特性
+      //动态生成一个超链接
+      document.write('<a href="//www.example.com" target="Web1">示例网站</a>');
+      let NewWindow = window.open(url, "Web1", features); //打开新窗口
+      setTimeout(function () {
+        NewWindow.closed ? console.log("创建的窗口已关闭") : NewWindow.close();
+      }, 2000); //2秒钟之后关闭该窗口
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>花花</title>
+  </head>
+  <body>
+    <p>
+      对象内的方法是一种可以在对象上执行某些动作的函数，它通常被存储为对象的一个属性
+      <br />你可以使用点号表示法或者方括号表示法来调用对象内的方法，语法格式为“对象.方法名();”或“对象['方法名']();”。注意要在方法名后面加上括号，表示执行该函数
+      <br />如果你不加括号，你将得到该函数的定义而不是执行结果
+    </p>
+    <script>
+      let person = {
+        name: "Alice",
+        sayHello: function () {
+          console.log("Hello, I am " + this.name);
+        },
+      }; // 定义一个对象，有name和sayHello两个属性，其中sayHello是一个方法
+      person.sayHello(); // Hello, I am Alice // 使用点号表示法调用对象的sayHello方法
+      person["sayHello"](); // Hello, I am Alice // 使用方括号表示法调用对象的sayHello方法
+      console.log(person.sayHello); // function() {console.log("Hello, I am " + this.name);} // 不加括号访问对象的sayHello属性
+    </script>
+  </body>
+</html>

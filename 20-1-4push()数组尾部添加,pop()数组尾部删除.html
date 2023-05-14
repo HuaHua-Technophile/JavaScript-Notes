@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>20-1-4push()数组尾部添加,pop()数组尾部删除</title>
+  </head>
+  <body>
+    <p>
+      push()方法可以在数组的尾部添加一个或多个元素,会return添加元素后的数组长度，该方法会修改原数组,是破坏性方法
+      <br />pop()方法可以在数组的尾部删除一个元素,会return被删除的元素,若目标数组为空,返回undefined.该方法会修改原数组,是破坏性方法
+    </p>
+    <script>
+      // 创建一个空数组
+      const arr = [];
+      // 使用push()方法添加元素
+      console.log(arr.push()); //0
+      console.log(arr.push("a")); //1
+      console.log(arr.push("b")); //2
+      console.log(arr.push("c")); //3
+      console.log(arr); // ["a", "b", "c"]
+      // 使用pop()方法删除元素
+      arr.pop();
+      console.log(arr); // ["a", "b"]
+      arr.pop();
+      console.log(arr); // ["a"]
+      arr.pop();
+      console.log(arr); // []
+      console.log(arr.pop()); //undefined
+    </script>
+    <p>
+      JavaScript中，push()和pop()方法的高级应用场景或高阶的使用方法有以下几种：
+      <br />使用push()和pop()方法实现一个栈数据结构。栈是一种后进先出（LIFO）的数据结构，只能在栈顶进行插入和删除操作。栈可以用于实现“撤销”功能、语法分析、函数调用、表达式转换等。
+      <br />使用push()和pop()方法实现一个队列数据结构。队列是一种先进先出（FIFO）的数据结构，只能在队尾插入元素，在队首删除元素。队列可以用于实现事件循环、任务调度、缓存等。
+      <br />使用push()和pop()方法实现一个递归函数。递归函数是一种自己调用自己的函数，通常用于解决分治、回溯、动态规划等问题。使用push()和pop()方法可以模拟递归函数的调用栈，保存和恢复函数的状态。³
+    </p>
+    <script>
+      // 使用push()和pop()方法实现一个栈
+      let stack = [];
+      // 入栈
+      stack.push(1);
+      stack.push(2);
+      stack.push(3);
+      // 出栈
+      console.log(stack.pop()); // 3
+      console.log(stack.pop()); // 2
+      console.log(stack.pop()); // 1
+      // 使用push()和pop()方法实现一个队列
+      let queue = [];
+      // 入队
+      queue.push(1);
+      queue.push(2);
+      queue.push(3);
+      // 出队
+      console.log(queue.shift()); // 1
+      console.log(queue.shift()); // 2
+      console.log(queue.shift()); // 3
+      // 使用push()和pop()方法实现一个递归函数
+      // 计算n的阶乘
+      function factorial(n) {
+        let stack = [];
+        let result = 1;
+        // 将n到1依次入栈
+        while (n > 0) {
+          stack.push(n);
+          n--;
+        }
+        // 将栈中的元素依次出栈并相乘
+        while (stack.length > 0) {
+          result *= stack.pop();
+        }
+        return result;
+      }
+      console.log(factorial(5)); // 120
+    </script>
+  </body>
+</html>

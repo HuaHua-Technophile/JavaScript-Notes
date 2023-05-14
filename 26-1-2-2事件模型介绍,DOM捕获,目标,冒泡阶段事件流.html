@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>花花</title>
+  </head>
+  <body>
+    <p>
+      Web前端中的"事件模型"是指以下几个方面：
+      <br />事件是可以被JavaScript检测到的行为或事情，是HTML和Javascript交互的驱动器(桥梁),
+      事件是文档或者浏览器窗口中发生的，
+      特定的交互瞬间.例如用户点击、键盘输入、窗口大小改变、网页加载完成等。
+      <br />事件处理器是用于响应事件触发时执行的代码块，可以使用属性或方法来注册。
+      <br />事件流(DOM事件流)是描述触发某个元素的事件时,事件按照DOM结构树在页面中接收顺序的过程，包括捕获阶段、目标阶段和冒泡阶段。
+      <li>
+        捕获阶段：该阶段是由网景公司提出的。按照DOM结构由document对象向下的顺序传播，直到目标元素为止。
+      </li>
+      <li>
+        目标阶段：该阶段是指事件到达目标元素，并执行目标元素的事件处理函数。
+      </li>
+      <li>
+        冒泡阶段：该阶段是由微软公司提出的。按照DOM结构由目标元素向上的顺序传播，直到document对象为止。
+      </li>
+      <br />事件对象(event)是在事件触发时传递给事件处理器的参数，包含了有关事件和目标元素的信息和方法。跟事件相关的一系列信息数据的集合都放到一个对象里面，这个对象就是事件对象(event)
+    </p>
+    <!-- 捕获阶段、目标阶段和冒泡阶段的区别----------------------------------------------------------- -->
+    <style>
+      #grandfather {
+        background: orange;
+        padding: 30px;
+        margin: 30px;
+      }
+      #grandfather #father {
+        display: flex;
+        justify-content: space-around;
+        background: skyblue;
+        padding: 30px;
+      }
+      #grandfather #father [id^="son"] {
+        width: 100px;
+        height: 100px;
+      }
+      #son1 {
+        background: pink;
+      }
+      #son2 {
+        background: lightgreen;
+      }
+    </style>
+    <div id="grandfather">
+      <div id="father">
+        <div id="son1">son1</div>
+        <div id="son2">son2</div>
+      </div>
+    </div>
+    <script>
+      if (false) {
+        document.body.onclick = function () {
+          console.log("body的click");
+        };
+        document.documentElement.onclick = function () {
+          console.log("html的click");
+        };
+        document.onclick = function () {
+          console.log("document的click");
+        };
+        grandfather.onclick = function () {
+          console.log("grandfather的click事件");
+        };
+        father.onclick = function () {
+          console.log("father的click事件");
+        };
+        son1.onclick = function () {
+          console.log("son1的click事件");
+        };
+        son2.onclick = function () {
+          console.log("son2的click事件");
+        };
+      } // 以上是传统绑定方式,只能处于目标阶段+冒泡阶段.当点击页面任意元素时,可以发现事件相应层层往外(往上)触发
+      if (true) {
+        document.body.addEventListener("click", function () {
+          console.log("body的click");
+        });
+        document.documentElement.addEventListener("click", function () {
+          console.log("html的click");
+        });
+        document.addEventListener("click", function () {
+          console.log("document的click");
+        });
+        grandfather.addEventListener("click", function () {
+          console.log("grandfather的click事件");
+        });
+        father.addEventListener("click", function () {
+          console.log("father的click事件");
+        });
+        son1.addEventListener("click", function () {
+          console.log("son1的click事件");
+        });
+        son2.addEventListener("click", function () {
+          console.log("son2的click事件");
+        });
+      } // 以上为事件监听方式addEventListener(),第三个参数若省略,则默认false,事件将处于目标阶段+冒泡阶段
+      if (false) {
+        document.body.addEventListener(
+          "click",
+          function () {
+            console.log("body的click");
+          },
+          true
+        );
+        document.documentElement.addEventListener(
+          "click",
+          function () {
+            console.log("html的click");
+          },
+          true
+        );
+        document.addEventListener(
+          "click",
+          function () {
+            console.log("document的click");
+          },
+          true
+        );
+        grandfather.addEventListener(
+          "click",
+          function () {
+            console.log("grandfather的click事件");
+          },
+          true
+        );
+        father.addEventListener(
+          "click",
+          function () {
+            console.log("father的click事件");
+          },
+          true
+        );
+        son1.addEventListener(
+          "click",
+          function () {
+            console.log("son1的click事件");
+          },
+          true
+        );
+        son2.addEventListener(
+          "click",
+          function () {
+            console.log("son2的click事件");
+          },
+          true
+        );
+      } // 事件监听方式addEventListener()第三个参数设置true,则事件将处于捕获阶段+目标阶段
+      if (false) {
+        document.body.addEventListener(
+          "click",
+          function () {
+            console.log("body的click");
+          },
+          true
+        );
+        document.documentElement.addEventListener("click", function () {
+          console.log("html的click");
+        });
+        document.addEventListener(
+          "click",
+          function () {
+            console.log("document的click");
+          },
+          true
+        );
+        grandfather.addEventListener("click", function () {
+          console.log("grandfather的click事件");
+        });
+        father.addEventListener(
+          "click",
+          function () {
+            console.log("father的click事件");
+          },
+          true
+        );
+        son1.addEventListener("click", function () {
+          console.log("son1的click事件");
+        });
+        son2.addEventListener(
+          "click",
+          function () {
+            console.log("son2的click事件");
+          },
+          true
+        );
+      } // 如果同时有三个阶段, 那么顺序将按照  捕获阶段=>目标阶段=>冒泡阶段
+      if (false) {
+        document.body.attachEvent("onclick", function () {
+          console.log("body的click");
+        });
+        document.documentElement.attachEvent("onclick", function () {
+          console.log("html的click");
+        });
+        document.attachEvent("onclick", function () {
+          console.log("document的click");
+        });
+        grandfather.attachEvent("onclick", function () {
+          console.log("grandfather的click事件");
+        });
+        father.attachEvent("onclick", function () {
+          console.log("father的click事件");
+        });
+        son1.attachEvent("onclick", function () {
+          console.log("son1的click事件");
+        });
+        son2.attachEvent("onclick", function () {
+          console.log("son2的click事件");
+        });
+      } // 用于兼容IE8及以下的事件监听方式attachEvent(),其事件只能处于目标阶段+冒泡阶段
+    </script>
+    <p>
+      使用stopPropagation方法或return
+      false语句，阻止事件的进一步传播(捕获=>目标=>冒泡)
+      <br />stopPropagation方法可以兼容标准浏览器和IE浏览器 <br />而return
+      false语句只能用于addEventListener方法绑定的事件监听器。
+    </p>
+    <script>
+      function stopPropagation(e) {
+        e = e || window.event;
+        if (e.stopPropagation) {
+          e.stopPropagation();
+        } else {
+          e.cancelBubble = true;
+        }
+      } // 阻止事件传播的兼容(IE8及以下)写法
+      son2.onclick = function (e) {
+        stopPropagation(e); // 在事件处理函数中调用该函数
+      };
+      son2.addEventListener("click", function (e) {
+        return false; // 使用return false语句（只适用于addEventListener方法）
+      });
+    </script>
+  </body>
+</html>

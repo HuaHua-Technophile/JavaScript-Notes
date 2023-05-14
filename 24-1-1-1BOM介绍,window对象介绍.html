@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-1-1-1BOM介绍,window对象介绍</title>
+  </head>
+  <body>
+    <h1>
+      BOM是browser object model的缩写，简称浏览器对象模型
+      ，提供了独立于内容而与浏览器窗口进行交互的对象；使用浏览器对象模型可以实现与HTML的交互。它的作用是将相关的元素组织包装起来。提供给程序设计人员使用，从而降低开发人员的劳动量，提高设计Web页面的能力。BOM是一个分层结构:
+    </h1>
+    <ul>
+      <li>
+        window对象 ，是JS的最顶层对象，其他的BOM对象都是window对象的属性；
+      </li>
+      <li>document对象，当前窗口内的文档节点对象；</li>
+      <li>frames对象， 是一个类数组对象，列出了当前窗口的所有直接子窗口；</li>
+      <li>
+        history对象，对象提供了操作浏览器会话历史（浏览器地址栏中访问的页面，以及当前页面中通过框架加载的页面）的接口；
+      </li>
+      <li>location对象，浏览器当前URL信息；</li>
+      <li>navigator对象，浏览器本身信息；</li>
+      <li>screen对象，当前渲染窗口中和屏幕有关的属性。</li>
+    </ul>
+    <hr />
+    <p>
+      JavaScript中，window对象有以下用途：
+      <li>
+        它是客户端浏览器对象模型（BOM）的顶层对象，可以访问浏览器的其他对象，如navigator,
+        screen, history, location, document等
+      </li>
+      <li>它是客户端JavaScript的全局对象，可以访问全局变量，函数和属性</li>
+      <li>
+        它提供了一些方法和属性来控制浏览器窗口的行为，如open(), close(),
+        moveTo(), resizeTo(), alert(), confirm(), prompt()等
+      </li>
+    </p>
+    <img
+      src="http://vm.yueqian.com.cn:8886/group1/M00/05/F8/wKgP3GEHYQmAXy-XAAA0wN2WWF069.webp?token=null&ts=null"
+      alt="" />
+    <p>
+      定义在全局环境下的变量都会成为window对象的属性
+      <br />在函数内部不用var声明的变量会成为全局变量,即window的对象属性
+    </p>
+    <script>
+      var a = 666; //通过var在全局作用域下声明的变量用delete无法删除
+      (function () {
+        b = 777;
+      })();
+      console.log(window.a, a === window.a); //true
+      console.log(window.b, b === window.b); //true
+      (function () {
+        delete window.a; //通过var在全局作用域下声明的变量用delete无法删除
+        delete window.b;
+      })();
+      console.log(window.a); //666
+      console.log(window.b); //undefined
+    </script>
+  </body>
+</html>

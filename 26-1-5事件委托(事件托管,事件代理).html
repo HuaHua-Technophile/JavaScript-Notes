@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>26-1-5事件委托(事件托管,事件代理)</title>
+  </head>
+  <body>
+    <p>
+      JavaScript
+      事件委托是一种利用事件冒泡机制，把子元素的事件处理函数委托给父元素的一种方法。它可以减少内存消耗，动态绑定事件，提高程序性能
+      <br />普通的事件绑定，没有办法为新创建的元素绑定响应的事件，所以也需要事件委托
+      <br />事件委托的基本原理是：给父元素绑定事件监听器，当子元素触发事件时，通过event.target
+      或 event.srcElement获取目标元素，然后判断是否匹配需要响应的子元素
+      <br />可以使用Element.matches
+      API来精确匹配子元素。jQuery中也提供了一些方法来实现事件委托，如
+      $.on,$.delegate, $.live 等
+    </p>
+    <p>
+      事件委托的使用场景主要有以下几种：
+      <li>
+        当页面中有大量的子元素需要绑定相同或类似的事件时，可以把事件绑定在它们的父元素上，减少内存消耗和重复工作
+        <br />例如，一个列表中的每个列表项都需要响应点击事件，可以把事件绑定在列表本身上，通过
+        event.target 获取目标元素
+      </li>
+      <li>
+        当页面中有动态生成或删除的子元素时，可以利用事件委托来实现动态绑定或解绑事件
+        <br />例如，一个输入框可以动态添加或删除列表项，可以把事件绑定在列表上，而不需要每次添加或删除时重新操作
+      </li>
+      <li>
+        当页面中有多个不同类型的子元素需要响应不同的事件时，可以把事件绑定在它们的公共父元素上，通过判断目标元素的属性来分发不同的处理函数
+        <br />例如，一个表单中有多种类型的输入框，可以把事件绑定在表单上，根据目标元素的type
+        或 name 属性来执行不同的逻辑
+      </li>
+    </p>
+    <p>
+      场景一：一个列表中的每个列表项都需要响应点击事件，可以把事件绑定在列表本身上，通过
+      event.target 获取目标元素
+    </p>
+    <ul id="myUl">
+      <li>123</li>
+      <li>456</li>
+      <li><b>0</b><b>0</b><b>0</b></li>
+    </ul>
+    <button id="myBtn">添加列表</button>
+    <form action="" id="myForm">
+      <input type="button" value="表单按钮" />
+      <input type="text" />
+      <input type="checkbox" />
+    </form>
+    <style>
+      #myForm {
+        border: 2px solid black;
+        padding: 20px;
+        margin: 50px;
+      }
+    </style>
+    <script>
+      myUl.onclick = function (e) {
+        // 给父层元素绑定事件
+        e = e || window.event; // 兼容性处理
+        let target = e.target || e.srcElement; // 兼容性处理
+        // 判断是否匹配目标元素
+        console.log("你点击了列表: ", target.innerHTML);
+      };
+    </script>
+    <p>
+      场景二：一个输入框可以动态添加或删除列表项，可以把事件绑定在列表上，而不需要每次添加或删除时重新操作
+    </p>
+    <script>
+      myBtn.onclick = function () {
+        //添加新节点myUl
+        let newLi = document.createElement("li");
+        newLi.innerHTML = `列表 ${myUl.querySelectorAll("li").length + 1}`;
+        myUl.appendChild(newLi);
+      };
+    </script>
+    <p>
+      场景三：一个表单中有多种类型的输入框，可以把事件绑定在表单上，根据目标元素的
+      type 或 name 属性来执行不同的事件处理函数
+    </p>
+    <script>
+      myForm.addEventListener("click", function (e) {
+        e = e || window.event; // 兼容性处理
+        let target = e.target || e.srcElement; // 兼容性处理
+        target.type == "button"
+          ? console.log("你点击了按钮")
+          : target.type == "text"
+          ? console.log("你点击了文本框")
+          : target.type == "checkbox"
+          ? console.log("你点击了复选框")
+          : console.log("你点击了其表单中其他地方"); //16-7-1三元运算符替代多分支
+      });
+    </script>
+  </body>
+</html>

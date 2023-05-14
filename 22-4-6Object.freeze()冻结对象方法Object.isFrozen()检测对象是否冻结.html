@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>22-4-6Object.freeze()冻结对象方法</title>
+  </head>
+  <body>
+    <p>
+      Object.freeze方法是一个静态方法，用于冻结一个对象。冻结一个对象后，该对象不能再被修改，也就是说，不能添加新的属性，不能删除已有属性，不能修改属性的值，属性的可枚举性，可配置性，可写性，以及对象的原型。它的语法是:
+      <br />Object.freeze(obj)
+    </p>
+    <p>
+      其中，obj是要被冻结的对象。该方法返回传入的对象，而不是创建一个冻结的副本
+      <br />使用Object.freeze方法可以保护一个对象不被意外或恶意地修改，提高代码的安全性和稳定性
+    </p>
+    <script>
+      let obj = {
+        name: "Alice",
+        age: 20,
+      };
+      Object.freeze(obj); // 冻结该对象
+      Object.isFrozen(obj); // true // 检查该对象是否被冻结
+      obj.name = "Bob"; // 尝试修改该对象的属性 // 无效
+      obj.age = 21; // 尝试修改该对象的属性 // 无效
+      delete obj.name; // 尝试删除该对象的属性 // 无效
+      obj.gender = "female"; // 尝试添加新的属性 // 无效
+      console.log(obj.name); // Alice
+      console.log(obj.age); // 20
+      console.log(obj.gender); // undefined
+      /* 
+      obj.__proto__ = { foo: "bar" }; // 尝试修改该对象的原型(23-2-2) // 无效
+      Object.setPrototypeOf(obj, { foo: "bar" }); // 尝试修改该对象的原型(23-2-2) // 无效 */
+      console.log(obj.__proto__ || Object.getPrototypeOf(obj)); // Object.prototype
+    </script>
+  </body>
+</html>

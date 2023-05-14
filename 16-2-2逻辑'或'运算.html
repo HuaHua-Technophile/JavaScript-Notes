@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>16-2-2逻辑'或'运算</title>
+  </head>
+
+  <body>
+    <p>
+      || :逻辑"非" <br />俩个操作数都为false时,返回false
+      <br />俩个操作数有一个为true时,返回true
+    </p>
+    <p>
+      逻辑"非"运算也是一种短路逻辑.
+      <br />若左侧表达式为true,则直接短路返回结果,再运算右侧表达式
+    </p>
+    <p>
+      JavaScript中，逻辑与运算符（&&）可以用来代替多重分支结构（switch），当需要根据多个条件来执行不同的操作时。¹
+      <br />逻辑与运算符（&&）会对两个操作数进行逻辑与操作，如果两个操作数都为真值，则返回第二个操作数的值，否则返回第一个假值的值。¹
+      <br />使用逻辑与运算符（&&）代替多重分支结构（switch）的优点是可以简化代码，避免使用过多的break
+      语句，并且可以实现更灵活的条件判断。³
+    </p>
+    <script>
+      // 使用 switch 语句
+      let x = 10;
+      /* switch (x) {
+        case 5:
+          console.log("x is 5");
+          break;
+        case 10:
+          console.log("x is 10");
+          break;
+        case 15:
+          console.log("x is 15");
+          break;
+        default:
+          console.log("x is not 5, 10 or 15");
+      } 
+
+      /*使用 && 运算符(&&运算符的优先级高于||,理论上不用加小括号,但加上的话代码更易于阅读)
+      但 console.log语句具有一个undefined的返回值.因此,下列语句会变为:
+      (x === 5 && undefined ||
+            x === 10 && undefined ||
+            x === 15 && undefined ||
+            undefined) 
+      无论如何,前面3句都是false,跑完了之后.最后一句都会跑
+      因此.逻辑运算符替代switch语句是没有"default"语句的
+      */
+
+      (x == 5 && console.log("x is 5")) ||
+        (x == 10 && console.log("x is 10")) ||
+        (x == 15 && console.log("x is 15")) ||
+        console.log("x is not 5,10 or15");
+    </script>
+  </body>
+</html>

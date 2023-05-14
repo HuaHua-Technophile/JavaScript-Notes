@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>花花</title>
+  </head>
+  <body>
+    <p>
+      自定义data属性是一种HTML5新增的特性，用于在标准的HTML元素上存储和获取一些额外的信息或数据，而不需要使用非标准的属性或DOM上的额外属性。
+    </p>
+    <p>
+      自定义data属性的用法是：
+      <br />在HTML元素的开始标签中定义一个以data-开头的属性，并赋予一个值。例如：&lt;div
+      data-color="red"&gt;
+      <br />在JavaScript中，通过dataset属性来设置或获取自定义data属性。例如：$0.dataset.color
+      = "red"; 或 var color = $0.dataset.color;
+      <br />在CSS中，通过attr()函数或属性选择器来访问或改变自定义data属性。例如：div::before
+      { content: attr(data-color); } 或 div[data-color="red"] {}
+    </p>
+    <p>
+      自定义data属性有一些使用案例，例如：
+      <br />存储一些常变化的数据，如游戏中的分数
+      <br />存储一些与特定元素相关联但没有明确定义的数据
+      <br />存储一些不需要显示或访问的数据
+    </p>
+    <div id="myDiv" data-color="red" data-size="large">Hello World</div>
+    <script>
+      //在HTML元素上定义一个自定义data属性，并在JavaScript中获取它的值
+      console.log(myDiv.dataset.color); // "red"
+      console.log(myDiv.dataset.size); // "large"
+      console.log(myDiv.dataset.balabala); // undefined
+    </script>
+    <style>
+      /* CSS */
+      #myDiv[data-size="large"] {
+        font-size: 60px;
+      }
+      #myDiv[data-color="blue"] {
+        color: blue;
+      }
+      #myDiv[data-color="red"] {
+        color: red;
+      }
+    </style>
+    <script>
+      myDiv.dataset.color = "blue"; // 设置一个新的data属性 //在JavaScript中设置或修改一个自定义data属性，并在CSS中使用它
+      console.log(myDiv.dataset); // DOMStringMap {color: 'blue', size: 'large'}
+    </script>
+    <script>
+      //在JavaScript中移除一个自定义data属性
+      delete myDiv.dataset.color; // 移除一个已有的data属性
+      console.log(myDiv.dataset); // DOMStringMap {size: 'large'}
+    </script>
+  </body>
+</html>

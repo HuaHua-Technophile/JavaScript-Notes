@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>18-1-5slice(),substr(),substring()字符串截取</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，slice(),
+      substr(),substring()都是用于字符串截取的方法，但是它们有一些区别。
+    </p>
+    <p>
+      slice()方法返回一个字符串的一部分，接受两个参数：开始位置和***结束位置***（可选）。
+      <br />如果没有指定结束位置，slice()会一直提取到字符串末尾。
+      <br />如果参数是负数，表示倒数的字符位置。例如，-1表示最后一个字符，-2表示倒数第二个字符，以此类推。
+      <br />如果开始位置大于结束位置，slice()会返回一个空字符串。
+    </p>
+    <p>
+      substr()方法返回一个字符串的一部分，接受两个参数：开始位置和***长度***（可选）。
+      <br />如果没有指定长度，substr()会一直提取到字符串末尾。
+      <br />如果参数是负数，表示倒数的字符位置。例如，-1表示最后一个字符，-2表示倒数第二个字符，以此类推。
+      <br />如果长度是负数，substr()会将其视为0。
+      <br />如果开始位置大于字符串长度，substr()会返回一个空字符串。
+    </p>
+    <p>
+      substring()方法返回一个字符串的一部分，接受两个参数：开始位置和***结束位置***（可选）。
+      <br />如果没有指定结束位置，substring()会一直提取到字符串末尾。
+      <br />如果参数是负数，substring()会将其视为0。
+      <br />如果开始位置大于结束位置，substring()会交换两个参数的位置。
+    </p>
+    <script>
+      let str = "JavaScript";
+      // 使用 slice 方法 ***推荐***
+      console.log(str.slice(0, 4)); // "Java"
+      console.log(str.slice(4)); // "Script"
+      console.log(str.slice(-6, -1)); // "Scrip"
+      console.log(str.slice(10)); // ""
+      console.log(str.slice(4, 2)); // ""
+      // 使用 substr 方法
+      console.log(str.substr(0, 4)); // "Java"
+      console.log(str.substr(4)); // "Script"
+      console.log(str.substr(-6, 5)); // "Scrip"
+      console.log(str.substr(10)); // ""
+      console.log(str.substr(4, -2)); // ""
+      // 使用 substring 方法
+      console.log(str.substring(0, 4)); // "Java"
+      console.log(str.substring(4)); // "Script"
+      console.log(str.substring(-6, -1)); // ""
+      console.log(str.substring(10)); // ""
+      console.log(str.substring(4, 2)); // "va"
+    </script>
+  </body>
+</html>

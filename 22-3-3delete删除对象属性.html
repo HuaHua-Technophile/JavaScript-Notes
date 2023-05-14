@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>22-3-3delete删除对象属性</title>
+  </head>
+  <body>
+    <p>
+      使用delete运算符，语法格式为“delete 对象.属性名;”或“delete
+      对象['属性名'];”
+      <br />这种方法可以删除对象的自身属性，也就是直接存在于对象上而不是在对象的原型链上的属性。如果属性不存在或者是不可配置的，那么delete操作将不会起任何作用，并且会返回false
+    </p>
+    <script>
+      let obj1 = {
+        name: "Alice",
+        age: 20,
+        [Symbol("secret")]: "I like Bob",
+      };
+      Object.defineProperty(obj1, "gender", {
+        value: "female",
+        enumerable: false,
+      }); // 使用Object.defineProperty()方法定义一个不可枚举的属性
+      console.log(delete obj1.name); // true // 使用delete运算符删除对象的name属性
+      console.log(delete obj1.abcd); // true // 使用delete运算符删除对象中不存在的属性
+      console.log(delete obj1.gender); // false // 使用delete运算符删除对象的gender属性(不可枚举)
+      console.log(delete obj1.toString); // true // 使用delete运算符删除对象原型链上的toString属性
+      console.log(obj1); // {age: 20, gender: 'female', Symbol(secret): 'I like Bob'}
+    </script>
+    <p>
+      如果想要删除一个不可配置的属性，可以先使用Object.defineProperty()方法将其configurable属性设置为true，然后再使用delete运算符删除它
+    </p>
+    <p>
+      也可使用Reflect.deleteProperty()方法，语法格式为“Reflect.deleteProperty(对象,属性名);”
+      <br />这种方法和delete运算符类似，但它是作为一个函数而不是一个运算符。它返回一个布尔值，表示是否成功删除了指定的属性
+    </p>
+  </body>
+</html>

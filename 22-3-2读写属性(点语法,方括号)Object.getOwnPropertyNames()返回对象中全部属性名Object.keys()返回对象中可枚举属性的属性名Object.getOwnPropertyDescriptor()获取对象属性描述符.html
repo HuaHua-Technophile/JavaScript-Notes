@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      22-3-2读写属性(点语法,方括号)Object.getOwnPropertyNames()返回对象中全部属性名Object.keys()返回对象中可枚举属性的属性名Object.getOwnPropertyDescriptor()获取对象属性描述符
+    </title>
+  </head>
+  <body>
+    <p>JavaScript中，读写对象属性是指获取或设置对象的属性的值</p>
+    <p>对象属性是对象的特征，它们可以是基本类型的值，也可以是函数或其他对象</p>
+    <p>
+      JavaScript中，有两种方式用于读写对象属性，它们分别是点号表示法和方括号表示法(推荐)
+    </p>
+    <hr />
+    <script>
+      let obj1 = {
+        name: "Alice",
+        age: 20,
+        hobbies: ["reading", "writing"],
+        sayHello: function () {
+          console.log("Hello, I'm " + this.name);
+        },
+      };
+      // 使用点号表示法读取属性的值
+      console.log(obj1.name); // Alice
+      console.log(obj1.age); // 20
+      console.log(obj1.hobbies); // ["reading", "writing"]
+      console.log(obj1.sayHello); // function() {...}
+      // 使用点号表示法设置属性的值
+      obj1.name = "Bob";
+      obj1.age = 21;
+      obj1.hobbies.push("coding");
+      obj1.sayHello = function () {
+        console.log("Hi, I'm " + this.name);
+      };
+    </script>
+    <p>
+      点号表示法要求属性名是一个有效的JavaScript标识符，即由字母、数字、下划线和美元符号组成，不能以数字开头，不能包含空格或其他特殊字符
+    </p>
+    <script>
+      let obj2 = {
+        name: "Alice",
+        age: 20,
+        hobbies: ["reading", "writing"],
+        sayHello: function () {
+          console.log("Hello, I'm " + this.name);
+        },
+      };
+      // 使用方括号表示法读取属性的值
+      console.log(obj2["name"]); // Alice
+      console.log(obj2["age"]); // 20
+      console.log(obj2["hobbies"]); // ["reading", "writing"]
+      console.log(obj2["sayHello"]); // function() {...}
+      // 使用方括号表示法设置属性的值
+      obj2["name"] = "Bob";
+      obj2["age"] = 21;
+      obj2["hobbies"].push("coding");
+      obj2["sayHello"] = function () {
+        console.log("Hi, I'm " + this.name);
+      };
+    </script>
+    <p>
+      方括号表示法可以使用任意字符串作为属性名，即使是不合法的标识符，也可以包含空格或其他特殊字符
+      <br />方括号表示法也可以使用变量或表达式作为属性名，这在动态获取或设置属性时很有用
+    </p>
+    <script>
+      let obj3 = {
+        name: "Alice",
+        age: 20,
+        hobbies: ["reading", "writing"],
+        sayHello: function () {
+          console.log("Hello, I'm " + this.name);
+        },
+      };
+      // 使用变量作为属性名
+      let prop = "name";
+      console.log(obj3[prop]); // Alice
+      // 使用表达式作为属性名
+      let i = 0;
+      console.log(obj3["hobbies"][i]); // reading
+      // 使用计算出来的属性名
+      let prefix = "say";
+      console.log(obj3[prefix + "Hello"]); // function() {...}
+    </script>
+    <p>
+      Object.getOwnPropertyNames()方法是Object对象的一个静态方法，它返回一个数组，该数组包含了给定对象的所有自身属性的名称，包括不可枚举的属性，但不包括Symbol类型的属性
+      <br />
+      你可以使用这个方法来获取对象的所有自身属性，而不受属性是否可枚举的影响。如果你只想获取可枚举的属性，你可以使用Object.keys()方法或者for...in循环（注意for/in方式会同时获取原型链上的可枚举属性，除非使用hasOwnProperty()方法过滤掉）
+    </p>
+    <script>
+      let obj4 = {
+        name: "Alice",
+        age: 20,
+        [Symbol("secret")]: "I like Bob",
+      }; // 定义一个对象，有两个可枚举的属性和一个不可枚举的Symbol类型的属性
+      Object.defineProperty(obj4, "gender", {
+        value: "female",
+        enumerable: false,
+      }); // 使用Object.defineProperty()方法定义一个不可枚举的属性
+      console.log(Object.getOwnPropertyNames(obj4)); // ["name", "age", "gender"] // 使用getOwnPropertyNames()方法获取对象的所有自身属性名称(包括不可枚举)
+    </script>
+    <p>
+      Object.keys()方法是Object对象的一个静态方法，它返回一个数组，该数组包含了给定对象的所有自身可枚举的字符串属性的名称,不包括Symbol类型
+      <br />你可以使用这个方法来获取对象的所有自身可枚举的字符串属性，如果你想获取对象的所有自身属性，包括不可枚举的和Symbol类型的，你可以使用Object.getOwnPropertyNames()方法或者Object.getOwnPropertySymbols()方法。
+    </p>
+    <script>
+      console.log(Object.keys(obj4)); //['name', 'age']
+    </script>
+    <p>
+      Object.getOwnPropertyDescriptor()方法是Object对象的一个静态方法，它返回一个对象
+      <br />该对象描述了给定对象的一个特定属性的配置，即直接存在于对象上而不是在对象的原型链上的属性。
+      <br />返回的对象是独立的,是可修改的.但是和原本的对象没关系,修改它不会影响原始属性的配置
+      <br />你可以使用这个方法来获取一个对象属性的精确描述。一个属性在JavaScript中由一个字符串或Symbol类型的名称和一个属性描述符组成。关于属性描述符类型和它们的属性，可以参考Object.defineProperty()方法
+    </p>
+    <script>
+      console.log(Object.getOwnPropertyDescriptor(obj4, "name")); //{value: 'Alice', writable: true, enumerable: true, configurable: true}
+      console.log(Object.getOwnPropertyDescriptor(obj4, "gender")); //{value: 'female', writable: false, enumerable: false, configurable: false}
+      console.log(Object.getOwnPropertyDescriptor(obj4, "secret")); //undefined
+    </script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      23-2-1显式原型,隐式原型,getPrototypeOf()访问原型方法.constructor原型上的构造函数属性
+    </title>
+  </head>
+  <body>
+    <p>
+      JavaScript中，原型是指一个对象，它可以被其他对象通过__proto__属性或者Object.getPrototypeOf()方法来引用
+    </p>
+    <p>
+      原型的作用是：
+      <li>实现对象之间的继承和共享属性和方法</li>
+      <li>提供对象的默认行为，例如 toString() 和 valueOf() 等方法</li>
+      <li>保存对象的构造函数和原型链的信息</li>
+    </p>
+    <p>JavaScript中，每个对象都有一个原型，除了 null 和 Object.prototype</p>
+    <p>
+      每个函数都有一个prototype属性(显式原型)，它指向一个原型对象，该对象包含了该函数作为构造函数创建的所有实例对象的共享属性和方法
+    </p>
+    <p>
+      每个实例对象都有一个__proto__(隐式原型)属性（或者通过Object.getPrototypeOf()访问）它指向创建该对象的构造函数的prototype属性
+    </p>
+    <p>
+      原型对象也可以有自己的原型，形成一个原型链，当访问一个对象的属性或方法时，会沿着原型链向上查找，直到找到匹配的属性或方法或者到达原型链的末尾
+    </p>
+    <script>
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      Person.prototype.sayHello = function () {
+        console.log("Hello, I'm " + this.name);
+      }; //在构造函数的prototype(显式原型)属性上定义一个sayHello方法
+      let alice = new Person("Alice", 20); //使用new关键字和构造函数创建一个新对象
+      console.log(alice.__proto__ === Person.prototype); // true//alice 对象的__proto__(隐式原型)属性指向Person.prototype(显式原型)
+      alice.sayHello(); //Hello, I'm Alice//alice对象可以访问 Person.prototype(显式原型) 上的 sayHello 方法
+      console.log(Person.prototype.__proto__ === Object.prototype); // true//Person.prototype对象的__proto__(隐式原型)属性指向 Object.prototype(显式原型)
+      console.log(alice.toString()); //[object Object]//alice对象可以访问 Object.prototype(显式原型)上的toString方法
+      console.log(Object.prototype.__proto__); // null//Object.prototype(显式原型)对象的__proto__(隐式原型)属性是null
+    </script>
+    <p>
+      JavaScript中,constructor属性是一个返回对象***构造函数的引用***的属性。它不是一个包含函数名的字符串，而是一个指向函数本身的引用
+    </p>
+    <script>
+      function Person(name) {
+        this.name = name;
+      }
+      let p = new Person("Alice");
+      console.log(p.constructor); // function Person(name) { this.name = name; }
+      console.log(p.constructor === Person); // true
+    </script>
+    <p>
+      constructor属性通常来自于构造函数的原型(对象)，并且被所有由该构造函数创建的对象继承。你可以使用constructor属性来检查一个对象的类型或者创建一个新的对象实例
+    </p>
+  </body>
+</html>

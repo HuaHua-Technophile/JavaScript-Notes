@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>21-3-1函数合成(多层函数嵌套调用)</title>
+  </head>
+  <body>
+    <p>在函数式编程中,经常见到如下表达式: a(b(c(x)))</p>
+    <p>
+      这是"包菜式"的多层函数调用,但不是很优雅,为了解决函数多层调用的嵌套问题,我们需要用到函数合成.
+      <br />在JavaScript中，函数合成是一种将多个函数组合成一个新函数的技术，新函数的输出是由组合的函数从右到左依次执行得到的。函数合成可以实现复杂的功能，提高代码的可读性和可维护性
+    </p>
+    <p>例如，如果有两个函数f和g，可以用compose函数将它们合成一个新函数h</p>
+    <script>
+      let compose = function (f, g) {
+        return function (x) {
+          return f(g(x));
+        };
+      };
+      let h1 = compose(f, g)(x); // h(x) = f(g(x))
+    </script>
+    <p>
+      如果有多个函数需要合成，可以用rest参数和数组的reduceRight()方法(20-1-16)来实现
+    </p>
+    <script>
+      compose = function (...args) {
+        //三点运算符展开形参 : 也就是将全部传入的函数,合并为args这个伪数组(也就是arguments)
+        return function (x) {
+          return args.reduceRight(function (arg, fn) {
+            return fn(arg);
+          }, x); //x是数组reduceRight()方法的初始值
+        };
+      };
+      let h2 = compose(f, g, m, n)(x); // h(x) = f(g(m(n(x))))
+    </script>
+  </body>
+</html>

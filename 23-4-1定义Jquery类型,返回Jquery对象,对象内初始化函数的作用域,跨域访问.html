@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>
+      23-4-1定义Jquery类型,返回Jquery对象,对象内初始化函数的作用域,跨域访问
+    </title>
+  </head>
+  <body>
+    <h1>
+      在JavaScript中,可以把构造函数理解为一个类型,这个类型是JavaScript面向对象编程的基础.
+      定义一个函数就相当于构建了一个类型.然后借助这个类型来实例化对象
+    </h1>
+    <script>
+      var Jquery = function () {
+        //定义了一个空类型,类名是Jquery
+      };
+      Jquery.prototype = {
+        //为Jquery扩展原型
+      };
+      Jquery.fn = Jquery.prototype = {
+        /* 为Jquery的原型起个别名:fn,如果直接命名为"fn=Jquery.prototype",则表示它属于window对象,这样不安全.更为安全的方法是为Jquery类型对象定义一个静态引用Jquery.fn,然后,把Jquery的原型对象传递给这个属性(Jquery.fn)
+        Jquery.fn直接引用Jquery.prototype,因此要访问Jquery的原型对象,使用Jquery.fn就可以了*/
+      };
+      console.log(Jquery.fn);
+      var $ = (Jquery = function () {
+        /* 为Jquery类型起个别名$ */
+      });
+      console.log($);
+      Jquery.fn = Jquery.prototype = {
+        /* 模仿Jquery框架,给Jquery原型添加两个成员,一个是原型属性version,一个是原型方法size(),分别定义Jquery框架的版本号和Jquery对象的长度 */
+        version: "3.2.1", //原型属性
+        size: function () {
+          return this.length; //原型方法
+        },
+      };
+      console.log(Jquery.fn);
+    </script>
+    <li>下面介绍如何调用原型成员:version属性和size()方法</li>
+    <script>
+      // 一般可按照如下方法调用;
+      var test = new $();
+      console.log(test.version); //3.2.1
+      console.log(test.size()); //undefined
+      /* 但实际上,Jquery按照如下方法进行调用
+      $().version;
+      $().size();
+      Jquery没有使用new命令调用Jquery构造函数,直接使用小括号调用Jquery构造函数,然后直接访问原型成员 */
+    </script>
+    <li>思路1:直接使用return语句返回一个Jquery实例</li>
+    <script>
+      /*var $ = (Jquery = function () {
+        return new Jquery();
+      });
+      Jquery.fn = Jquery.prototype = {
+        version: "3.2.1", //原型属性
+        size: function () {
+          return this.length; //原型方法
+        },
+      };
+      $().version;
+      $().size();
+      会提示内存溢出错误:Uncaught RangeError: Maximum call stack size exceeded
+      这说明在构造函数内实例化对象是不允许的,因为这个引用导致死循环 */
+    </script>
+    <li>思路2: 使用工厂模式;</li>
+    <script>
+      var $ = (Jquery = function () {
+        return Jquery.prototype;
+      });
+      Jquery.fn = Jquery.prototype = {
+        version: "3.2.1", //原型属性
+        size: function () {
+          return this.length; //原型方法
+        },
+      };
+      console.log($().version); //"3.2.1"
+      console.log($().size()); //undefined
+    </script>
+    <li>
+      思路2基本实现了$().size这种形式的用法,但是"在构造函数中直接返回原型对象"这种设计思路过于狭窄,无法实现框架内部的管理与扩展.
+    </li>
+    <p>
+      下面模拟其他面向对象语言的设计模式:在类型内部定义一个初始化函数init(),但类型实例化之后,直接执行初始化构造函数init(),然后再返回Jquery的原型对象
+    </p>
+    <script>
+      var $ = (Jquery = function () {
+        return Jquery.fn.init(); //调用原型方法init(),模拟类的初始化构造函数
+      });
+      Jquery.fn = Jquery.prototype = {
+        init: function () {
+          return this; //在原型的初始化方法中返回原型对象
+        },
+        version: "3.2.1", //原型属性
+        size: function () {
+          return this.length; //原型方法
+        },
+      };
+      console.log($().version); //"3.2.1"
+      console.log($().size()); //undefined
+    </script>
+    <h1>设计作用域</h1>
+    <p>上面思路3有一个问题,作用域混乱,给后期扩展带来隐患</p>
+    <script>
+      var $ = (Jquery = function () {
+        return Jquery.fn.init();
+      });
+      Jquery.fn = Jquery.prototype = {
+        init: function () {
+          this.length = 0; //原型属性
+          this.size1 = function () {
+            return this.length; //原型方法
+          };
+          return this;
+        },
+        length: 1,
+        version: "3.2.1", //原型属性
+        size2: function () {
+          return this.length; //原型方法
+        },
+      };
+      console.log($().version); //"3.2.1"
+      console.log($().size1()); //0
+      console.log($().size2()); //0
+      /* 运行size1()和size2()之后,发现init()函数内的this与外面的this均引用一个对象:Jquery.prototype原型对象.因此,会出现init()函数内部的this.length覆盖掉外部的(我们想看到的)this.length*/
+      /* 简单概括:初始化函数init()内/外作用域缺乏独立性,对于Jquery这样的框架来说,很可能会造成消极影响,而真正的Jquery框架是通过下面的方式调用init()初始化函数的:
+      var $ = (Jquery = function(selector , context){
+        return new Jquery.fn.init(selector , context);//实例化init(),分隔作用域
+      })
+      使用new命令调用初始化函数init(),创建一个独立的实例对象,这样就分隔了init()函数内/外的作用域,确保内/外this不同 */
+    </script>
+    <p>思路4:修改思路1,使用return返回新创建的实例</p>
+    <script>
+      var $ = (Jquery = function () {
+        return new Jquery.fn.init();
+      });
+      Jquery.fn = Jquery.prototype = {
+        init: function () {
+          this.length = 0;
+          this.size1 = function () {
+            return this.length;
+          };
+          return this;
+        },
+        length: 1,
+        version: "3.2.1",
+        size2: function () {
+          return this.length;
+        },
+      };
+      console.log($().version); //undefined
+      console.log($().size1()); //0
+      console.log($().size2()); //Uncaught TypeError: $(...).size2 is not a function
+      /* 运行思路4发现,由于作用域被阻断,导致无法访问Jquery.fn对象的属性和方法 */
+    </script>
+    <h1>跨域访问</h1>
+    <p>
+      如何越过作用域的限制,实现跨域访问外部的Jquery.prototype呢?实际的Jquery框架,通过Jquery的原型对象覆盖掉init的原型对象,从而实现跨域访问.
+      <br />思路5:new
+      Jquery.init()将创建一个新的实例对象,它拥有init类型的prototype原型对象.
+      <br />而通过改变这个prototype的指针,使其指向Jquery类的prototype,这样新实例实际上就继承了Jquery.fn原型对象的成员
+    </p>
+    <script>
+      var $ = (Jquery = function () {
+        return new Jquery.fn.init();
+      });
+      Jquery.fn = Jquery.prototype = {
+        init: function () {
+          this.length = 0;
+          this.size1 = function () {
+            return this.length;
+          };
+          return this;
+        },
+        length: 1,
+        version: "3.2.1",
+        size2: function () {
+          return this.length;
+        },
+      };
+      Jquery.fn.init.prototype = Jquery.fn; //使用Jquery的原型对象,覆盖init的原型对象
+      console.log($().version); //"3.2.1"
+      console.log($().size1()); //0
+      console.log($().size2()); //0
+    </script>
+  </body>
+</html>

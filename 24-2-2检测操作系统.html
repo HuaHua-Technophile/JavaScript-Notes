@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>24-2-2检测操作系统</title>
+  </head>
+  <body>
+    <p>navigator.userAgent返回值一般都会包含操作系统的基本信息</p>
+    <p>
+      所有windows版本都会包含"Win"字符串
+      <br />所有Macintosh(MacOS)系统都会包含"Mac"字符串
+      <br />所有UNIX系统都会包含"X11"字符串
+      <br />所有Linux系统都会同时包含"X11"和"Linux"字符串
+    </p>
+    <script>
+      ["Win", "Mac", "X11", "Linux"].forEach(function (item) {
+        item === "X11" ? (item = "Unix") : item; //处理UNIX系统的字符串
+        navigator["is" + item] = function () {
+          //为navigator对象,扩展一套系统检测的方法
+          return navigator.userAgent.indexOf(item) != -1; //检测是否包含特定字符串
+        };
+      });
+      console.log(navigator);
+      console.log(navigator.isWin()); //true
+      console.log(navigator.isMac()); //false
+      console.log(navigator.isLinux()); //false
+      console.log(navigator.isUnix()); //false
+    </script>
+  </body>
+</html>

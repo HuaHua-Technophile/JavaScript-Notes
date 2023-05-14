@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>23-1-1定义构造函数,调用构造函数,构造函数的返回值</title>
+  </head>
+  <body>
+    <p>JavaScript中，构造函数是一种用于创建和初始化对象的特殊函数</p>
+    <p>构造函数的特点是</p>
+    <ul>
+      <li>它的名称通常以大写字母开头，以区别于普通函数</li>
+      <li>它使用 new 关键字来调用，返回一个新创建的对象</li>
+      <li>它可以接受参数，用于设置对象的属性和方法</li>
+      <li>它可以使用 this 关键字来引用对象自身</li>
+      <li>
+        它可以使用 prototype 属性来定义对象的原型，从而实现继承和共享属性和方法
+      </li>
+    </ul>
+    <p>
+      调用构造函数是指使用 new 关键字和构造函数的名称来创建一个新的对象实例。
+      <br />var obj = new Constructor([arguments]);
+    </p>
+    <p>
+      其中，obj是一个新创建的对象，Constructor是一个构造函数，arguments
+      是可选的参数列表，用于传递给构造函数。
+    </p>
+    <p>
+      调用构造函数时，会发生以下步骤：
+      <li>创建一个空的对象</li>
+      <li>
+        将this的引用,指向这个新对象(this存储了一个引用，指向代码当前处理的空对象)
+      </li>
+      <li>将this的原型,指向构造函数的prototype属性。</li>
+      <li>调用构造函数,执行构造函数的代码，为this添加属性和方法。</li>
+      <li>返回this新创建对象的引用，除非构造函数显式返回了另一个对象</li>
+    </p>
+    <p>
+      JavaScript中，构造函数的返回值是指当使用new关键字调用构造函数时，返回的对象
+    </p>
+    <p>
+      一般来说，构造函数不需要显式地返回任何值，因为默认会返回this
+      对象，即创建的新对象实例
+    </p>
+    <p>
+      但是，如果构造函数显式地返回了另一个对象，那么new操作符会返回这个对象，而不是this对象
+    </p>
+    <p>
+      如果构造函数显式地返回了一个原始值（如字符串、数字、布尔值等），那么new操作符会忽略这个值，仍然返回this对象
+    </p>
+    <script>
+      function Person(name, age) {
+        this.name = name; // 设置对象的 name 属性
+        this.age = age; // 设置对象的 age 属性
+        this.sayHello = function () {
+          // 设置对象的 sayHello 方法
+          console.log("Hello, I'm " + this.name);
+        };
+      }
+      let alice = new Person("Alice", 20); // 使用 new 关键字调用构造函数，创建一个新对象
+      console.log(alice.name); // Alice
+      console.log(alice.age); // 20
+      alice.sayHello(); // Hello, I'm Alice
+
+      Person.prototype.greet = function (other) {
+        console.log("Hi, " + other.name + ", I'm " + this.name); // 添加一个 greet 方法到原型中
+      }; // 使用 prototype 属性定义对象的原型
+
+      let bob = new Person("Bob", 21); // 创建另一个新对象
+
+      // 访问原型中的方法
+      bob.greet(alice); // Hi, Alice, I'm Bob
+      alice.greet(bob); // Hi, Bob, I'm Alice
+
+      // 检查对象的原型关系
+      console.log(alice instanceof Person); // true
+      console.log(bob instanceof Person); // true
+      console.log(Person.prototype.isPrototypeOf(alice)); // true
+      console.log(Person.prototype.isPrototypeOf(bob)); // true
+    </script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-3-1属性节点的特征,createAttribute()创建属性节点方法</title>
+  </head>
+  <body>
+    <p>
+      属性节点是一种特殊的节点，用于表示元素节点的属性。属性节点有以下一些特征：
+    </p>
+    <p>
+      属性节点不属于文档树结构，而是属于元素节点的属性集合。因此，属性节点没有父节点、子节点、兄弟节点等关系，也不能使用常用的DOM方法来获取或操作它们。
+      <br />属性节点的nodeType值为2，表示它们是ATTRIBUTE_NODE类型。属性节点的nodeName值为属性名，例如id、class等。属性节点的nodeValue值为属性值，例如"myDiv"、"para"等。
+      <br />属性节点可以使用Element接口的getAttribute()、setAttribute()、removeAttribute()等方法来获取或修改它们的值。也可以使用Element接口的attributes属性来获取一个NamedNodeMap对象，该对象包含了元素所有的属性节点，并可以通过索引或名称来访问它们。
+      <br />属性节点也可以使用Attr接口来表示和操作。Attr接口继承了Node接口，并添加了一些特定于属性的属性和方法。例如，Attr接口有name和value两个只读属性，分别返回属性名和属性值；还有ownerElement和specified两个只读属性，分别返回拥有该属性的元素和该属性是否被指定过。
+      <br />属性节点在不同浏览器中可能有不同的表现形式。例如，在IE中，style和onclick等特殊的HTML属性会被当作元素对象自身的内置方法或对象来处理，而不是作为普通的HTML特性存在于attributes集合中；而在其他浏览器中，则会将这些特殊HTML特性作为普通HTML特性存在于attributes集合中，并且还会将其转换成对应DOM2级规范定义相应命名空间下相应名称（如style变成http://www.w3.org/1999/xhtml:style）。
+    </p>
+    <p>
+      createAttribute()是Document接口的方法，用于创建一个新的属性节点，该节点实现了Attr接口。它的语法及其复杂的使用场景或高阶层的示例代码如下：
+    </p>
+    <p>
+      createAttribute()方法接受一个参数，即要创建的属性名。它返回一个Attr节点，该节点可以使用setAttributeNode()或setAttributeNodeNS()方法添加到元素节点上。例如，以下代码创建了一个新的属性节点，并将其添加到div元素上：
+    </p>
+    <div id="myDiv">我被定义了属性,并且添加了属性值</div>
+    <script>
+      let attr = document.createAttribute("my-attr"); // 创建一个新的属性节点
+      attr.value = "some value"; // 设置属性值
+      // 将属性节点添加到<div>元素上
+      myDiv.setAttributeNode(attr);
+    </script>
+    <p>
+      createAttribute()方法可以用来创建自定义的数据集属性（以data-开头的属性），这些属性可以用来存储一些额外的信息，而不会影响页面的显示和行为。例如，以下代码创建了一个新的数据集属性，并将其添加到p元素上：
+    </p>
+    <p id="myP">我被定义了属性,并且添加了<strong>data系列</strong>属性值</p>
+    <script>
+      let data = document.createAttribute("data-info"); // 创建一个新的数据集属性
+      data.value = "This is a paragraph"; // 设置数据值
+      myP.setAttributeNode(data); // 将数据集属性添加到<p>元素上
+    </script>
+    <p>
+      createAttribute()方法也可以用来创建命名空间相关的属性（以xmlns:开头或带有冒号分隔符号），这些属性可以用来指定XML文档中不同部分所属的命名空间。例如，以下代码创建了一个新的命名空间相关的属性，并将其添加到svg元素上：
+    </p>
+    <svg id="mySvg"></svg>
+    <script>
+      let xmlns = document.createAttribute("xmlns:xlink"); // 创建一个新的命名空间相关的属性
+      xmlns.value = "http://www.w3.org/1999/xlink"; // 设置命名空间值
+      mySvg.setAttributeNode(xmlns); // 将命名空间相关的属性添加到svg元素上
+    </script>
+  </body>
+</html>

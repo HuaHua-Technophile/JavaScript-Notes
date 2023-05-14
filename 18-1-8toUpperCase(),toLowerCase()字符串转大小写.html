@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>18-1-8toUpperCase(),toLowerCase()字符串转大小写</title>
+  </head>
+  <body>
+    <p>
+      如果您想將一個字符串轉換為全部小寫，您可以使用toLowerCase方法⁵。這個方法會返回一個新的字符串，不會改變原始的字符串。例如：
+    </p>
+    <script>
+      let s = "Hello World";
+      let newS = s.toLowerCase();
+      console.log(newS); // hello world
+    </script>
+    <p>
+      如果您想將一個字符串轉換為全部大寫，您可以使用toUpperCase方法⁴。這個方法也會返回一個新的字符串，不會改變原始的字符串。例如：
+    </p>
+    <script>
+      newS = s.toUpperCase();
+      console.log(newS); // HELLO WORLD
+    </script>
+    <p>
+      如果您想將一個字符串轉換為首字母大寫，您可以使用一個自定義的函數，結合slice方法和toUpperCase方法²。例如：
+    </p>
+    <script>
+      function capitalize(s) {
+        return s[0].toUpperCase() + s.slice(1).toLowerCase();
+      }
+      s = "hello world";
+      newS = capitalize(s);
+      console.log(newS); // Hello world
+    </script>
+    <p>
+      如果您想將一個字符串轉換為每個單詞首字母大寫，您可以使用一個自定義的函數，結合split方法、map方法和toUpperCase方法¹³。例如：
+    </p>
+    <script>
+      function titleCase(s) {
+        return s
+          .split(" ")
+          .map(function (word) {
+            return word[0].toUpperCase() + word.slice(1).toLowerCase();
+          })
+          .join(" ");
+      }
+      s = "hello world";
+      console.log(titleCase(s)); // Hello World
+    </script>
+  </body>
+</html>

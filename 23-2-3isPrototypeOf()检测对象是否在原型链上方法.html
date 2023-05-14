@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>23-2-3isPrototypeOf()检测对象是否在原型链上方法</title>
+  </head>
+  <body>
+    <p>
+      JavaScript中,isPrototypeOf()是一个对象方法，用于检查一个对象是否存在于另一个对象的原型链上
+    </p>
+    <script>
+      function Foo() {}
+      function Bar() {}
+      function Baz() {}
+      Bar.prototype = Object.create(Foo.prototype);
+      Baz.prototype = Object.create(Bar.prototype);
+      let baz = new Baz();
+      console.log(Baz.prototype.isPrototypeOf(baz)); // true
+      console.log(Bar.prototype.isPrototypeOf(baz)); // true
+      console.log(Foo.prototype.isPrototypeOf(baz)); // true
+      console.log(Object.prototype.isPrototypeOf(baz)); // true
+    </script>
+    <p>
+      isPrototypeOf()方法和instanceof运算符不同。
+      <br />在表达式`object instanceof AFunction`中
+      object的原型链是针对AFunction.prototype进行检查的，而不是针对AFunction本身
+      <br />你可以使用isPrototypeOf()方法来确定一个对象的类型或者创建一个新的对象实例
+    </p>
+    <script>
+      console.log(Object.prototype.isPrototypeOf({})); //true   对象的原型继承至Object
+      console.log(Object.prototype.isPrototypeOf([])); //true   数组的原型继承至Object
+      console.log(Object.prototype.isPrototypeOf(/ /)); //true   正则表达式的原型继承至Object
+      console.log(Object.prototype.isPrototypeOf(function () {})); //true   函数的原型继承至Object
+      console.log(Object.prototype.isPrototypeOf(null)); //false   null没有原型
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://i.328888.xyz/2023/04/14/ixDL13.jpeg"
+      type="image/png" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.css"
+      rel="stylesheet" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.0-alpha3/js/bootstrap.bundle.js"></script>
+    <title>25-1-1-6parentNode()获取父节点方法</title>
+  </head>
+  <body>
+    <main id="main_id">
+      <div id="div_id">
+        <p id="myP">
+          JavaScript中，parentNode属性的例子是使用该属性获取一个元素或节点的父节点。例如，下面的代码可以获取id为"myLI"的元素的父节点的节点名
+        </p>
+      </div>
+      <script>
+        console.log(document.getElementById("myP").parentNode); //div#div_id
+        let name = document.getElementById("myP").parentNode.nodeName;
+        console.log(name); //DIV
+      </script>
+      <p>
+        或者，可以使用该属性从一个元素或节点开始向上遍历DOM树，直到找到满足条件的祖先节点。例如，下面的代码可以获取id为"div_id"的元素的最近的具有id属性的祖先节点，并打印其id值：
+      </p>
+      <script>
+        let node = document.getElementById("div_id");
+        while (node && !node.id) {
+          node = node.parentNode;
+        }
+        if (node) {
+          console.log(node.id); //div_id
+        }
+      </script>
+    </main>
+  </body>
+</html>
